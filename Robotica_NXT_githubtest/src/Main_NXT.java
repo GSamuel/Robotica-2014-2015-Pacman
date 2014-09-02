@@ -1,14 +1,19 @@
+import lejos.nxt.Button;
+
 
 public class Main_NXT {
 
 	public static void main(String[] args) {
 		System.out.println("test");
+		System.out.println("druk op een knop");
 		
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		Button.waitForAnyPress();
+		
+		System.out.println("knop ingedrukt");
+		System.out.println("druk op een knop");
+		
+		Button.waitForAnyPress();
+
 	}
 
 }
