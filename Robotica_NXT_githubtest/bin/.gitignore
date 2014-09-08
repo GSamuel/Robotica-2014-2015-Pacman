@@ -1,3 +1,7 @@
 /Main_NXT.class
 /CommTest.class
+
+bin/*
+build/*
+/lib
 /bin
