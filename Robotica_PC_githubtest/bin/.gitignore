@@ -7,3 +7,5 @@ build/*
 
 *.nxj
 *.nxd
+/com/
+/CommTest.class
