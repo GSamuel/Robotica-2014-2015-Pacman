@@ -1,6 +1,5 @@
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import lejos.pc.comm.NXTComm;
 import lejos.pc.comm.NXTCommException;
@@ -18,8 +17,6 @@ public class CommTest
 			nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.USB);
 			NXTInfo[] info = nxtComm.search("NXT_9_1");
 			nxtComm.open(info[0]);
-			
-			
 
 			DataInputStream istream = new DataInputStream(nxtComm.getInputStream());
 			Thread.sleep(2200);
@@ -30,7 +27,6 @@ public class CommTest
 			System.out.println(istream.readInt());
 			//nxtComm.getOutputStream();
 			nxtComm.close();
-			
 		} catch (NXTCommException e)
 		{
 

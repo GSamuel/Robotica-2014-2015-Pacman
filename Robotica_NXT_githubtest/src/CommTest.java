@@ -24,6 +24,7 @@ public class CommTest
 
 			DataOutputStream dataOut = connection.openDataOutputStream();
 			DataInputStream dataIn = connection.openDataInputStream();
+			
 
 			try
 			{
@@ -42,7 +43,6 @@ public class CommTest
 				System.out.println(" write error " + e);
 			} catch (InterruptedException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			System.out.println("touch2:"+touch2.isPressed());

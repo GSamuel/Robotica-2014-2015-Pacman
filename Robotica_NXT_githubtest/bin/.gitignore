@@ -9,3 +9,7 @@ build/*
 *.nxj
 *.nxd
 /com/
+/ButtonListener.class
+/ButtonInput.class
+/NXTButtonListener.class
+/BrickModel.class

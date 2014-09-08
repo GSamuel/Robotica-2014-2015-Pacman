@@ -1,25 +1,35 @@
+import com.robotica.nxt.button.ButtonController;
+import com.robotica.nxt.button.NXTButtonController;
+import com.robotica.nxt.button.NXTButtonListener;
+import com.robotica.nxt.mvc.BrickModel;
+import com.robotica.nxt.mvc.BrickView;
+
 import lejos.nxt.Button;
-import lejos.nxt.SensorPort;
-import lejos.nxt.TouchSensor;
+import lejos.nxt.ButtonListener;
 
 public class Main_NXT
 {
 
 	public static void main(String[] args)
 	{
-		TouchSensor touch = new TouchSensor(SensorPort.S1);
-		while(!touch.isPressed());
+		
+		BrickModel model = new BrickModel();
+		NXTButtonController controller = new ButtonController(model);
 
-		System.out.println("test");
-		System.out.println("druk op een knop");
-
-		Button.waitForAnyPress();
-
-		System.out.println("knop ingedrukt");
-		System.out.println("druk op een knop");
-
-		Button.waitForAnyPress();
-
+		BrickView view = new BrickView(model,controller);
+		
+		while(true)
+		{
+			try
+			{
+				view.update();
+				Thread.sleep(100);
+			} catch (InterruptedException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
