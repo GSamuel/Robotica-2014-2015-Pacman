@@ -1,1 +1,9 @@
 /Main_PC.class
+
+bin/*
+build/*
+/lib
+/bin
+
+*.nxj
+*.nxd
