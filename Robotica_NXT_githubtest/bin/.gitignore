@@ -1,2 +1,5 @@
 /Main_NXT.class
 /CommTest.class
+
+*.nxj
+*.nxd
