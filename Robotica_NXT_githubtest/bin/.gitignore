@@ -1,15 +1,3 @@
-/Main_NXT.class
 /CommTest.class
-
-bin/*
-build/*
-/lib
-/bin
-
-*.nxj
-*.nxd
+/Main_NXT.class
 /com/
-/ButtonListener.class
-/ButtonInput.class
-/NXTButtonListener.class
-/BrickModel.class
