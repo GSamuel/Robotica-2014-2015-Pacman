@@ -1,4 +1,3 @@
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -23,7 +22,7 @@ public class CommTest
 			connection = USB.waitForConnection();
 
 			DataOutputStream dataOut = connection.openDataOutputStream();
-			DataInputStream dataIn = connection.openDataInputStream();
+			//DataInputStream dataIn = connection.openDataInputStream();
 			
 
 			try

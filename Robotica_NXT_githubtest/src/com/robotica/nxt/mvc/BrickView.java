@@ -4,7 +4,6 @@ import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
 import lejos.nxt.LCD;
 
-import com.robotica.nxt.button.ButtonController;
 import com.robotica.nxt.button.NXTButtonController;
 import com.robotica.nxt.button.NXTButtonListener;
 
