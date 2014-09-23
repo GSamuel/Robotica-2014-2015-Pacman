@@ -30,7 +30,10 @@ public class WebcamSelecter
 					System.out.println(i + ": " + webcams.get(i).getName());
 				select = input.nextInt();
 				if(select == -1)
+				{
+					input.close();
 					System.exit(0);
+				}
 			}
 
 			Webcam webcam = webcams.get(select);
