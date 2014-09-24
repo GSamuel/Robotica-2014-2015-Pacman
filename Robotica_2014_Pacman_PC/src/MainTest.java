@@ -22,6 +22,9 @@ public class MainTest
 		m.setTile(2, 2, Tile.WALL);
 		m.setTile(3, 2, Tile.WALL);
 		m.show();
+		
+		e.setRotation(2.24+Math.PI*2);
+		e.show();
 	}
 
 }

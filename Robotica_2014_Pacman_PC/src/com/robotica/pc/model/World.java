@@ -13,6 +13,14 @@ public class World implements Iterable<Entity>
 		entities = new ArrayList<Entity>();
 	}
 	
+	public World(World world)
+	{
+		this.maze = world.maze;
+		this.entities = new ArrayList<Entity>();
+		for(Entity ent: world.entities)
+			this.entities.add(ent.clone());
+	}
+
 	public void addEntity(Entity e)
 	{
 		entities.add(e);
@@ -31,7 +39,12 @@ public class World implements Iterable<Entity>
 	
 	public Maze getMaze()
 	{
-		return maze.clone();
+		return maze;
+	}
+	
+	public World clone()
+	{
+		return new World(this);
 	}
 	
 	public void show()

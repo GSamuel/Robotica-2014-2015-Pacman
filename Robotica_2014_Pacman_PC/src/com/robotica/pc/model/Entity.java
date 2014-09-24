@@ -7,12 +7,12 @@ public class Entity
 	private int id;
 	private EntityType type;
 	private Point location;
-	private double rotation;
-	
+	private Rotation rotation;
+
 	public Entity(EntityType type)
 	{
 		this.id = 0;
-		this.type  =type;
+		this.type = type;
 		init();
 	}
 
@@ -22,11 +22,19 @@ public class Entity
 		this.type = type;
 		init();
 	}
-	
+
+	public Entity(Entity entity)
+	{
+		this.id = entity.id;
+		this.type = entity.type;
+		this.location = (Point) entity.location.clone();
+		this.rotation = entity.rotation.clone();
+	}
+
 	private void init()
 	{
 		location = new Point();
-		rotation =0.0;
+		rotation = new Rotation();
 	}
 
 	public int getX()
@@ -48,25 +56,35 @@ public class Entity
 	{
 		location.translate(dx, dy);
 	}
-	
+
 	public double getRotation()
 	{
-		return rotation;
+		return rotation.getRotation();
 	}
-	
+
 	public void setRotation(double rotation)
 	{
-		this.rotation = rotation;
+		this.rotation.setRotation(rotation);;
+	}
+	
+	public void rotate(double rotation)
+	{
+		this.rotation.rotate(rotation);
 	}
 
 	public int getID()
 	{
 		return id;
 	}
-	
+
 	public void setID(int id)
 	{
 		this.id = id;
+	}
+	
+	public Entity clone()
+	{
+		return new Entity(this);
 	}
 
 	public void show()
@@ -77,6 +95,6 @@ public class Entity
 	public String toString()
 	{
 		return type.name() + " " + id + " [" + location.x + "," + location.y
-				+ "] "+rotation;
+				+ "] " + rotation;
 	}
 }
