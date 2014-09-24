@@ -2,6 +2,7 @@ package com.opencv.example;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,14 +15,13 @@ public class WebcamTest extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
-	private static final int CAMERA_INDEX = 3;
 
 	// Create a constructor method
 	public WebcamTest() {
 		super();
 	}
 
-	private BufferedImage getimage() {
+	private BufferedImage getImage() {
 		return image;
 	}
 
@@ -50,6 +50,7 @@ public class WebcamTest extends JPanel {
 			break;
 		case 3:
 			type = BufferedImage.TYPE_3BYTE_BGR;
+			//convert BGR to RGB
 			byte b;
 			for (int i = 0; i < data.length; i = i + 3) {
 				b = data[i];
@@ -66,7 +67,7 @@ public class WebcamTest extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		BufferedImage temp = getimage();
+		BufferedImage temp = getImage();
 		if(temp != null)
 			g.drawImage(temp, 10, 10, temp.getWidth(), temp.getHeight(), this);
 	}
@@ -82,8 +83,11 @@ public class WebcamTest extends JPanel {
 		frame.setVisible(true);
 		Mat webcamImage = new Mat();
 		BufferedImage temp;
-		VideoCapture capture = new VideoCapture(CAMERA_INDEX);
-		
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter camera number: ");
+		int cameraIndex = scanner.nextInt();
+		scanner.close();
+		VideoCapture capture = new VideoCapture(cameraIndex);
 		if (capture.isOpened()) {
 			while (true) {
 				capture.read(webcamImage);
