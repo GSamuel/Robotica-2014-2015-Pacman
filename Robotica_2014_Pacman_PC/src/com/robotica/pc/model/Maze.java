@@ -1,6 +1,6 @@
 package com.robotica.pc.model;
 
-public class Maze
+public class Maze implements Cloneable
 {
 	private Tile[][] map;
 	

@@ -1,6 +1,6 @@
 package com.robotica.pc.model;
 
-public class Rotation
+public class Rotation implements Cloneable
 {
 	private double rotation;
 
@@ -30,6 +30,11 @@ public class Rotation
 		this.rotation += rotation;
 		validateRotation();
 	}
+	
+	public void rotate(Rotation rotation)
+	{
+		this.rotate(rotation.rotation);
+	}
 
 	public Rotation clone()
 	{
@@ -42,6 +47,7 @@ public class Rotation
 		rotation = rotation % (Math.PI * 2);
 		rotation -= Math.PI;
 	}
+	
 	
 	public String toString()
 	{

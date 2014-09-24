@@ -2,7 +2,7 @@ package com.robotica.pc.model;
 
 import java.awt.Point;
 
-public class Entity
+public class Entity implements Cloneable
 {
 	private int id;
 	private EntityType type;

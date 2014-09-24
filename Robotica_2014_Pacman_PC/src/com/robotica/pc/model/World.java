@@ -1,63 +1,44 @@
 package com.robotica.pc.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-public class World implements Iterable<Entity>
+public class World implements Cloneable
 {
-	private ArrayList<Entity> entities;
 	private Maze maze;
+	private EntityList entities;
 	
-	public World()
+	public World(Maze maze, EntityList entities)
 	{
-		entities = new ArrayList<Entity>();
+		this.maze = maze;
+		this.entities = entities;
 	}
 	
 	public World(World world)
 	{
 		this.maze = world.maze;
-		this.entities = new ArrayList<Entity>();
-		for(Entity ent: world.entities)
-			this.entities.add(ent.clone());
+		this.entities = world.entities;
 	}
 
-	public void addEntity(Entity e)
+	public void setMaze(Maze maze)
 	{
-		entities.add(e);
+		this.maze = maze;
 	}
 	
-	public void removeEntity(Entity e)
+	public void setEntities(EntityList entities)
 	{
-		entities.remove(e);
-	}
-
-	@Override
-	public Iterator<Entity> iterator()
-	{
-		return entities.iterator();
+		this.entities = entities;
 	}
 	
 	public Maze getMaze()
 	{
-		return maze;
+		return maze.clone();
+	}
+	
+	public EntityList getEntities()
+	{
+		return entities.clone();
 	}
 	
 	public World clone()
 	{
 		return new World(this);
-	}
-	
-	public void show()
-	{
-		System.out.println(this);
-	}
-	
-	public String toString()
-	{
-		String s = "Entities:\n";
-		for(Entity en: entities)
-			s = s+ en+'\n';
-		
-		return s;
 	}
 }
