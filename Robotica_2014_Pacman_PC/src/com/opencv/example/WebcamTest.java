@@ -31,6 +31,7 @@ public class WebcamTest {
 			if (videoCapture.read(image)){
 				webcamPanel.setMatImage(image);
 				webcamPanel.repaint();
+				frame.repaint();
 			}
 		}
 	}
