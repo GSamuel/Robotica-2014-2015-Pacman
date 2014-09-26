@@ -1,12 +1,11 @@
 package com.robotica.pc.model;
 
-import java.awt.Point;
 
 public class Entity implements Cloneable
 {
 	private int id;
 	private EntityType type;
-	private Point location;
+	private Location location;
 	private Rotation rotation;
 
 	public Entity(EntityType type)
@@ -27,22 +26,22 @@ public class Entity implements Cloneable
 	{
 		this.id = entity.id;
 		this.type = entity.type;
-		this.location = (Point) entity.location.clone();
+		this.location = entity.location.clone();
 		this.rotation = entity.rotation.clone();
 	}
 
 	private void init()
 	{
-		location = new Point();
+		location = new Location();
 		rotation = new Rotation();
 	}
 
-	public int getX()
+	public double getX()
 	{
 		return location.x;
 	}
 
-	public int getY()
+	public double getY()
 	{
 		return location.y;
 	}

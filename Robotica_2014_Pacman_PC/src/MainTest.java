@@ -9,7 +9,7 @@ public class MainTest
 {
 
 	public static void main(String[] args) throws InterruptedException
-	{
+	{		
 		Entity[] entities = new Entity[3];
 		entities[0] = new Entity(EntityType.PACMAN, 0);
 		entities[1] = new Entity(EntityType.GHOST, 1);

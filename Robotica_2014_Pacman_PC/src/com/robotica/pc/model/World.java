@@ -13,8 +13,8 @@ public class World implements Cloneable
 	
 	public World(World world)
 	{
-		this.maze = world.maze;
-		this.entities = world.entities;
+		this.maze = world.maze.clone();
+		this.entities = world.entities.clone();
 	}
 
 	public void setMaze(Maze maze)
