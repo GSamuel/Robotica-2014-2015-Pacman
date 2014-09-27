@@ -36,8 +36,17 @@ public class Command
 
 	public void constructFromInteger(int[] data)
 	{
-		command = NXTCommand.values()[data[0]];
-		value = data[1];
+		boolean found = false;
+		for(NXTCommand command: NXTCommand.values())
+			if(command.ordinal() == data[0])
+			{
+				this.command = command;
+				value = data[1];
+				found = true;
+				break;
+			}
+		if(!found)
+			this.command = NXTCommand.getDefault();
 	}
 
 }

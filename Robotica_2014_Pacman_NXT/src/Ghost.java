@@ -1,11 +1,13 @@
 import lejos.nxt.Button;
 
 import com.robotica.nxt.brick.Brick;
+import com.robotica.nxt.brick.MotorTestBrick;
 import com.robotica.nxt.brick.PrintBrick;
 import com.robotica.nxt.remotecontrol.Command;
 import com.robotica.nxt.remotecontrol.CommandCommunicator;
 import com.robotica.nxt.remotecontrol.Connector;
 import com.robotica.nxt.remotecontrol.NXTCommand;
+import com.robotica.nxt.settings.NXTAction;
 
 public class Ghost
 {
@@ -16,17 +18,30 @@ public class Ghost
 		connector.setType(Connector.Type.USB);
 		CommandCommunicator comCom = new CommandCommunicator(connector);
 
+		Brick brick = new MotorTestBrick();
 		Command com;
 		do
 		{
 			com = comCom.getNextCommand();
-			System.out
-					.println(com.getNXTCommand().name() + " " + com.getValue());
-		} while (com.getNXTCommand() != NXTCommand.EXIT);
-		
+			System.out.println(com.getNXTCommand().name() + " "
+					+ com.getValue());
 
-		Brick brick = new PrintBrick();
-		brick.update();
+			if (com.getNXTCommand() == NXTCommand.SET_STATE)
+			{
+				for(NXTAction action: NXTAction.values())
+					if(action.ordinal() == com.getValue())
+					{
+						System.out.println(action.name());
+						brick.setState(action);
+						brick.update();
+					}
+			}
+
+		} while (com.getNXTCommand() != NXTCommand.EXIT);
+
+		/*
+		 * Brick brick = new PrintBrick(); brick.update();
+		 */
 
 		System.out.println("Press to close connection");
 		Button.waitForAnyPress();

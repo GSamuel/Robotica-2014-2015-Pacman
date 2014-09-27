@@ -25,20 +25,15 @@ public class SimpleCommandSender
 		//
 		//
 
-		int num = 0;
 		Scanner input = new Scanner(System.in);
-		while (num != -1)
+		while (true)
 		{
-			System.out.println("-1 to disconnect from NXT");
 			for (NXTCommand command : NXTCommand.values())
 				System.out.println(command.ordinal() + ": " + command.name());
 
 			System.out.println("type 2 numbers: command_number value");
 			
 			int command = input.nextInt();
-			num = command;
-			if(num == -1)
-				break;
 			
 			int value = input.nextInt();
 			
@@ -53,12 +48,14 @@ public class SimpleCommandSender
 				try
 				{
 					outData.close();
+					link.close();
 				} catch (IOException e1)
 				{
 					System.out.println("cant close outputstream");
 				}
-				num = -1;
 			}
+			if(command == NXTCommand.EXIT.ordinal())
+				break;
 
 		}
 		
