@@ -31,7 +31,6 @@ public class NXTtr
 	public static DataOutputStream dataOut;
 	public static DataInputStream dataIn;
 	public static USBConnection USBLink;
-	// public static BTConnection BTLink;
 	public static int speed = 50, turnSpeed = 50, speedBuffer, speedControl;
 	public static int commandValue, transmitReceived;
 	public static boolean[] control = new boolean[6];
@@ -215,14 +214,8 @@ public class NXTtr
 	public static void connect()
 	{
 		System.out.println("Listening");
-		// BTLink = Bluetooth.waitForConnection();
-		// dataOut = BTLink.openDataOutputStream();
-		// dataIn = BTLink.openDataInputStream();
 		USBLink = USB.waitForConnection();
 		dataOut = USBLink.openDataOutputStream();
-		dataOut = USBLink.openDataOutputStream();
-		dataOut = USBLink.openDataOutputStream();
-		
 		dataIn = USBLink.openDataInputStream();
 		System.out.println("Connected");
 
