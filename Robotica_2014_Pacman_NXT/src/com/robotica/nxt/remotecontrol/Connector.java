@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.microedition.io.Connection;
 
+import com.robotica.nxt.remotecontrol.Connector.Type;
+
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 import lejos.nxt.comm.USB;
@@ -16,12 +18,17 @@ public class Connector
 	private Connection connection;
 	private DataOutputStream dataOut;
 	private DataInputStream dataIn;
+	private Type connectionType = Type.BT;
 
+	public enum Type{
+		USB, BT
+	}
+	
 	public void connectWithUSB()
 	{
-
 		if (!isConnected())
 		{
+			connectionType = Type.USB;
 			System.out.println("Waiting for USB connection");
 
 			USBConnection USBLink = USB.waitForConnection();
@@ -33,13 +40,13 @@ public class Connector
 
 			System.out.println("Connected");
 		}
-
 	}
 
 	public void connectWithBluetooth()
 	{
 		if (!isConnected())
 		{
+			connectionType = Type.BT;
 			System.out.println("Waiting for BT connection");
 
 			BTConnection BTLink = Bluetooth.waitForConnection();
@@ -52,17 +59,25 @@ public class Connector
 			System.out.println("Connected");
 		}
 	}
+	
+	public void connect()
+	{
+		if(connectionType == Type.USB)
+			connectWithUSB();
+		else
+			connectWithBluetooth();
+	}
 
-	private boolean isConnected()
+	public boolean isConnected()
 	{
 		return (connection != null && dataOut != null && dataIn != null);
 	}
-	
+
 	public DataOutputStream getDataOut()
 	{
 		return dataOut;
 	}
-	
+
 	public DataInputStream getDataIn()
 	{
 		return dataIn;
@@ -72,7 +87,12 @@ public class Connector
 	{
 		try
 		{
-			connection.close();
+			if (dataOut != null)
+				dataOut.close();
+			if (dataIn != null)
+				dataIn.close();
+			if (connection != null)
+				connection.close();
 			System.out.println("disconnected");
 		} catch (IOException e)
 		{
@@ -83,5 +103,10 @@ public class Connector
 			dataOut = null;
 			dataIn = null;
 		}
+	}
+
+	public void setType(Type type)
+	{
+		this.connectionType = type;
 	}
 }
