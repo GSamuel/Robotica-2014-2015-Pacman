@@ -25,12 +25,12 @@ public class Location extends Point2D implements Cloneable
 
 	public int getGridX()
 	{
-		return Math.round(Math.round(x));
+		return (int) Math.floor(x);
 	}
 
 	public int getGridY()
 	{
-		return Math.round(Math.round(y));
+		return (int) Math.floor(y);
 	}
 
 	public double getY()
