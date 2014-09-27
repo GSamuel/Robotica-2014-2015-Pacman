@@ -1,20 +1,18 @@
 package com.robotica.nxt.brick;
 
-import com.robotica.nxt.settings.Action;
+import com.robotica.nxt.settings.NXTAction;
 import com.robotica.nxt.settings.Settings;
 
 public abstract class Brick
 {
 	private Settings settings = new Settings();
-	private Action state = Action.getDefault();
-
-	
+	private NXTAction state = NXTAction.getDefault();
 
 	public void update()
 	{
 		switch (state)
 		{
-		case MOVE_FORWARDS:
+		case MOVE_FORWARD:
 			move_forwards();
 			break;
 		case TURN_LEFT:
@@ -44,7 +42,7 @@ public abstract class Brick
 
 	public Settings getSettings()
 	{
-		return settings;
+		return settings.clone();
 	}
 
 	public void setSettings(Settings settings)
@@ -52,12 +50,12 @@ public abstract class Brick
 		this.settings = settings;
 	}
 
-	public Action getState()
+	public NXTAction getState()
 	{
 		return state;
 	}
 
-	public void setState(Action state)
+	public void setState(NXTAction state)
 	{
 		this.state = state;
 	}

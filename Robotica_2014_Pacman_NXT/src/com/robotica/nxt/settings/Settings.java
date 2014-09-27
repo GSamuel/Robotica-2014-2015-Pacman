@@ -1,6 +1,6 @@
 package com.robotica.nxt.settings;
 
-public class Settings
+public class Settings implements Cloneable
 {
 	private int motorSpeed;
 	private int acceleration;
@@ -17,6 +17,12 @@ public class Settings
 		this.acceleration = acceleration;
 	}
 	
+	public Settings(Settings settings)
+	{
+		this.motorSpeed = settings.motorSpeed;
+		this.acceleration = settings.acceleration;
+	}
+
 	public int getMotorSpeed()
 	{
 		return motorSpeed;
@@ -35,5 +41,10 @@ public class Settings
 	public void setAcceleration(int acceleration)
 	{
 		this.acceleration = acceleration;
+	}
+	
+	public Settings clone()
+	{
+		return new Settings(this);
 	}
 }

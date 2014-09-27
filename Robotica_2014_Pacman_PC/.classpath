@@ -11,5 +11,7 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Robotica_2014_Pacman_PC/libs/opencv-249x86"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/Robotica_2014_Pacman_EV3"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Robotica_2014_Pacman_NXT"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
