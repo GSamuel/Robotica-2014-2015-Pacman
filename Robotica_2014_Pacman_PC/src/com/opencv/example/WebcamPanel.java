@@ -12,6 +12,8 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+import com.robotica.pc.imageprocessing.Utils;
+
 public class WebcamPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
