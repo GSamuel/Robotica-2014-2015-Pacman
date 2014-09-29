@@ -13,9 +13,15 @@ public class CirclePanel extends JPanel
 	public void paintComponent(Graphics g)
 	{
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.MAGENTA);
 		g2d.setStroke(new BasicStroke(3));
-		//g2d.drawOval(getX(), getY(), getWidth(), getHeight());
+		g2d.setColor(Color.RED);
+		g2d.fillOval(0,0,100,100);
+		g2d.setColor(Color.BLUE);
 		g2d.drawOval(0,0,100,100);
+		
+
+		g2d.setStroke(new BasicStroke(2));
+		g2d.setColor(Color.BLACK);
+		g2d.drawRect(0, 0, getWidth(), getHeight());
 	}
 }
