@@ -20,6 +20,11 @@ public class CirclePanel extends JPanel
 		g2d.drawOval(0,0,100,100);
 		
 
+		drawBox(g2d);
+	}
+
+	private void drawBox(Graphics2D g2d)
+	{
 		g2d.setStroke(new BasicStroke(2));
 		g2d.setColor(Color.BLACK);
 		g2d.drawRect(0, 0, getWidth(), getHeight());
