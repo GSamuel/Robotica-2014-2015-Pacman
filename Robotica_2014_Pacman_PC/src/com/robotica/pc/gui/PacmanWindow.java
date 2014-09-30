@@ -19,7 +19,7 @@ public class PacmanWindow extends JFrame
 	private void init()
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(1280, 720);
+		this.setSize(1720,900);
 		this.getContentPane().setBackground(Color.WHITE);
 		
 		this.setLayout(new FlowLayout());

@@ -2,10 +2,10 @@ import java.awt.Dimension;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.Scalar;
 import org.opencv.highgui.VideoCapture;
 
 import com.robotica.pc.gui.CirclePanel;
+import com.robotica.pc.gui.MatrixCirclePanel;
 import com.robotica.pc.gui.MatrixPanel;
 import com.robotica.pc.gui.PacmanWindow;
 import com.robotica.pc.imageprocessing.Filter;
@@ -33,7 +33,7 @@ public class ImageProcessingMain
 		Mat mat = new Mat();
 		videoCapture.read(mat);
 
-		//mC.addMatrix("img01", mat);
+		mC.addMatrix("img01", mat);
 		mC.addMatrix("img02", Filter.createGrayImage(mat));
 		
 		MatrixPanel p1 = new MatrixPanel("img01", mC);
@@ -41,6 +41,9 @@ public class ImageProcessingMain
 		
 		MatrixPanel p2 = new MatrixPanel("img02", mC);
 		pw.add(p2);
+		
+		MatrixCirclePanel ePT = new MatrixCirclePanel("img01", mC);
+		pw.add(ePT);
 		
 		pw.revalidate();
 	}
