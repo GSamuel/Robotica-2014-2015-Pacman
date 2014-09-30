@@ -50,10 +50,12 @@ public class ImageProcessingMain
 	
 	private static void circlePanelTest()
 	{
-		PacmanWindow pw = new PacmanWindow();
+		PacmanWindow pw = new PacmanWindow();//model
+		
 		CirclePanel cP = new CirclePanel();
 		cP.setPreferredSize(new Dimension(80,100));		
 		pw.add(cP);
+		
 		CirclePanel cP2 = new CirclePanel();
 		cP2.setPreferredSize(new Dimension(100,100));	
 		pw.add(cP2);

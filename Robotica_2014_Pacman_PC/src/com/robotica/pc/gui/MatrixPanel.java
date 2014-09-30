@@ -63,7 +63,6 @@ public class MatrixPanel extends JPanel implements Observer
 	public void update(Observable o, Object arg)
 	{
 		String key = arg.toString();
-		System.out.println("key");
 		if (this.key.compareTo(key) == 0);
 		{
 			updateSize();
