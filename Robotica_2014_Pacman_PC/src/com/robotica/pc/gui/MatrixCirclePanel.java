@@ -1,10 +1,13 @@
 package com.robotica.pc.gui;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
+import org.opencv.core.Mat;
+
+import com.robotica.pc.imageprocessing.Filter;
+import com.robotica.pc.imageprocessing.Utils;
 import com.robotica.pc.model.MatrixContainer;
 
 public class MatrixCirclePanel extends MatrixPanel
@@ -20,11 +23,8 @@ public class MatrixCirclePanel extends MatrixPanel
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setStroke(new BasicStroke(3));
-		g2d.setColor(Color.RED);
-		g2d.fillOval(0,0,100,100);
-		g2d.setColor(Color.BLUE);
-		g2d.drawOval(0,0,100,100);
+		Mat mat = this.mCon.getMatrix(key);
+		Filter.getCircles(mat);
 	}
 
 }

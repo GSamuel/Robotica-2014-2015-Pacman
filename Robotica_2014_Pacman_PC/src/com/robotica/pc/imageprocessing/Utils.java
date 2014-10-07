@@ -1,8 +1,11 @@
 package com.robotica.pc.imageprocessing;
 
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 import org.opencv.core.Mat;
+
+import com.robotica.pc.gui.Circle;
 
 public class Utils {
 
@@ -33,6 +36,14 @@ public class Utils {
 		BufferedImage image2 = new BufferedImage(cols, rows, type);
 		image2.getRaster().setDataElements(0, 0, cols, rows, data);
 		return image2;
+	}
+	
+	public static Circle[] matToCircle(Mat circlesMat){
+		Circle[] circles = new Circle[circlesMat.cols()];
+		for (int i = 0; i < circlesMat.cols(); i++) {
+			double[] circleCoor = circlesMat.get(0, i);
+		}	
+		return circles;
 	}
 	
 }

@@ -29,7 +29,7 @@ public class ImageProcessingMain
 		PacmanWindow pw = new PacmanWindow();
 		MatrixContainer mC = new MatrixContainer();
 		
-		VideoCapture videoCapture = new VideoCapture(1);
+		VideoCapture videoCapture = new VideoCapture(0);
 		Mat mat = new Mat();
 		videoCapture.read(mat);
 

@@ -18,8 +18,8 @@ import com.robotica.pc.model.MatrixContainer;
 
 public class MatrixPanel extends JPanel implements Observer
 {
-	private String key;
-	private MatrixContainer mCon;
+	protected String key;
+	protected MatrixContainer mCon;
 	private boolean drawBorder = true;
 
 	public MatrixPanel(String key, MatrixContainer mCon)

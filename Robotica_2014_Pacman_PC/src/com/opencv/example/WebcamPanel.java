@@ -45,10 +45,10 @@ public class WebcamPanel extends JPanel {
 			Imgproc.GaussianBlur(grayImage, grayImage, new Size(9,9), 2,2);
 
 			
-			int minRadius = 30;
+			int minRadius = 3;
 			int maxRadius = 200;
 			Imgproc.HoughCircles(grayImage, circles, Imgproc.CV_HOUGH_GRADIENT,
-					1, 200, 200, 20, minRadius, maxRadius);
+					1, 20, 200, 40, minRadius, maxRadius);
 
 			
 			if(!circles.empty()){
