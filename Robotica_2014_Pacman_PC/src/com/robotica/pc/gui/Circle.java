@@ -40,4 +40,11 @@ public class Circle extends Point2D{
 		this.y = (int) Math.round(y);
 	}
 
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+	
+	public void setRadius(double radius) {
+		this.radius = (int) Math.round(radius);
+	}
 }

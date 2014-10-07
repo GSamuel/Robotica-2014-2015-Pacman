@@ -1,7 +1,7 @@
 package com.robotica.pc.imageprocessing;
 
-import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import org.opencv.core.Mat;
 
@@ -38,10 +38,14 @@ public class Utils {
 		return image2;
 	}
 	
-	public static Circle[] matToCircle(Mat circlesMat){
-		Circle[] circles = new Circle[circlesMat.cols()];
+	public static ArrayList<Circle> getCirclesFromMat(Mat circlesMat){
+		ArrayList<Circle> circles= new ArrayList<Circle>();
 		for (int i = 0; i < circlesMat.cols(); i++) {
 			double[] circleCoor = circlesMat.get(0, i);
+			Circle circle = new Circle();
+			circle.setLocation(circleCoor[0] - circleCoor[2], circleCoor[1] - circleCoor[2]);
+			circle.setRadius(circleCoor[2]);
+			circles.add(circle);
 		}	
 		return circles;
 	}
