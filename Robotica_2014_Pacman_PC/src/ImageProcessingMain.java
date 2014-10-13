@@ -50,8 +50,7 @@ public class ImageProcessingMain
 			for(Circle circle : circles)
 			{
 				System.out.println("Circle center: (" + circle.getCenter().x + ", " + circle.getCenter().y + ")");
-				int[] rgb = img.getRaster().getPixel(circle.getCenter().x, circle.getCenter().y, (int[]) null);
-				Color color = new Color(rgb[0], rgb[1], rgb[2]);
+				Color color = Utils.getColorFromCircle(circle, img);
 				System.out.println("Center RGB: (" + color.getRed() + ", " + color.getRed() + ", " + color.getBlue() + ")");
 			}
 		}

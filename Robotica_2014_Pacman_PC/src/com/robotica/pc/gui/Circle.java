@@ -62,4 +62,9 @@ public class Circle extends Point2D
 	{
 		return new Point(x + radius, y + radius);
 	}
+	
+	public int getRadius()
+	{
+		return radius;
+	}
 }

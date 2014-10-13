@@ -1,7 +1,10 @@
 package com.robotica.pc.imageprocessing;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.opencv.core.Mat;
 
@@ -39,7 +42,7 @@ public class Utils {
 	}
 	
 	public static ArrayList<Circle> getCirclesFromMat(Mat circlesMat){
-		ArrayList<Circle> circles= new ArrayList<Circle>();
+		ArrayList<Circle> circles = new ArrayList<Circle>();
 		for (int i = 0; i < circlesMat.cols(); i++) {
 			double[] circleCoor = circlesMat.get(0, i);
 			Circle circle = new Circle();
@@ -48,6 +51,45 @@ public class Utils {
 			circles.add(circle);
 		}	
 		return circles;
+	}
+	
+	public static Color getColorFromCircle(Circle circle, BufferedImage img)
+	{
+		List<Integer> rgbs = new ArrayList<Integer>();
+		WritableRaster raster = img.getRaster();
+		rgbs.addAll(arrayToList(raster.getPixel(circle.getCenter().x, circle.getCenter().y, (int[]) null)));
+		rgbs.addAll(arrayToList(raster.getPixel(circle.getCenter().x + circle.getRadius()/2, circle.getCenter().y, (int[]) null)));
+		rgbs.addAll(arrayToList(raster.getPixel(circle.getCenter().x - circle.getRadius()/2, circle.getCenter().y, (int[]) null)));
+		rgbs.addAll(arrayToList(raster.getPixel(circle.getCenter().x, circle.getCenter().y + circle.getRadius()/2, (int[]) null)));
+		rgbs.addAll(arrayToList(raster.getPixel(circle.getCenter().x, circle.getCenter().y - circle.getRadius()/2, (int[]) null)));
+		return getAverageColor(rgbs);
+	}
+	
+	private static Color getAverageColor(List<Integer> rgbs)
+	{
+		int red = 0;
+		int blue = 0;
+		int green = 0;
+		for(int i = 0; i < rgbs.size(); i += 3)
+		{
+			red += rgbs.get(i);
+			blue += rgbs.get(i+1);
+			green += rgbs.get(i+2);
+		}
+		red /= rgbs.size() / 3;
+		blue /= rgbs.size() / 3;
+		green /= rgbs.size() / 3;
+		return new Color(red, blue, green);
+	}
+	
+	private static ArrayList<Integer> arrayToList(int[] array)
+	{
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for(int i = 0; i < array.length; i++)
+		{
+			list.add(array[i]);
+		}
+		return list;
 	}
 	
 }
