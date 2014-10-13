@@ -1,5 +1,8 @@
 package com.robotica.pc.imageprocessing;
 
+import java.awt.Point;
+
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
@@ -43,5 +46,20 @@ public class Filter
 		Imgproc.HoughCircles(mat, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 20,
 				200, 40, minRadius, maxRadius);
 		return circles;
+	}
+
+	public static Mat createWarpedImage(Mat img, Size size, Point topLeft, Point topRight,
+			Point botLeft, Point botRight)
+	{
+		Mat goal = new Mat(4, 1, CvType.CV_32FC2);
+		Mat source = new Mat(4, 1, CvType.CV_32FC2);
+		source.put(0, 0, topLeft.y, topLeft.x, topRight.y, topRight.x,
+				botLeft.y, botLeft.x, botRight.y, botRight.x);
+		goal.put(0, 0, 0, 0, 0, size.width, size.height, 0, size.width,
+				size.height);
+		Mat transformationMatrix =  Imgproc.getPerspectiveTransform(source, goal);
+		Mat result = img.clone();
+		Imgproc.warpPerspective(img, result, transformationMatrix, size);
+		return result;
 	}
 }
