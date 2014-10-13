@@ -1,14 +1,19 @@
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.highgui.VideoCapture;
 
+import com.robotica.pc.gui.Circle;
 import com.robotica.pc.gui.CirclePanel;
 import com.robotica.pc.gui.MatrixCirclePanel;
 import com.robotica.pc.gui.MatrixPanel;
 import com.robotica.pc.gui.PacmanWindow;
 import com.robotica.pc.imageprocessing.Filter;
+import com.robotica.pc.imageprocessing.Utils;
 import com.robotica.pc.model.MatrixContainer;
 
 public class ImageProcessingMain
@@ -27,7 +32,7 @@ public class ImageProcessingMain
 	{
 		PacmanWindow pw = new PacmanWindow();
 		MatrixContainer container = new MatrixContainer();
-		VideoCapture capture = new VideoCapture(0);
+		VideoCapture capture = new VideoCapture(3);
 		Mat mat = new Mat();
 		MatrixCirclePanel circlePanel = new MatrixCirclePanel("color", "blur",
 				container);
@@ -40,6 +45,15 @@ public class ImageProcessingMain
 			container.addMatrix("grey", Filter.createGrayImage(mat));
 			container.addMatrix("blur",
 					Filter.createBlurred(container.getMatrix("grey")));
+			ArrayList<Circle> circles =  circlePanel.getCircles();
+			BufferedImage img = Utils.matToBufferedImage(container.getMatrix("color"));
+			for(Circle circle : circles)
+			{
+				System.out.println("Circle center: (" + circle.getCenter().x + ", " + circle.getCenter().y + ")");
+				int[] rgb = img.getRaster().getPixel(circle.getCenter().x, circle.getCenter().y, (int[]) null);
+				Color color = new Color(rgb[0], rgb[1], rgb[2]);
+				System.out.println("Center RGB: (" + color.getRed() + ", " + color.getRed() + ", " + color.getBlue() + ")");
+			}
 		}
 	}
 
@@ -69,7 +83,7 @@ public class ImageProcessingMain
 
 	private static void circlePanelTest()
 	{
-		PacmanWindow pw = new PacmanWindow();// model
+		PacmanWindow pw = new PacmanWindow(); // model
 
 		CirclePanel cP = new CirclePanel();
 		cP.setPreferredSize(new Dimension(80, 100));
