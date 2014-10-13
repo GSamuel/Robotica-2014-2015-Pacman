@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.opencv.core.Mat;
 
@@ -15,14 +14,11 @@ import com.robotica.pc.model.MatrixContainer;
 
 public class MatrixCirclePanel extends MatrixPanel
 {
-	private String keyBlurred;
 	private ArrayList<Circle> circles = new ArrayList<Circle>();
 
-	public MatrixCirclePanel(String keyColor, String keyBlurred,
-			MatrixContainer mCon)
+	public MatrixCirclePanel(String keyColor, MatrixContainer mCon)
 	{
 		super(keyColor, mCon);
-		this.keyBlurred = keyBlurred;
 	}
 
 	public void paintComponent(Graphics g)
@@ -30,7 +26,7 @@ public class MatrixCirclePanel extends MatrixPanel
 		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g;
-		Mat mat = this.mCon.getMatrix(keyBlurred);
+		Mat mat = this.mCon.getMatrix("blur");
 		if (mat != null)
 		{
 			circles = Utils.getCirclesFromMat(Filter.getCircles(mat));

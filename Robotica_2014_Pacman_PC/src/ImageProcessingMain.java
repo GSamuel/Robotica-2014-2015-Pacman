@@ -1,19 +1,16 @@
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.awt.Point;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Size;
 import org.opencv.highgui.VideoCapture;
 
-import com.robotica.pc.gui.Circle;
 import com.robotica.pc.gui.CirclePanel;
 import com.robotica.pc.gui.MatrixCirclePanel;
 import com.robotica.pc.gui.MatrixPanel;
 import com.robotica.pc.gui.PacmanWindow;
 import com.robotica.pc.imageprocessing.Filter;
-import com.robotica.pc.imageprocessing.Utils;
 import com.robotica.pc.model.MatrixContainer;
 
 public class ImageProcessingMain
@@ -34,8 +31,7 @@ public class ImageProcessingMain
 		MatrixContainer container = new MatrixContainer();
 		VideoCapture capture = new VideoCapture(3);
 		Mat mat = new Mat();
-		MatrixCirclePanel circlePanel = new MatrixCirclePanel("color", "blur",
-				container);
+		MatrixCirclePanel circlePanel = new MatrixCirclePanel("warped", container);
 		pw.add(circlePanel);
 
 		while (true)
@@ -43,16 +39,10 @@ public class ImageProcessingMain
 			capture.read(mat);
 			container.addMatrix("color", mat);
 			container.addMatrix("grey", Filter.createGrayImage(mat));
-			container.addMatrix("blur",
-					Filter.createBlurred(container.getMatrix("grey")));
-			ArrayList<Circle> circles =  circlePanel.getCircles();
-			BufferedImage img = Utils.matToBufferedImage(container.getMatrix("color"));
-			for(Circle circle : circles)
-			{
-				System.out.println("Circle center: (" + circle.getCenter().x + ", " + circle.getCenter().y + ")");
-				Color color = Utils.getColorFromCircle(circle, img);
-				System.out.println("Center RGB: (" + color.getRed() + ", " + color.getRed() + ", " + color.getBlue() + ")");
-			}
+			container.addMatrix("blur", Filter.createBlurred(container.getMatrix("grey")));
+			container.addMatrix("warped", Filter.createWarpedImage(container.getMatrix("color"), new Size(640,480), 
+					new Point(100,100), new Point(540,100), 
+					new Point(0,480), new Point(640,480)));
 		}
 	}
 
@@ -74,7 +64,7 @@ public class ImageProcessingMain
 		MatrixPanel p2 = new MatrixPanel("img02", mC);
 		pw.add(p2);
 
-		MatrixCirclePanel ePT = new MatrixCirclePanel("img02", "img02", mC);
+		MatrixCirclePanel ePT = new MatrixCirclePanel("img02", mC);
 		pw.add(ePT);
 
 		pw.revalidate();

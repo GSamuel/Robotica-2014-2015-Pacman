@@ -80,5 +80,4 @@ public class MatrixPanel extends JPanel implements Observer
 		}
 		repaint();
 	}
-
 }
