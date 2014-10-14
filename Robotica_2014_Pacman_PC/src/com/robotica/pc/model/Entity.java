@@ -1,5 +1,6 @@
 package com.robotica.pc.model;
 
+import java.awt.Point;
 
 public class Entity implements Cloneable
 {
@@ -56,6 +57,35 @@ public class Entity implements Cloneable
 		location.translate(dx, dy);
 	}
 
+	public Direction getDirection()
+	{
+		return Direction.radianToDirection(rotation.getRotation());
+	}
+
+	public void turnLeft()
+	{
+		rotation.rotate(Math.PI * 0.5);
+	}
+
+	public void turnRight()
+	{
+		rotation.rotate(-Math.PI * 0.5);
+	}
+
+	public void forward()
+	{
+		Point p = Direction.radianToDirection(rotation.getRotation())
+				.getDirectionVector();
+		location.translate(p.x, p.y);
+	}
+
+	public void backward()
+	{
+		Point p = Direction.radianToDirection(rotation.getRotation())
+				.getDirectionVector();
+		location.translate(-p.x, -p.y);
+	}
+
 	public double getRotation()
 	{
 		return rotation.getRotation();
@@ -63,9 +93,9 @@ public class Entity implements Cloneable
 
 	public void setRotation(double rotation)
 	{
-		this.rotation.setRotation(rotation);;
+		this.rotation.setRotation(rotation);
 	}
-	
+
 	public void rotate(double rotation)
 	{
 		this.rotation.rotate(rotation);
@@ -80,7 +110,12 @@ public class Entity implements Cloneable
 	{
 		this.id = id;
 	}
-	
+
+	public EntityType getType()
+	{
+		return type;
+	}
+
 	public Entity clone()
 	{
 		return new Entity(this);
