@@ -4,9 +4,9 @@ import java.io.IOException;
 
 public class CommandCommunicator
 {
-	private NXTConnector connector;
+	private Connector connector;
 	
-	public CommandCommunicator(NXTConnector connector)
+	public CommandCommunicator(Connector connector)
 	{
 		this.connector = connector;
 		if(!connector.isConnected())
@@ -49,6 +49,10 @@ public class CommandCommunicator
 				System.out.println("cant send data");
 				connector.closeConnection();
 			}
+		}
+		else
+		{
+			System.out.println("cant send data, because not connected");
 		}
 	}
 }
