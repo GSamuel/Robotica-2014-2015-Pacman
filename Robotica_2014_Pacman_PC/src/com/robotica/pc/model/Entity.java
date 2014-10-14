@@ -1,5 +1,6 @@
 package com.robotica.pc.model;
 
+import java.awt.Color;
 import java.awt.Point;
 
 public class Entity implements Cloneable
@@ -8,6 +9,7 @@ public class Entity implements Cloneable
 	private EntityType type;
 	private Location location;
 	private Rotation rotation;
+	private Color color;
 
 	public Entity(EntityType type)
 	{
@@ -35,6 +37,7 @@ public class Entity implements Cloneable
 	{
 		location = new Location();
 		rotation = new Rotation();
+		color = Color.BLACK;
 	}
 
 	public double getX()
@@ -114,6 +117,16 @@ public class Entity implements Cloneable
 	public EntityType getType()
 	{
 		return type;
+	}
+	
+	public Color getColor()
+	{
+		return color;
+	}
+	
+	public void setColor(Color color)
+	{
+		this.color = color;
 	}
 
 	public Entity clone()
