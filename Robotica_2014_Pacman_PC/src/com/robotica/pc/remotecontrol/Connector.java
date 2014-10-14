@@ -1,27 +1,28 @@
-package com.robotica.nxt.remotecontrol;
+package com.robotica.pc.remotecontrol;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import javax.microedition.io.Connection;
-
-import lejos.nxt.comm.BTConnection;
-import lejos.nxt.comm.Bluetooth;
-import lejos.nxt.comm.USB;
-import lejos.nxt.comm.USBConnection;
+import lejos.pc.comm.NXTComm;
+import lejos.pc.comm.NXTCommException;
+import lejos.pc.comm.NXTCommFactory;
+import lejos.pc.comm.NXTConnector;
+import lejos.pc.comm.NXTInfo;
 
 public class Connector
 {
-	private Connection connection;
+	private NXTConnector connection;
+
 	private DataOutputStream dataOut;
 	private DataInputStream dataIn;
 	private Type connectionType = Type.BT;
 
-	public enum Type{
+	public enum Type
+	{
 		USB, BT
 	}
-	
+
 	public void connectWithUSB()
 	{
 		if (!isConnected())
@@ -29,14 +30,16 @@ public class Connector
 			connectionType = Type.USB;
 			System.out.println("Waiting for USB connection");
 
-			USBConnection USBLink = USB.waitForConnection();
+			NXTConnector USBLink = new NXTConnector();
 
-			dataOut = USBLink.openDataOutputStream();
-			dataIn = USBLink.openDataInputStream();
+			if (USBLink.connectTo("usb://"))
+			{
+				dataOut = new DataOutputStream(USBLink.getOutputStream());
+				dataIn = new DataInputStream(USBLink.getInputStream());
+				this.connection = USBLink;
+				System.out.println("Connected");
+			}
 
-			this.connection = USBLink;
-
-			System.out.println("Connected");
 		}
 	}
 
@@ -47,20 +50,35 @@ public class Connector
 			connectionType = Type.BT;
 			System.out.println("Waiting for BT connection");
 
-			BTConnection BTLink = Bluetooth.waitForConnection();
+			NXTComm nxtComm;
+			try
+			{
+				nxtComm = NXTCommFactory
+						.createNXTComm(NXTCommFactory.BLUETOOTH);
+				NXTInfo[] nxtInfo = nxtComm.search(null);
 
-			dataOut = BTLink.openDataOutputStream();
-			dataIn = BTLink.openDataInputStream();
+				NXTConnector BTLink = new NXTConnector();
 
-			this.connection = BTLink;
+				if (nxtInfo.length > 0)
+					if (BTLink.connectTo(nxtInfo[0], 0))
+					{
+						System.out.println("connecting to: "+nxtInfo[0].name);
+						dataOut = new DataOutputStream(BTLink.getOutputStream());
+						dataIn = new DataInputStream(BTLink.getInputStream());
+						this.connection = BTLink;
+						System.out.println("Connected");
+					}
 
-			System.out.println("Connected");
+			} catch (NXTCommException e)
+			{
+			}
+
 		}
 	}
-	
+
 	public void connect()
 	{
-		if(connectionType == Type.USB)
+		if (connectionType == Type.USB)
 			connectWithUSB();
 		else
 			connectWithBluetooth();
