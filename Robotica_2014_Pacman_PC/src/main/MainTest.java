@@ -1,4 +1,5 @@
 package main;
+
 import com.robotica.pc.model.Entity;
 import com.robotica.pc.model.EntityList;
 import com.robotica.pc.model.EntityType;
@@ -9,8 +10,8 @@ import com.robotica.pc.model.World;
 public class MainTest
 {
 
-	public static void main(String[] args) throws InterruptedException
-	{		
+	public static void main(String[] args)
+	{
 		Entity[] entities = new Entity[3];
 		entities[0] = new Entity(EntityType.PACMAN, 0);
 		entities[1] = new Entity(EntityType.GHOST, 1);
