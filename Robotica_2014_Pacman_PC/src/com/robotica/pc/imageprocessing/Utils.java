@@ -44,7 +44,7 @@ public class Utils {
 	public static ArrayList<Circle> getCirclesFromMat(Mat circlesMat){
 		ArrayList<Circle> circles = new ArrayList<Circle>();
 		for (int i = 0; i < circlesMat.cols(); i++) {
-			double[] circleCoor = circlesMat.get(0, i);
+			int[] circleCoor = doubleArrayToIntArray(circlesMat.get(0, i));
 			Circle circle = new Circle();
 			circle.setLocation(circleCoor[0] - circleCoor[2], circleCoor[1] - circleCoor[2]);
 			circle.setRadius(circleCoor[2]);
@@ -53,36 +53,17 @@ public class Utils {
 		return circles;
 	}
 	
-	public static Color getColorFromCircle(Circle circle, BufferedImage img)
+	private static int[] doubleArrayToIntArray(double[] array)
 	{
-		List<Integer> rgbs = new ArrayList<Integer>();
-		WritableRaster raster = img.getRaster();
-		rgbs.addAll(arrayToList(raster.getPixel(circle.getCenter().x, circle.getCenter().y, (int[]) null)));
-		rgbs.addAll(arrayToList(raster.getPixel(circle.getCenter().x + circle.getRadius()/2, circle.getCenter().y, (int[]) null)));
-		rgbs.addAll(arrayToList(raster.getPixel(circle.getCenter().x - circle.getRadius()/2, circle.getCenter().y, (int[]) null)));
-		rgbs.addAll(arrayToList(raster.getPixel(circle.getCenter().x, circle.getCenter().y + circle.getRadius()/2, (int[]) null)));
-		rgbs.addAll(arrayToList(raster.getPixel(circle.getCenter().x, circle.getCenter().y - circle.getRadius()/2, (int[]) null)));
-		return getAverageColor(rgbs);
-	}
-	
-	private static Color getAverageColor(List<Integer> rgbs)
-	{
-		int red = 0;
-		int blue = 0;
-		int green = 0;
-		for(int i = 0; i < rgbs.size(); i += 3)
+		int[] newArray = new int[array.length];
+		for (int i = 0; i < array.length; i++)
 		{
-			red += rgbs.get(i);
-			blue += rgbs.get(i+1);
-			green += rgbs.get(i+2);
+			newArray[i] = (int) array[i];
 		}
-		red /= rgbs.size() / 3;
-		blue /= rgbs.size() / 3;
-		green /= rgbs.size() / 3;
-		return new Color(red, blue, green);
+		return newArray;
 	}
 	
-	private static ArrayList<Integer> arrayToList(int[] array)
+	public static ArrayList<Integer> arrayToList(int[] array)
 	{
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		for(int i = 0; i < array.length; i++)

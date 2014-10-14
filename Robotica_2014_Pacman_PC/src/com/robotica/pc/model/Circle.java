@@ -3,9 +3,14 @@ package com.robotica.pc.model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Circle extends Point2D
+import com.robotica.pc.imageprocessing.Utils;
+
+public class Circle
 {
 	private int x, y, radius;
 
@@ -29,33 +34,25 @@ public class Circle extends Point2D
 		g2d.drawOval(x, y, 2 * radius, 2 * radius);
 	}
 
-	@Override
-	public double getX()
+	public int getX()
 	{
 		return x;
 	}
 
-	@Override
-	public double getY()
+	public int getY()
 	{
 		return y;
 	}
 
-	@Override
-	public void setLocation(double x, double y)
+	public void setLocation(int x, int y)
 	{
-		this.x = (int) Math.round(x);
-		this.y = (int) Math.round(y);
+		this.x = x;
+		this.y = y;
 	}
 
 	public void setRadius(int radius)
 	{
 		this.radius = radius;
-	}
-
-	public void setRadius(double radius)
-	{
-		this.radius = (int) Math.round(radius);
 	}
 
 	public Point getCenter()
@@ -66,5 +63,34 @@ public class Circle extends Point2D
 	public int getRadius()
 	{
 		return radius;
+	}
+	
+	public Color getColor(BufferedImage img)
+	{
+		List<Integer> rgbs = new ArrayList<Integer>();
+		WritableRaster raster = img.getRaster();
+		rgbs.addAll(Utils.arrayToList(raster.getPixel(getCenter().x, getCenter().y, (int[]) null)));
+		rgbs.addAll(Utils.arrayToList(raster.getPixel(getCenter().x + getRadius()/2, getCenter().y, (int[]) null)));
+		rgbs.addAll(Utils.arrayToList(raster.getPixel(getCenter().x - getRadius()/2, getCenter().y, (int[]) null)));
+		rgbs.addAll(Utils.arrayToList(raster.getPixel(getCenter().x, getCenter().y + getRadius()/2, (int[]) null)));
+		rgbs.addAll(Utils.arrayToList(raster.getPixel(getCenter().x, getCenter().y - getRadius()/2, (int[]) null)));
+		return getAverageColor(rgbs);
+	}
+	
+	private static Color getAverageColor(List<Integer> rgbs)
+	{
+		int red = 0;
+		int blue = 0;
+		int green = 0;
+		for(int i = 0; i < rgbs.size(); i += 3)
+		{
+			red += rgbs.get(i);
+			blue += rgbs.get(i+1);
+			green += rgbs.get(i+2);
+		}
+		red /= rgbs.size() / 3;
+		blue /= rgbs.size() / 3;
+		green /= rgbs.size() / 3;
+		return new Color(red, blue, green);
 	}
 }

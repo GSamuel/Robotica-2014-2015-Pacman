@@ -1,10 +1,8 @@
 package main;
 import java.awt.Dimension;
-import java.awt.Point;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.Size;
 import org.opencv.highgui.VideoCapture;
 
 import com.robotica.pc.gui.CirclePanel;
@@ -32,7 +30,7 @@ public class ImageProcessingMain
 		MatrixContainer container = new MatrixContainer();
 		VideoCapture capture = new VideoCapture(3);
 		Mat mat = new Mat();
-		MatrixCirclePanel circlePanel = new MatrixCirclePanel("warped","blur",container);
+		MatrixCirclePanel circlePanel = new MatrixCirclePanel("color","blur",container);
 		pw.add(circlePanel);
 
 		while (true)
@@ -41,9 +39,6 @@ public class ImageProcessingMain
 			container.addMatrix("color", mat);
 			container.addMatrix("grey", Filter.createGrayImage(mat));
 			container.addMatrix("blur", Filter.createBlurred(container.getMatrix("grey")));
-			container.addMatrix("warped", Filter.createWarpedImage(container.getMatrix("color"), new Size(640,480), 
-					new Point(100,100), new Point(540,100), 
-					new Point(0,480), new Point(640,480)));
 		}
 	}
 
