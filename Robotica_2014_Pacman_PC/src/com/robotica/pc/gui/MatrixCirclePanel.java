@@ -10,6 +10,7 @@ import org.opencv.core.Mat;
 
 import com.robotica.pc.imageprocessing.Filter;
 import com.robotica.pc.imageprocessing.Utils;
+import com.robotica.pc.model.Circle;
 import com.robotica.pc.model.MatrixContainer;
 
 public class MatrixCirclePanel extends MatrixPanel

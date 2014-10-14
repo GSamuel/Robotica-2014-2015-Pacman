@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.opencv.core.Mat;
 
-import com.robotica.pc.gui.Circle;
+import com.robotica.pc.model.Circle;
 
 public class Utils {
 
