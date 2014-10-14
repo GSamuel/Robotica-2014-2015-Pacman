@@ -31,7 +31,7 @@ public class ImageProcessingMain
 		MatrixContainer container = new MatrixContainer();
 		VideoCapture capture = new VideoCapture(3);
 		Mat mat = new Mat();
-		MatrixCirclePanel circlePanel = new MatrixCirclePanel("warped", container);
+		MatrixCirclePanel circlePanel = new MatrixCirclePanel("warped","blur",container);
 		pw.add(circlePanel);
 
 		while (true)
@@ -64,7 +64,7 @@ public class ImageProcessingMain
 		MatrixPanel p2 = new MatrixPanel("img02", mC);
 		pw.add(p2);
 
-		MatrixCirclePanel ePT = new MatrixCirclePanel("img02", mC);
+		MatrixCirclePanel ePT = new MatrixCirclePanel("img02","img02", mC);
 		pw.add(ePT);
 
 		pw.revalidate();

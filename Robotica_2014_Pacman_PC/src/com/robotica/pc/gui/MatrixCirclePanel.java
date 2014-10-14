@@ -15,10 +15,12 @@ import com.robotica.pc.model.MatrixContainer;
 public class MatrixCirclePanel extends MatrixPanel
 {
 	private ArrayList<Circle> circles = new ArrayList<Circle>();
+	private String keyBlur;
 
-	public MatrixCirclePanel(String keyColor, MatrixContainer mCon)
+	public MatrixCirclePanel(String keyColor, String keyBlur, MatrixContainer mCon)
 	{
 		super(keyColor, mCon);
+		this.keyBlur = keyBlur;
 	}
 
 	public void paintComponent(Graphics g)
@@ -26,7 +28,7 @@ public class MatrixCirclePanel extends MatrixPanel
 		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g;
-		Mat mat = this.mCon.getMatrix("blur");
+		Mat mat = this.mCon.getMatrix(keyBlur);
 		if (mat != null)
 		{
 			circles = Utils.getCirclesFromMat(Filter.getCircles(mat));
@@ -40,7 +42,7 @@ public class MatrixCirclePanel extends MatrixPanel
 	
 	private void removeCirclesOutsideImg()
 	{
-		BufferedImage img = Utils.matToBufferedImage(this.mCon.getMatrix("color"));
+		BufferedImage img = Utils.matToBufferedImage(this.mCon.getMatrix(this.key));
 		ArrayList<Circle> toBeRemoved = new ArrayList<Circle>();
 		for(int i = 0; i < circles.size(); i++)
 		{
