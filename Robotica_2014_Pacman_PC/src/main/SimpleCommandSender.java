@@ -1,7 +1,5 @@
 package main;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.util.Scanner;
 
 import com.robotica.nxt.remotecontrol.Command;

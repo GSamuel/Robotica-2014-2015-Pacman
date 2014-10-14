@@ -23,6 +23,7 @@ public class MainTest
 		m.show();
 
 		World w = new World(m, list);
+		System.out.println(w);
 	}
 
 }

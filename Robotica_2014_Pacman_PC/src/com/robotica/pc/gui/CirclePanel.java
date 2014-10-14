@@ -9,6 +9,11 @@ import javax.swing.JPanel;
 
 public class CirclePanel extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8287544471353131584L;
+
 	@Override
 	public void paintComponent(Graphics g)
 	{

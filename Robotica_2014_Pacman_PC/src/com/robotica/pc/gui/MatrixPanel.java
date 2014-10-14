@@ -18,6 +18,10 @@ import com.robotica.pc.model.MatrixContainer;
 
 public class MatrixPanel extends JPanel implements Observer
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2434663422894120325L;
 	protected String key;
 	protected MatrixContainer mCon;
 	private boolean drawBorder = true;

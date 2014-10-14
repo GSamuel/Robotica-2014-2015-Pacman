@@ -15,6 +15,10 @@ import com.robotica.pc.model.MatrixContainer;
 
 public class MatrixCirclePanel extends MatrixPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5553381751226293778L;
 	private ArrayList<Circle> circles = new ArrayList<Circle>();
 	private String keyBlur;
 

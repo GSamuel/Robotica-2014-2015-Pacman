@@ -8,6 +8,11 @@ import javax.swing.JFrame;
 
 public class PacmanWindow extends JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9145403355212469159L;
+
 	public PacmanWindow()
 	{
 		init();

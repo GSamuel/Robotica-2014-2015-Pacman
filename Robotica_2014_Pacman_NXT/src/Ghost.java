@@ -2,11 +2,10 @@ import lejos.nxt.Button;
 
 import com.robotica.nxt.brick.Brick;
 import com.robotica.nxt.brick.MotorTestBrick;
-import com.robotica.nxt.brick.PrintBrick;
 import com.robotica.nxt.remotecontrol.Command;
 import com.robotica.nxt.remotecontrol.CommandCommunicator;
-import com.robotica.nxt.remotecontrol.NXTConnector;
 import com.robotica.nxt.remotecontrol.NXTCommand;
+import com.robotica.nxt.remotecontrol.NXTConnector;
 import com.robotica.nxt.settings.NXTAction;
 
 public class Ghost
