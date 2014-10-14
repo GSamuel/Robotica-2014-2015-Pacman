@@ -5,7 +5,7 @@ import com.robotica.nxt.brick.MotorTestBrick;
 import com.robotica.nxt.brick.PrintBrick;
 import com.robotica.nxt.remotecontrol.Command;
 import com.robotica.nxt.remotecontrol.CommandCommunicator;
-import com.robotica.nxt.remotecontrol.Connector;
+import com.robotica.nxt.remotecontrol.NXTConnector;
 import com.robotica.nxt.remotecontrol.NXTCommand;
 import com.robotica.nxt.settings.NXTAction;
 
@@ -14,8 +14,8 @@ public class Ghost
 
 	public static void main(String[] args)
 	{
-		Connector connector = new Connector();
-		connector.setType(Connector.Type.USB);
+		NXTConnector connector = new NXTConnector();
+		connector.setType(NXTConnector.Type.USB);
 		CommandCommunicator comCom = new CommandCommunicator(connector);
 
 		Brick brick = new MotorTestBrick();

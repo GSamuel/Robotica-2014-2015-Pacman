@@ -4,9 +4,9 @@ import java.io.IOException;
 
 public class CommandCommunicator
 {
-	private Connector connector;
+	private NXTConnector connector;
 	
-	public CommandCommunicator(Connector connector)
+	public CommandCommunicator(NXTConnector connector)
 	{
 		this.connector = connector;
 		if(!connector.isConnected())
