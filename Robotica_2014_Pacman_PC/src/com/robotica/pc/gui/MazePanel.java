@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -59,6 +60,13 @@ public class MazePanel extends JPanel implements Observer
 		{
 			g2d.setColor(e.getColor());
 			g2d.fillOval((int)e.getX()*cellWidth, (int)e.getY()*cellHeight, cellWidth,cellHeight);
+			
+			g2d.setColor(Color.GRAY);
+			
+			Point p = e.getDirection().getDirectionVector();
+			int x = (int)((e.getX()+0.5)*cellWidth);
+			int y = (int)((e.getY()+0.5)*cellHeight);
+			g2d.drawLine(x,y, (int)(x+(p.x*0.5*cellWidth)), (int)(y+(p.y*0.5*cellHeight)));
 		}
 				
 	}

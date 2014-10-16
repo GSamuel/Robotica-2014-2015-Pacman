@@ -24,11 +24,11 @@ public enum Direction
 		switch (this)
 		{
 		case NORTH:
-			return new Point(0, 1);
+			return new Point(0, -1);
 		case EAST:
 			return new Point(1, 0);
 		case SOUTH:
-			return new Point(0, -1);
+			return new Point(0, 1);
 		case WEST:
 			return new Point(-1, 0);
 		}
