@@ -29,8 +29,8 @@ public class PacmanMain
 		World world = new World(); // dataModel, all needed data should be in here.
 		PacmanWindow pacmanWindow = new PacmanWindow();// all gui elements should be in here
 		
-		PCConnector connector = new PCConnector("NXT_9_1");
-		connector.connectWithBluetooth();
+		PCConnector connector = new PCConnector("NXT_9_1");//connect with specific 
+		connector.connectWithBluetooth();//NXT over Bluetooth
 		
 		
 	}
