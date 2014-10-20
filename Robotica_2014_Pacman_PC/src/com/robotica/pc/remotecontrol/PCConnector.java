@@ -15,6 +15,17 @@ import lejos.pc.comm.NXTInfo;
 public class PCConnector extends Connector
 {
 	private NXTConnector connection;
+	private String deviceName;
+	
+	public PCConnector()
+	{
+		
+	}
+	
+	public PCConnector(String deviceName)
+	{
+		this.deviceName = deviceName;
+	}
 
 	public void connectWithUSB()
 	{
@@ -49,7 +60,7 @@ public class PCConnector extends Connector
 			{
 				nxtComm = NXTCommFactory
 						.createNXTComm(NXTCommFactory.BLUETOOTH);
-				NXTInfo[] nxtInfo = nxtComm.search("NXT_9_1");
+				NXTInfo[] nxtInfo = nxtComm.search(deviceName);
 
 				NXTConnector BTLink = new NXTConnector();
 

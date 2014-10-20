@@ -4,6 +4,7 @@ import org.opencv.core.Core;
 
 import com.robotica.pc.gui.PacmanWindow;
 import com.robotica.pc.model.World;
+import com.robotica.pc.remotecontrol.PCConnector;
 
 public class PacmanMain
 {
@@ -27,6 +28,9 @@ public class PacmanMain
 		
 		World world = new World(); // dataModel, all needed data should be in here.
 		PacmanWindow pacmanWindow = new PacmanWindow();// all gui elements should be in here
+		
+		PCConnector connector = new PCConnector("NXT_9_1");
+		connector.connectWithBluetooth();
 		
 		
 	}

@@ -1,10 +1,7 @@
 package com.robotica.pc.imageprocessing;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.opencv.core.Mat;
 
