@@ -11,6 +11,7 @@ import com.robotica.pc.gui.MatrixPanel;
 import com.robotica.pc.gui.PacmanWindow;
 import com.robotica.pc.imageprocessing.Filter;
 import com.robotica.pc.model.MatrixContainer;
+import com.robotica.pc.model.World;
 
 public class ImageProcessingMain
 {
@@ -26,19 +27,21 @@ public class ImageProcessingMain
 
 	private static void circlesTest()
 	{
+		World world = new World();
+		world.setCamera(new VideoCapture(3));
+		
 		PacmanWindow pw = new PacmanWindow();
-		MatrixContainer container = new MatrixContainer();
-		VideoCapture capture = new VideoCapture(3);
-		Mat mat = new Mat();
-		MatrixCirclePanel circlePanel = new MatrixCirclePanel("color","blur",container);
+		
+		MatrixCirclePanel circlePanel = new MatrixCirclePanel("color","blur",world.container);
 		pw.add(circlePanel);
 
 		while (true)
 		{
-			capture.read(mat);
-			container.addMatrix("color", mat);
-			container.addMatrix("grey", Filter.createGrayImage(mat));
-			container.addMatrix("blur", Filter.createBlurred(container.getMatrix("grey")));
+			Mat mat = new Mat();
+			world.camera.read(mat);
+			world.container.addMatrix("color", mat);
+			world.container.addMatrix("grey", Filter.createGrayImage(mat));
+			world.container.addMatrix("blur", Filter.createBlurred(world.container.getMatrix("grey")));
 		}
 	}
 

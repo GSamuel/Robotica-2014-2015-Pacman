@@ -2,24 +2,27 @@ package com.robotica.pc.model;
 
 import java.util.Observable;
 
+import org.opencv.highgui.VideoCapture;
+
 public class World extends Observable
 {
 	private Maze maze;
 	private EntityList entities;
-	private MatrixContainer mC;
+	public MatrixContainer container;
+	public VideoCapture camera;
 	
 	public World()
 	{
 		this.maze = new Maze(0,0);
 		this.entities = new EntityList();
-		this.mC = new MatrixContainer();
+		this.container = new MatrixContainer();
 	}
 	
 	public World(Maze maze, EntityList entities)
 	{
 		this.maze = maze;
 		this.entities = entities;
-		this.mC = new MatrixContainer();
+		this.container = new MatrixContainer();
 	}
 
 	public void setMaze(Maze maze)
@@ -37,6 +40,11 @@ public class World extends Observable
 		return maze.clone();
 	}
 	
+	public void setCamera(VideoCapture camera)
+	{
+		this.camera = camera;
+	}
+	
 	public EntityList getEntities()
 	{
 		return entities.clone();
@@ -44,6 +52,6 @@ public class World extends Observable
 	
 	public MatrixContainer getMatrixContainer()
 	{
-		return mC;
+		return container;
 	}
 }

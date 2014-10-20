@@ -1,5 +1,7 @@
 package main;
 
+import org.opencv.core.Core;
+
 import com.robotica.pc.gui.PacmanWindow;
 import com.robotica.pc.model.World;
 
@@ -20,8 +22,12 @@ public class PacmanMain
 		entities met de bijbehorende bewegings vectoren/correcties.
 		see which entities are connected.
 		*/
+
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);//Library die we nodig hebben voor opencv etc.
 		
 		World world = new World(); // dataModel, all needed data should be in here.
 		PacmanWindow pacmanWindow = new PacmanWindow();// all gui elements should be in here
+		
+		
 	}
 }
