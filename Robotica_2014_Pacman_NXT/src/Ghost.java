@@ -14,7 +14,7 @@ public class Ghost
 	public static void main(String[] args)
 	{
 		NXTConnector connector = new NXTConnector();
-		connector.setType(NXTConnector.Type.USB);
+		connector.setType(NXTConnector.Type.BT);
 		CommandCommunicator comCom = new CommandCommunicator(connector);
 
 		Brick brick = new MotorTestBrick();

@@ -49,7 +49,7 @@ public class PCConnector extends Connector
 			{
 				nxtComm = NXTCommFactory
 						.createNXTComm(NXTCommFactory.BLUETOOTH);
-				NXTInfo[] nxtInfo = nxtComm.search(null);
+				NXTInfo[] nxtInfo = nxtComm.search("NXT_9_1");
 
 				NXTConnector BTLink = new NXTConnector();
 

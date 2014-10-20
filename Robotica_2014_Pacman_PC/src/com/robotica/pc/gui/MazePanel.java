@@ -30,6 +30,7 @@ public class MazePanel extends JPanel implements Observer
 		this.w = w;
 		this.setPreferredSize(new Dimension(100, 100));
 		this.revalidate();
+		w.addObserver(this);
 	}
 
 	public MazePanel(World w, int width, int height)
@@ -74,6 +75,7 @@ public class MazePanel extends JPanel implements Observer
 	@Override
 	public void update(Observable arg0, Object arg1)
 	{
+		this.repaint();
 	}
 
 }

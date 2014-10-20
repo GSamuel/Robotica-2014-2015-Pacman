@@ -14,7 +14,7 @@ public class SimpleCommandSender
 	public static void main(String[] args)
 	{
 		PCConnector connector = new PCConnector();
-		connector.setType(Connector.Type.USB);
+		connector.setType(Connector.Type.BT);
 		CommandCommunicator comm = new CommandCommunicator(connector);
 
 		Scanner input = new Scanner(System.in);

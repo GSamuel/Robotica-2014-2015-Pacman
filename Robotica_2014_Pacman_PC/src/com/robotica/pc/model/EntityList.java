@@ -7,6 +7,11 @@ public class EntityList implements Iterable<Entity>, Cloneable
 {
 	private Entity[] entities;
 	
+	public EntityList()
+	{
+		this.entities = new Entity[0];
+	}
+	
 	public EntityList(Entity[] entities)
 	{
 		this.entities = entities.clone();
