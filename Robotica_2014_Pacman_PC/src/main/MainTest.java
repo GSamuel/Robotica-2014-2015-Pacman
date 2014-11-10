@@ -13,7 +13,6 @@ import com.robotica.pc.model.World;
 
 public class MainTest
 {
-
 	public static void main(String[] args)
 	{
 		Entity[] entities = new Entity[3];

@@ -1,8 +1,11 @@
 package main;
+
 import java.awt.Dimension;
+import java.awt.Point;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Size;
 import org.opencv.highgui.VideoCapture;
 
 import com.robotica.pc.gui.CirclePanel;
@@ -13,30 +16,25 @@ import com.robotica.pc.imageprocessing.Filter;
 import com.robotica.pc.model.MatrixContainer;
 import com.robotica.pc.model.World;
 
-public class ImageProcessingMain
-{
+public class ImageProcessingMain {
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-
 		circlesTest();
 		// matrixPanelTest();
 		// circlePanelTest();
 	}
 
-	private static void circlesTest()
-	{
+	private static void circlesTest() {
 		World world = new World();
 		world.setCamera(new VideoCapture(3));
-		
+
 		PacmanWindow pw = new PacmanWindow();
-		
-		MatrixCirclePanel circlePanel = new MatrixCirclePanel("color","blur",world.container);
+
+		MatrixCirclePanel circlePanel = new MatrixCirclePanel("color", "blur", world.container);
 		pw.add(circlePanel);
 
-		while (true)
-		{
+		while (true) {
 			Mat mat = new Mat();
 			world.camera.read(mat);
 			world.container.addMatrix("color", mat);
@@ -45,8 +43,7 @@ public class ImageProcessingMain
 		}
 	}
 
-	private static void matrixPanelTest()
-	{
+	private static void matrixPanelTest() {
 		PacmanWindow pw = new PacmanWindow();
 		MatrixContainer mC = new MatrixContainer();
 
@@ -63,14 +60,13 @@ public class ImageProcessingMain
 		MatrixPanel p2 = new MatrixPanel("img02", mC);
 		pw.add(p2);
 
-		MatrixCirclePanel ePT = new MatrixCirclePanel("img02","img02", mC);
+		MatrixCirclePanel ePT = new MatrixCirclePanel("img02", "img02", mC);
 		pw.add(ePT);
 
 		pw.revalidate();
 	}
 
-	private static void circlePanelTest()
-	{
+	private static void circlePanelTest() {
 		PacmanWindow pw = new PacmanWindow(); // model
 
 		CirclePanel cP = new CirclePanel();
@@ -87,5 +83,7 @@ public class ImageProcessingMain
 		cP4.setPreferredSize(new Dimension(100, 100));
 		pw.add(cP4);
 	}
+	
+	
 
 }
