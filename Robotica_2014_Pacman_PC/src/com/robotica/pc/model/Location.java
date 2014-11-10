@@ -54,6 +54,11 @@ public class Location extends Point2D implements Cloneable
 		this.x += dx;
 		this.y += dy;
 	}
+	
+	public boolean isTheSame(Location location)
+	{
+		return (this.x == location.getX() && this.y == location.getY());
+	}
 
 	@Override
 	public void setLocation(double x, double y)

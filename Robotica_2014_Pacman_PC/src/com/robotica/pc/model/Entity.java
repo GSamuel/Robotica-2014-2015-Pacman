@@ -39,6 +39,10 @@ public class Entity implements Cloneable
 		rotation = new Rotation();
 		color = Color.BLACK;
 	}
+	public Location getLocation()
+	{
+		return location;
+	}
 
 	public double getX()
 	{
