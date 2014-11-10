@@ -1,6 +1,7 @@
 package main;
 
 import org.opencv.core.Core;
+import org.opencv.highgui.VideoCapture;
 
 import com.robotica.pc.gui.PacmanWindow;
 import com.robotica.pc.model.World;
@@ -27,6 +28,7 @@ public class PacmanMain
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);//Library die we nodig hebben voor opencv etc.
 		
 		World world = new World(); // dataModel, all needed data should be in here.
+		world.setCamera(new VideoCapture(3));
 		PacmanWindow pacmanWindow = new PacmanWindow();// all gui elements should be in here
 		
 		PCConnector connector = new PCConnector("NXT_9_1");//connect with specific 
