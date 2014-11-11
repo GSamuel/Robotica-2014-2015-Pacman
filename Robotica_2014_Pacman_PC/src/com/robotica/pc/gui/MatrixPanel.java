@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 
 import org.opencv.core.Mat;
 
-import com.robotica.pc.imageprocessing.Filter;
 import com.robotica.pc.imageprocessing.Utils;
 import com.robotica.pc.model.MatrixContainer;
 
@@ -43,9 +42,8 @@ public class MatrixPanel extends JPanel implements Observer
 
 		if (mat != null)
 		{
-			BufferedImage currentImage = Utils.matToBufferedImage(mat);
-			Filter.blackWhite(currentImage);
-			g2d.drawImage(currentImage, 0, 0, currentImage.getWidth(),
+			BufferedImage currentImage = Utils.matToBufferedImage(mat); 
+			g2d.drawImage(currentImage , 0, 0, currentImage.getWidth(),
 					currentImage.getHeight(), this);
 		}
 

@@ -43,8 +43,6 @@ public class MainTest
 		AINode path = ghostAI.createPath();
 		path.showChain();
 		System.out.println(path.getCost());
-		
-		
 	}
 
 }

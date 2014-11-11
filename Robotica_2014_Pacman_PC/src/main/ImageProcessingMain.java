@@ -83,7 +83,4 @@ public class ImageProcessingMain {
 		cP4.setPreferredSize(new Dimension(100, 100));
 		pw.add(cP4);
 	}
-	
-	
-
 }
