@@ -1,11 +1,9 @@
 package main;
 
 import java.awt.Dimension;
-import java.awt.Point;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.Size;
 import org.opencv.highgui.VideoCapture;
 
 import com.robotica.pc.gui.CirclePanel;

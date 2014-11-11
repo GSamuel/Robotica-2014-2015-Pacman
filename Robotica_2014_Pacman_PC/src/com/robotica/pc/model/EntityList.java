@@ -1,31 +1,46 @@
 package com.robotica.pc.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
 public class EntityList implements Iterable<Entity>, Cloneable
 {
-	private Entity[] entities;
+	private ArrayList<Entity> entities;
 	
 	public EntityList()
 	{
-		this.entities = new Entity[0];
+		this.entities = new ArrayList<Entity>();
 	}
 	
-	public EntityList(Entity[] entities)
+	public EntityList(ArrayList<Entity> entities)
 	{
-		this.entities = entities.clone();
+		this.entities = new ArrayList<Entity>();
+		for(Entity e: entities)
+			this.entities.add(e);
 	}
 
 	public EntityList(EntityList list)
 	{
-		this.entities = list.entities.clone();
+		this.entities = new ArrayList<Entity>();
+		for(Entity e: list.entities)
+			this.entities.add(e);
+	}
+	
+	public void add(Entity e)
+	{
+		entities.add(e);
+	}
+	
+	public void remove(Entity e)
+	{
+		entities.remove(e);
 	}
 
 	@Override
 	public Iterator<Entity> iterator()
 	{
-		return Arrays.asList(entities).iterator();
+		return entities.iterator();
 	}
 	
 	public EntityList clone()

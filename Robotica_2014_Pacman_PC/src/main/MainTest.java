@@ -17,14 +17,18 @@ public class MainTest
 {
 	public static void main(String[] args)
 	{
-		Entity[] entities = new Entity[2];
-		entities[0] = new Entity(EntityType.PACMAN, 0);
-		entities[0].setColor(Color.YELLOW);
-		entities[0].setLocation(0,0);
-		entities[1] = new Entity(EntityType.GHOST, 1);
-		entities[1].setColor(Color.BLUE);
-		entities[1].setLocation(3,3);
-		EntityList list = new EntityList(entities);
+		EntityList list = new EntityList();
+		
+		Entity pacman = new Entity(EntityType.PACMAN, 0);
+		pacman.setColor(Color.YELLOW);
+		pacman.setLocation(0,0);
+		
+		Entity ghost1 = new Entity(EntityType.GHOST, 1);
+		ghost1.setColor(Color.BLUE);
+		ghost1.setLocation(3,3);
+		
+		list.add(pacman);
+		list.add(ghost1);
 
 		Maze m = new Maze(4,4);
 		m.setTile(2, 2, Tile.WALL);
