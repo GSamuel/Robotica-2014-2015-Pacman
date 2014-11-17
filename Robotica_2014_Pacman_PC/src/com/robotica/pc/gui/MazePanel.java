@@ -46,9 +46,9 @@ public class MazePanel extends JPanel implements Observer
 		g2d.setStroke(new BasicStroke(3));
 		g2d.setColor(Color.WHITE);
 		
-		g2d.drawRect(0, 0, this.getWidth(), this.getHeight());
+		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
-		g2d.setColor(Color.GRAY);
+		g2d.setColor(Color.BLACK);
 		
 		Maze maze = w.getMaze();
 		int cellWidth, cellHeight;
