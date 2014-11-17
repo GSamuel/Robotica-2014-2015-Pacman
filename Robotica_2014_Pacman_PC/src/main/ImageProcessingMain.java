@@ -4,13 +4,17 @@ import java.awt.Dimension;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+import org.opencv.core.Size;
 import org.opencv.highgui.VideoCapture;
+import org.opencv.imgproc.Imgproc;
 
 import com.robotica.pc.gui.CirclePanel;
 import com.robotica.pc.gui.MatrixCirclePanel;
 import com.robotica.pc.gui.MatrixPanel;
+import com.robotica.pc.gui.MazePanel;
 import com.robotica.pc.gui.PacmanWindow;
 import com.robotica.pc.imageprocessing.Filter;
+import com.robotica.pc.imageprocessing.MazeCreator;
 import com.robotica.pc.model.MatrixContainer;
 import com.robotica.pc.model.World;
 
@@ -31,13 +35,17 @@ public class ImageProcessingMain {
 
 		MatrixCirclePanel circlePanel = new MatrixCirclePanel("color", "blur", world.container);
 		pw.add(circlePanel);
-
+		MazePanel mp = new MazePanel(world, 200, 200);
+		pw.add(mp);
 		while (true) {
 			Mat mat = new Mat();
 			world.camera.read(mat);
 			world.container.addMatrix("color", mat);
 			world.container.addMatrix("grey", Filter.createGrayImage(mat));
 			world.container.addMatrix("blur", Filter.createBlurred(world.container.getMatrix("grey")));
+			world.setMaze(MazeCreator.imageToMaze(world.container.getMatrix("grey"), new Size(5,5)));
+			mp.repaint();
+			
 		}
 	}
 
