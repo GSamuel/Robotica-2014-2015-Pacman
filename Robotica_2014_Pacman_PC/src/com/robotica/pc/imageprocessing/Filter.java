@@ -27,6 +27,7 @@ public class Filter {
 		Imgproc.GaussianBlur(mat, blurred, new Size(9, 9), 2, 2);
 		return blurred;
 	}
+	
 
 	public static void convertToBlurred(Mat mat) {
 		Imgproc.GaussianBlur(mat, mat, new Size(9, 9), 2, 2);
@@ -53,19 +54,11 @@ public class Filter {
 		return result;
 	}
 
-	public static void blackWhite(BufferedImage img) {
-		WritableRaster raster = img.getRaster();
-		for (int y = 0; y < raster.getHeight(); y++) 
-		{
-			for (int x = 0; x < raster.getWidth(); x++) 
-			{
-				raster.setPixel(x, y, (isLight(raster.getPixel(x, y, (int[]) null)) ? new int[] { 255, 255, 255 } : new int[] { 0, 0, 0 }));
+	public static void blackWhite(Mat mat) {
+		for(int y = 0; y < mat.rows(); y++){
+			for(int x = 0; x < mat.cols(); x++){
+				mat.put(y, x, new byte[]{(byte) ((mat.get(y, x)[0] > 127.0)? 255 :  0)});
 			}
 		}
-	}
-
-	private static boolean isLight(int[] color) {
-		int total = color[0] + color[1] + color[2];
-		return total >= 383;
 	}
 }
