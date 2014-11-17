@@ -28,11 +28,15 @@ public class World extends Observable
 	public void setMaze(Maze maze)
 	{
 		this.maze = maze;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	public void setEntities(EntityList entities)
 	{
 		this.entities = entities;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	public Maze getMaze()
