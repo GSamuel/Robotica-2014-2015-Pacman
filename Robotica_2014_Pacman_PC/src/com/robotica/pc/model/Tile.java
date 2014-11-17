@@ -21,4 +21,15 @@ public enum Tile
 	{
 		return EMPTY;
 	}
+	
+	public String toString(){
+		switch(this){
+		case EMPTY:
+			return ".";
+		case WALL:
+			return "#";
+		default:
+			return "ERROR";
+		}
+	}
 }

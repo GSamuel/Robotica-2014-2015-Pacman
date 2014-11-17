@@ -63,8 +63,9 @@ public class Maze implements Cloneable
 		for (int j = 0; j < getHeight(); j++)
 		{
 			for (int i = 0; i < getWidth(); i++)
-				System.out.print(map[i][j] + ",");
+				System.out.print(map[i][j].toString());
 			System.out.println();
 		}
+		System.out.println();
 	}
 }
