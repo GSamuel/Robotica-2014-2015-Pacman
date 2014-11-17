@@ -1,16 +1,29 @@
 package com.robotica.pc.imageprocessing;
 
-import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-
 import org.opencv.core.Mat;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
+
+import com.robotica.pc.model.Maze;
+import com.robotica.pc.model.Tile;
 
 public class MazeCreator {
 
-	public static BufferedImage imageToMaze(BufferedImage image, Dimension mazeSize)
+	public static Maze imageToMaze(Mat image, Size size)
 	{
-		double newWidth = image.getWidth() / mazeSize.width;
-		return scaled;
+		Maze maze = new Maze((int) size.width, (int) size.height);
+		Filter.blackWhite(image);
+		Imgproc.resize(image, image, size);
+		for(int y = 0; y < size.height; y++)
+		{
+			for(int x = 0; x < size.width; x++)
+			{
+				 if(image.get(x, y)[0] < 127){
+					 maze.setTile(x, y, Tile.WALL);
+				 }
+			}
+		}
+		maze.show();
+		return maze;
 	}
-	
 }
