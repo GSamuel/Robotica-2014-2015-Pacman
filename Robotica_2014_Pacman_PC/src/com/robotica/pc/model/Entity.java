@@ -2,8 +2,9 @@ package com.robotica.pc.model;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.Observable;
 
-public class Entity implements Cloneable
+public class Entity extends Observable implements Cloneable
 {
 	private int id;
 	private EntityType type;
@@ -38,6 +39,8 @@ public class Entity implements Cloneable
 		location = new Location();
 		rotation = new Rotation();
 		color = Color.BLACK;
+		this.setChanged();
+		this.notifyObservers();
 	}
 	public Location getLocation()
 	{
@@ -57,11 +60,15 @@ public class Entity implements Cloneable
 	public void setLocation(int x, int y)
 	{
 		location.setLocation(x, y);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void translateLocation(int dx, int dy)
 	{
 		location.translate(dx, dy);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public Direction getDirection()
@@ -72,11 +79,15 @@ public class Entity implements Cloneable
 	public void turnLeft()
 	{
 		rotation.rotate(Math.PI * 0.5);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void turnRight()
 	{
 		rotation.rotate(-Math.PI * 0.5);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void forward()
@@ -84,6 +95,8 @@ public class Entity implements Cloneable
 		Point p = Direction.radianToDirection(rotation.getRotation())
 				.getDirectionVector();
 		location.translate(p.x, p.y);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void backward()
@@ -91,6 +104,8 @@ public class Entity implements Cloneable
 		Point p = Direction.radianToDirection(rotation.getRotation())
 				.getDirectionVector();
 		location.translate(-p.x, -p.y);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public double getRotation()
@@ -101,11 +116,15 @@ public class Entity implements Cloneable
 	public void setRotation(double rotation)
 	{
 		this.rotation.setRotation(rotation);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void rotate(double rotation)
 	{
 		this.rotation.rotate(rotation);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public int getID()
@@ -116,6 +135,8 @@ public class Entity implements Cloneable
 	public void setID(int id)
 	{
 		this.id = id;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public EntityType getType()
@@ -131,6 +152,8 @@ public class Entity implements Cloneable
 	public void setColor(Color color)
 	{
 		this.color = color;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public Entity clone()

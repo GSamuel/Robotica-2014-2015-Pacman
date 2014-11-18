@@ -1,7 +1,5 @@
 package main;
 
-import java.util.Scanner;
-
 import org.opencv.core.Core;
 import org.opencv.highgui.VideoCapture;
 
@@ -9,6 +7,7 @@ import com.robotica.nxt.remotecontrol.Command;
 import com.robotica.nxt.remotecontrol.CommandCommunicator;
 import com.robotica.nxt.remotecontrol.NXTCommand;
 import com.robotica.pc.gui.PacmanWindow;
+import com.robotica.pc.keyboardInput.KeyboardInput;
 import com.robotica.pc.model.World;
 import com.robotica.pc.remotecontrol.PCConnector;
 
@@ -51,19 +50,9 @@ public class PacmanMain
 		
 		
 		//read commands from user input and send commands to the bricks
-		Scanner input = new Scanner(System.in);
 		while (connector1.isConnected() && connector2.isConnected())
 		{
-			for (NXTCommand command : NXTCommand.values())
-				System.out.println(command.ordinal() + ": " + command.name());
-
-			System.out.println("type 2 numbers: command_number value");
-			int[] data = new int[2];
-			data[0] = input.nextInt();
-			data[1] = input.nextInt();
-
-			Command command = new Command();
-			command.constructFromInteger(data);
+			Command command = KeyboardInput.getCommand();
 
 			comm1.sendCommand(command);
 			comm2.sendCommand(command);
