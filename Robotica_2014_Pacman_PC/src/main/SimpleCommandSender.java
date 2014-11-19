@@ -17,7 +17,6 @@ public class SimpleCommandSender
 		connector.setType(Connector.Type.BT);
 		CommandCommunicator comm = new CommandCommunicator(connector);
 
-		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		while (connector.isConnected())
 		{
@@ -37,6 +36,8 @@ public class SimpleCommandSender
 				break;
 
 		}
+		
+		input.close();
 
 		System.out.println("program finished");
 	}
