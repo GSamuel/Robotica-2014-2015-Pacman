@@ -17,6 +17,7 @@ public class SimpleCommandSender
 		connector.setType(Connector.Type.BT);
 		CommandCommunicator comm = new CommandCommunicator(connector);
 
+		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		while (connector.isConnected())
 		{

@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.ArrayList;
 
 import com.robotica.pc.ai.GhostAI;

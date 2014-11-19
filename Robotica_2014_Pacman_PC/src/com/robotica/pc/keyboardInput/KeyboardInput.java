@@ -7,6 +7,7 @@ import com.robotica.nxt.remotecontrol.NXTCommand;
 
 public class KeyboardInput
 {
+	@SuppressWarnings("resource")
 	public static Command getCommand()
 	{
 		Scanner input = new Scanner(System.in);

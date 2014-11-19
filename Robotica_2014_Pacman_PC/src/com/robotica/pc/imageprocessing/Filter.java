@@ -1,8 +1,6 @@
 package com.robotica.pc.imageprocessing;
 
 import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
 
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;

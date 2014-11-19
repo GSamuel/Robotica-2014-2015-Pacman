@@ -6,7 +6,6 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.highgui.VideoCapture;
-import org.opencv.imgproc.Imgproc;
 
 import com.robotica.pc.gui.CirclePanel;
 import com.robotica.pc.gui.MatrixCirclePanel;
@@ -49,6 +48,7 @@ public class ImageProcessingMain {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private static void matrixPanelTest() {
 		PacmanWindow pw = new PacmanWindow();
 		MatrixContainer mC = new MatrixContainer();
@@ -72,6 +72,7 @@ public class ImageProcessingMain {
 		pw.revalidate();
 	}
 
+	@SuppressWarnings("unused")
 	private static void circlePanelTest() {
 		PacmanWindow pw = new PacmanWindow(); // model
 
