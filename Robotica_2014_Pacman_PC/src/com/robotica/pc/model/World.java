@@ -1,5 +1,6 @@
 package com.robotica.pc.model;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 import org.opencv.highgui.VideoCapture;
@@ -7,21 +8,21 @@ import org.opencv.highgui.VideoCapture;
 public class World extends Observable
 {
 	private Maze maze;
-	private EntityList entities;
+	private ArrayList<ConnectedEntity> connEntities;
 	public MatrixContainer container;
 	public VideoCapture camera;
 	
 	public World()
 	{
 		this.maze = new Maze(0,0);
-		this.entities = new EntityList();
+		this.connEntities = new ArrayList<ConnectedEntity>();
 		this.container = new MatrixContainer();
 	}
 	
-	public World(Maze maze, EntityList entities)
+	public World(Maze maze, ArrayList<ConnectedEntity> connEntities)
 	{
 		this.maze = maze;
-		this.entities = entities;
+		this.connEntities = connEntities;
 		this.container = new MatrixContainer();
 	}
 
@@ -32,11 +33,9 @@ public class World extends Observable
 		this.notifyObservers();
 	}
 	
-	public void setEntities(EntityList entities)
+	public void addConnectedntity(ConnectedEntity connEntity)
 	{
-		this.entities = entities;
-		this.setChanged();
-		this.notifyObservers();
+		connEntities.add(connEntity);
 	}
 	
 	public Maze getMaze()
@@ -49,9 +48,9 @@ public class World extends Observable
 		this.camera = camera;
 	}
 	
-	public EntityList getEntities()
+	public ArrayList<ConnectedEntity> getConnectedEntities()
 	{
-		return entities.clone();
+		return connEntities;
 	}
 	
 	public MatrixContainer getMatrixContainer()

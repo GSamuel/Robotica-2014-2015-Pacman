@@ -3,6 +3,7 @@ package com.robotica.pc.ai;
 import java.util.ArrayList;
 
 import com.robotica.pc.model.AINode;
+import com.robotica.pc.model.ConnectedEntity;
 import com.robotica.pc.model.Entity;
 import com.robotica.pc.model.EntityList;
 import com.robotica.pc.model.Maze;
@@ -24,10 +25,11 @@ public class GhostAI extends AI
 	public AINode createPath()
 	{
 		Maze maze = w.getMaze();
-		EntityList entities = w.getEntities();
+		ArrayList<ConnectedEntity> entities = w.getConnectedEntities();
 		AINode start = null, goal = null;
-		for (Entity e : entities)
+		for (ConnectedEntity ce : entities)
 		{
+			Entity e = ce.getEntity();
 			if (e.getID() == entity)
 				start = new AINode(null, e.getDirection(), e.getLocation());
 			if (e.getID() == goalEntity)

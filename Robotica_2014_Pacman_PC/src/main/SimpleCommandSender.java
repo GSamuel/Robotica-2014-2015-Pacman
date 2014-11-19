@@ -13,7 +13,7 @@ public class SimpleCommandSender
 
 	public static void main(String[] args)
 	{
-		PCConnector connector = new PCConnector();
+		PCConnector connector = new PCConnector("NXT_9_1");
 		connector.setType(Connector.Type.BT);
 		CommandCommunicator comm = new CommandCommunicator(connector);
 

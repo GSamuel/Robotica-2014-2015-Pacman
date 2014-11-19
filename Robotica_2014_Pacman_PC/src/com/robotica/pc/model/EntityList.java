@@ -1,7 +1,6 @@
 package com.robotica.pc.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class EntityList implements Iterable<Entity>, Cloneable

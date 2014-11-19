@@ -17,12 +17,12 @@ public class PCConnector extends Connector
 	private NXTConnector connection;
 	private String deviceName;
 	
-	public PCConnector()
+	public PCConnector(String deviceName)
 	{
-		
+		this.deviceName = deviceName;
 	}
 	
-	public PCConnector(String deviceName)
+	public void setDeviceName(String deviceName)
 	{
 		this.deviceName = deviceName;
 	}
@@ -106,5 +106,10 @@ public class PCConnector extends Connector
 			dataOut = null;
 			dataIn = null;
 		}
+	}
+
+	public String getDeviceName()
+	{
+		return deviceName;		
 	}
 }

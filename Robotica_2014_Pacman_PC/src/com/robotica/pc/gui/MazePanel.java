@@ -11,6 +11,7 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import com.robotica.pc.model.ConnectedEntity;
 import com.robotica.pc.model.Entity;
 import com.robotica.pc.model.Maze;
 import com.robotica.pc.model.Tile;
@@ -62,8 +63,9 @@ public class MazePanel extends JPanel implements Observer
 					g2d.fillRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
 			}
 		
-		for(Entity e:w.getEntities())
+		for(ConnectedEntity ce:w.getConnectedEntities())
 		{
+			Entity e = ce.getEntity();
 			g2d.setColor(e.getColor());
 			g2d.fillOval((int)e.getX()*cellWidth, (int)e.getY()*cellHeight, cellWidth,cellHeight);
 			
