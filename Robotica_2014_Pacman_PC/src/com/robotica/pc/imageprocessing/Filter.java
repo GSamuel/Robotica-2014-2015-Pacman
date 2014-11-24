@@ -77,27 +77,5 @@ public class Filter {
 		return result;
 	}
 	
-	public static Maze createMazePattern(Mat img, int columns, int rows)
-	{
-		Mat newMat = null;
-		int xSize = img.width()/columns;
-		int ySize = img.height()/rows;
-		Maze maze = new Maze(columns,rows);
-		for(int i =0; i < columns; i++)
-		{
-			for(int j =0; j < rows; j++)
-			{
-				newMat = new Mat(img, new Rect(i*xSize,j*ySize, xSize,ySize));
-				Scalar scal = Core.mean(newMat);
-				double total = 0.0;
-				for(double d:scal.val)
-					total += d;
-				total /=3;
-				if(total < 100)
-				maze.setTile(i, j, Tile.WALL);
-			}
-		}
-		
-		return maze;
-	}
+	
 }

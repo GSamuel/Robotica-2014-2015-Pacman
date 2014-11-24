@@ -15,6 +15,7 @@ import com.robotica.pc.gui.MatrixPanel;
 import com.robotica.pc.gui.MazePanel;
 import com.robotica.pc.gui.PacmanWindow;
 import com.robotica.pc.imageprocessing.Filter;
+import com.robotica.pc.imageprocessing.Utils;
 import com.robotica.pc.model.AINode;
 import com.robotica.pc.model.ConnectedEntity;
 import com.robotica.pc.model.Entity;
@@ -82,7 +83,7 @@ public class MainTest
 			w.camera.read(cam);
 			w.getMatrixContainer().addMatrix("cam", cam);
 			w.getMatrixContainer().addMatrix("warped", Filter.createWarpedImage(cam, new Size(mousePanel.getWidth(),  mousePanel.getHeight()), w.getMazeShape()));
-			w.setMaze(Filter.createMazePattern(w.getMatrixContainer().getMatrix("warped"), 5,4));
+			w.setMaze(Utils.createMazePattern(w.getMatrixContainer().getMatrix("warped"), 5,4));
 		}
 	}
 
