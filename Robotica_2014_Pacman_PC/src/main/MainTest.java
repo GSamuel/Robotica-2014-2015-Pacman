@@ -3,10 +3,18 @@ package main;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Size;
+import org.opencv.highgui.VideoCapture;
+
 import com.robotica.pc.ai.GhostAI;
 import com.robotica.pc.gui.ConnectedEntityPanel;
+import com.robotica.pc.gui.MatrixMouseInputPanel;
+import com.robotica.pc.gui.MatrixPanel;
 import com.robotica.pc.gui.MazePanel;
 import com.robotica.pc.gui.PacmanWindow;
+import com.robotica.pc.imageprocessing.Filter;
 import com.robotica.pc.model.AINode;
 import com.robotica.pc.model.ConnectedEntity;
 import com.robotica.pc.model.Entity;
@@ -20,6 +28,8 @@ public class MainTest
 {
 	public static void main(String[] args)
 	{
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		
 		ArrayList<ConnectedEntity> list = new ArrayList<ConnectedEntity>();
 		
 		Entity pacman = new Entity(EntityType.PACMAN, 0);
@@ -40,11 +50,19 @@ public class MainTest
 		m.show();
 
 		World w = new World(m, list);
+		w.setCamera(new VideoCapture(3));
 		System.out.println(w);
 		
 		PacmanWindow pw = new PacmanWindow();
 		MazePanel mazePanel = new MazePanel(w,500,400);
 		pw.add(mazePanel);
+		
+		MatrixMouseInputPanel mousePanel = new MatrixMouseInputPanel("cam", w);
+		pw.add(mousePanel);
+		MatrixPanel mPanel = new MatrixPanel("warped", w);
+		pw.add(mPanel);
+
+		
 		for(ConnectedEntity ce:list)
 		{
 			ConnectedEntityPanel p = new ConnectedEntityPanel(ce);
@@ -55,6 +73,14 @@ public class MainTest
 		AINode path = ghostAI.createPath();
 		path.showChain();
 		System.out.println(path.getCost());
+		
+		Mat cam = new Mat();
+		while(true)
+		{
+			w.camera.read(cam);
+			w.getMatrixContainer().addMatrix("cam", cam);
+			w.getMatrixContainer().addMatrix("warped", Filter.createWarpedImage(cam, new Size(mousePanel.getWidth(),  mousePanel.getHeight()), w.getMazeShape()));
+		}
 	}
 
 }

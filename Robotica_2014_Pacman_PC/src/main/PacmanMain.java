@@ -36,7 +36,6 @@ public class PacmanMain
 		World world = new World(); // dataModel, all needed data should be in here.
 		world.setCamera(new VideoCapture(3));
 		PacmanWindow pacmanWindow = new PacmanWindow(); // all gui elements should be in here
-		pacmanWindow.revalidate();
 		
 		//connect with devices:	
 		PCConnector connector1 = new PCConnector("NXT_9_1");

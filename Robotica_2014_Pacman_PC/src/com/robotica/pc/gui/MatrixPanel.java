@@ -15,6 +15,7 @@ import org.opencv.core.Mat;
 
 import com.robotica.pc.imageprocessing.Utils;
 import com.robotica.pc.model.MatrixContainer;
+import com.robotica.pc.model.World;
 
 public class MatrixPanel extends JPanel implements Observer
 {
@@ -23,14 +24,16 @@ public class MatrixPanel extends JPanel implements Observer
 	 */
 	private static final long serialVersionUID = -2434663422894120325L;
 	protected String key;
+	protected World world;
 	protected MatrixContainer mCon;
 	private boolean drawBorder = true;
 
-	public MatrixPanel(String key, MatrixContainer mCon)
+	public MatrixPanel(String key, World world)
 	{
 		super();
 		this.key = key;
-		this.mCon = mCon;
+		this.world = world;
+		this.mCon = world.getMatrixContainer();
 		mCon.addObserver(this);
 		updateSize();
 	}

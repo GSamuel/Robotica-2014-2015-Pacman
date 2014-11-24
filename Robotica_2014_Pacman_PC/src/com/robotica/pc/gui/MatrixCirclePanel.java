@@ -11,7 +11,7 @@ import org.opencv.core.Mat;
 import com.robotica.pc.imageprocessing.Filter;
 import com.robotica.pc.imageprocessing.Utils;
 import com.robotica.pc.model.Circle;
-import com.robotica.pc.model.MatrixContainer;
+import com.robotica.pc.model.World;
 
 public class MatrixCirclePanel extends MatrixPanel
 {
@@ -22,9 +22,9 @@ public class MatrixCirclePanel extends MatrixPanel
 	private ArrayList<Circle> circles = new ArrayList<Circle>();
 	private String keyBlur;
 
-	public MatrixCirclePanel(String keyColor, String keyBlur, MatrixContainer mCon)
+	public MatrixCirclePanel(String keyColor, String keyBlur, World world)
 	{
-		super(keyColor, mCon);
+		super(keyColor, world);
 		this.keyBlur = keyBlur;
 	}
 

@@ -7,6 +7,8 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+import com.robotica.pc.model.Trapezium;
+
 public class Filter {
 	// This is an example of returning a new gray matrix ;
 	public static Mat createGrayImage(Mat mat) {
@@ -41,22 +43,30 @@ public class Filter {
 		return circles;
 	}
 
-	public static Mat createWarpedImage(Mat img, Size size, Point topLeft, Point topRight, Point botLeft, Point botRight) {
-		Mat goal = new Mat(4, 1, CvType.CV_32FC2);
-		Mat source = new Mat(4, 1, CvType.CV_32FC2);
-		source.put(0, 0, topLeft.y, topLeft.x, topRight.y, topRight.x, botLeft.y, botLeft.x, botRight.y, botRight.x);
-		goal.put(0, 0, 0, 0, 0, size.width, size.height, 0, size.width, size.height);
-		Mat transformationMatrix = Imgproc.getPerspectiveTransform(source, goal);
-		Mat result = img.clone();
-		Imgproc.warpPerspective(img, result, transformationMatrix, size);
-		return result;
-	}
-
 	public static void blackWhite(Mat mat) {
 		for(int y = 0; y < mat.rows(); y++){
 			for(int x = 0; x < mat.cols(); x++){
 				mat.put(y, x, new byte[]{(byte) ((mat.get(y, x)[0] > 127.0)? 255 :  0)});
 			}
 		}
+	}
+
+	public static Mat createWarpedImage(Mat img, Size size, Trapezium mazeShape)
+	{
+		Point topLeft = mazeShape.getPoint(0);
+		Point topRight = mazeShape.getPoint(1);
+		Point botRight = mazeShape.getPoint(2);
+		Point botLeft = mazeShape.getPoint(3);
+		
+		Mat goal = new Mat(4, 1, CvType.CV_32FC2);
+		Mat source = new Mat(4, 1, CvType.CV_32FC2);
+		source.put(0, 0, topLeft.x, topLeft.y, topRight.x, topRight.y, botLeft.x, botLeft.y, botRight.x, botRight.y);
+		goal.put(0, 0, 0, 0, size.width, 0, 0,size.height, size.width, size.height);
+		//source.put(0, 0, topLeft.y, topLeft.x, topRight.y, topRight.x, botLeft.y, botLeft.x, botRight.y, botRight.x);
+		//goal.put(0, 0, 0, 0, 0, size.width, size.height, 0, size.width, size.height);
+		Mat transformationMatrix = Imgproc.getPerspectiveTransform(source, goal);
+		Mat result = img.clone();
+		Imgproc.warpPerspective(img, result, transformationMatrix, size);
+		return result;
 	}
 }

@@ -32,7 +32,7 @@ public class ImageProcessingMain {
 
 		PacmanWindow pw = new PacmanWindow();
 
-		MatrixCirclePanel circlePanel = new MatrixCirclePanel("color", "blur", world.container);
+		MatrixCirclePanel circlePanel = new MatrixCirclePanel("color", "blur", world);
 		pw.add(circlePanel);
 		MazePanel mp = new MazePanel(world, 200, 200);
 		pw.add(mp);
@@ -51,22 +51,24 @@ public class ImageProcessingMain {
 	@SuppressWarnings("unused")
 	private static void matrixPanelTest() {
 		PacmanWindow pw = new PacmanWindow();
-		MatrixContainer mC = new MatrixContainer();
+		World world = new World();
 
 		VideoCapture videoCapture = new VideoCapture(0);
 		Mat mat = new Mat();
 		videoCapture.read(mat);
+		
+		MatrixContainer mC = world.getMatrixContainer();
 
 		mC.addMatrix("img01", mat);
 		mC.addMatrix("img02", Filter.createGrayImage(mat));
 
-		MatrixPanel p1 = new MatrixPanel("img01", mC);
+		MatrixPanel p1 = new MatrixPanel("img01", world);
 		pw.add(p1);
 
-		MatrixPanel p2 = new MatrixPanel("img02", mC);
+		MatrixPanel p2 = new MatrixPanel("img02", world);
 		pw.add(p2);
 
-		MatrixCirclePanel ePT = new MatrixCirclePanel("img02", "img02", mC);
+		MatrixCirclePanel ePT = new MatrixCirclePanel("img02", "img02", world);
 		pw.add(ePT);
 
 		pw.revalidate();

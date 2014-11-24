@@ -20,7 +20,7 @@ public class WarpPerspectiveTest
 
 		PacmanWindow pw = new PacmanWindow();
 
-		MatrixPanel circlePanel = new MatrixPanel("blur", world.container);
+		MatrixPanel circlePanel = new MatrixPanel("blur", world);
 		pw.add(circlePanel);
 
 		while (true) {
