@@ -61,6 +61,8 @@ public class MainTest
 		pw.add(mousePanel);
 		MatrixPanel mPanel = new MatrixPanel("warped", w);
 		pw.add(mPanel);
+		MatrixPanel mPanel2 = new MatrixPanel("maze", w);
+		pw.add(mPanel2);
 
 		
 		for(ConnectedEntity ce:list)
@@ -80,6 +82,7 @@ public class MainTest
 			w.camera.read(cam);
 			w.getMatrixContainer().addMatrix("cam", cam);
 			w.getMatrixContainer().addMatrix("warped", Filter.createWarpedImage(cam, new Size(mousePanel.getWidth(),  mousePanel.getHeight()), w.getMazeShape()));
+			w.setMaze(Filter.createMazePattern(w.getMatrixContainer().getMatrix("warped"), 5,4));
 		}
 	}
 

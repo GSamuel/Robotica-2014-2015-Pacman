@@ -2,11 +2,16 @@ package com.robotica.pc.imageprocessing;
 
 import java.awt.Point;
 
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+import com.robotica.pc.model.Maze;
+import com.robotica.pc.model.Tile;
 import com.robotica.pc.model.Trapezium;
 
 public class Filter {
@@ -43,12 +48,14 @@ public class Filter {
 		return circles;
 	}
 
-	public static void blackWhite(Mat mat) {
-		for(int y = 0; y < mat.rows(); y++){
-			for(int x = 0; x < mat.cols(); x++){
-				mat.put(y, x, new byte[]{(byte) ((mat.get(y, x)[0] > 127.0)? 255 :  0)});
+	public static Mat blackWhite(Mat mat) {
+		Mat newMat = mat.clone();
+		for(int y = 0; y < newMat.rows(); y++){
+			for(int x = 0; x < newMat.cols(); x++){
+				newMat.put(y, x, new byte[]{(byte) ((newMat.get(y, x)[0] > 127.0)? 255 :  0)});
 			}
 		}
+		return newMat;
 	}
 
 	public static Mat createWarpedImage(Mat img, Size size, Trapezium mazeShape)
@@ -68,5 +75,29 @@ public class Filter {
 		Mat result = img.clone();
 		Imgproc.warpPerspective(img, result, transformationMatrix, size);
 		return result;
+	}
+	
+	public static Maze createMazePattern(Mat img, int columns, int rows)
+	{
+		Mat newMat = null;
+		int xSize = img.width()/columns;
+		int ySize = img.height()/rows;
+		Maze maze = new Maze(columns,rows);
+		for(int i =0; i < columns; i++)
+		{
+			for(int j =0; j < rows; j++)
+			{
+				newMat = new Mat(img, new Rect(i*xSize,j*ySize, xSize,ySize));
+				Scalar scal = Core.mean(newMat);
+				double total = 0.0;
+				for(double d:scal.val)
+					total += d;
+				total /=3;
+				if(total < 100)
+				maze.setTile(i, j, Tile.WALL);
+			}
+		}
+		
+		return maze;
 	}
 }
