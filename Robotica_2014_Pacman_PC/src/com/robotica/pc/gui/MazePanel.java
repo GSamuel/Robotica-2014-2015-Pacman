@@ -19,10 +19,6 @@ import com.robotica.pc.model.World;
 
 public class MazePanel extends JPanel implements Observer
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7299900260184427014L;
 	private World w;
 
@@ -84,7 +80,6 @@ public class MazePanel extends JPanel implements Observer
 	public void update(Observable arg0, Object arg1)
 	{
 		this.repaint();
-		System.out.println("test");
 	}
 
 }
