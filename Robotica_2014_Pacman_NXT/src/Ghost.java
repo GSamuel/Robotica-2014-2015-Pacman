@@ -19,16 +19,16 @@ public class Ghost
 		CommandCommunicator comCom = new CommandCommunicator(connector);
 
 		Brick brick = new MotorTestBrick();
-		Command com;
+		Command command;
 		do
 		{
-			com = comCom.getNextCommand();
-			System.out.println(com.getNXTCommand().name() + " "
-					+ com.getValue());
+			command = comCom.getNextCommand();
+			System.out.println(command.getNXTCommand().name() + " "
+					+ command.getValue());
 
-			CommandExecuter.executeCommand(brick, com);
+			CommandExecuter.executeCommand(brick, command);
 
-		} while (com.getNXTCommand() != NXTCommand.EXIT);
+		} while (command.getNXTCommand() != NXTCommand.EXIT);
 
 		System.out.println("Press to close connection");
 		Button.waitForAnyPress();

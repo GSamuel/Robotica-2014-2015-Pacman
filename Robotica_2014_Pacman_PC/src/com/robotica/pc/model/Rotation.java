@@ -12,6 +12,7 @@ public class Rotation implements Cloneable
 	public Rotation(double rotation)
 	{
 		this.rotation = rotation;
+		validateRotation();
 	}
 
 	public double getRotation()
@@ -44,13 +45,25 @@ public class Rotation implements Cloneable
 	private void validateRotation()
 	{
 		rotation += Math.PI;
+		while(rotation <0)
+			rotation += Math.PI*2;
 		rotation = rotation % (Math.PI * 2);
 		rotation -= Math.PI;
 	}
 	
-	
 	public String toString()
 	{
 		return ""+rotation;
+	}
+	
+	public Rotation difference(Rotation b)
+	{
+		return new Rotation(b.rotation - this.rotation);
+	}
+	
+	
+	public static Rotation locationToRotation(Location location)
+	{
+		return new Rotation(Math.atan2(location.getX(), location.getY())-Math.PI*0.5 );
 	}
 }

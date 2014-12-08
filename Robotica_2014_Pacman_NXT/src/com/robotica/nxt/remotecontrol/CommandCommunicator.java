@@ -17,7 +17,6 @@ public class CommandCommunicator
 	{	
 		if(connector.isConnected())
 		{
-
 			try
 			{
 				int[] data = {connector.getDataIn().readInt(), connector.getDataIn().readInt()};

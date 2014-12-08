@@ -49,15 +49,26 @@ public class Location extends Point2D implements Cloneable
 		this.y = loc.y;
 	}
 
-	public void translate(int dx, int dy)
+	public void translate(double dx, double dy)
 	{
 		this.x += dx;
 		this.y += dy;
 	}
 	
-	public boolean isTheSame(Location location)
+	public boolean isTheSameGrid(Location location)
 	{
-		return (this.x == location.getX() && this.y == location.getY());
+		return (this.getGridX() == location.getGridX() && this.getGridY() == location.getGridY());
+	}
+	
+	public Location difference(Location b)
+	{
+		return new Location(this.x - b.x, this.y - b.y);
+	}
+	
+	public double distance(Location b)
+	{
+		Location diff = difference(b);
+		return Math.sqrt(diff.x*diff.x+diff.y*diff.y);
 	}
 
 	@Override

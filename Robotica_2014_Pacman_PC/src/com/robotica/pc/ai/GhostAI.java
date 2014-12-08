@@ -47,7 +47,7 @@ public class GhostAI extends AI
 
 			for (AINode n : node.getSuccesors())
 			{
-				if (n.getLocation().isTheSame(goal.getLocation()))
+				if (n.getLocation().isTheSameGrid(goal.getLocation()))
 					return n;
 
 				boolean addToFrontier = true;
@@ -60,7 +60,7 @@ public class GhostAI extends AI
 				if (addToFrontier)
 					for (AINode exN : explored)
 					{
-						if (n.getLocation().isTheSame(exN.getLocation())
+						if (n.getLocation().isTheSameGrid(exN.getLocation())
 								&& n.getDirection() == exN.getDirection())
 							addToFrontier = false;
 					}
