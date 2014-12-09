@@ -108,9 +108,9 @@ public class Entity extends Observable implements Cloneable
 		this.notifyObservers();
 	}
 
-	public double getRotation()
+	public Rotation getRotation()
 	{
-		return rotation.getRotation();
+		return rotation;
 	}
 
 	public void setRotation(double rotation)

@@ -8,6 +8,12 @@ public class Rotation implements Cloneable
 	{
 		this.rotation = 0.0;
 	}
+	
+	public Rotation(Rotation rotation)
+	{
+		this.rotation = rotation.rotation;
+		validateRotation();
+	}
 
 	public Rotation(double rotation)
 	{
@@ -26,15 +32,17 @@ public class Rotation implements Cloneable
 		validateRotation();
 	}
 
-	public void rotate(double rotation)
+	public Rotation rotate(double rotation)
 	{
 		this.rotation += rotation;
 		validateRotation();
+		return this;
 	}
 	
-	public void rotate(Rotation rotation)
+	public Rotation rotate(Rotation rotation)
 	{
 		this.rotate(rotation.rotation);
+		return this;
 	}
 
 	public Rotation clone()
@@ -59,6 +67,11 @@ public class Rotation implements Cloneable
 	public Rotation difference(Rotation b)
 	{
 		return new Rotation(b.rotation - this.rotation);
+	}
+	
+	public static Location rotationToLocationVector(Rotation rotation)
+	{
+		return new Location( Math.cos(rotation.getRotation()), -Math.sin(rotation.getRotation()) );
 	}
 	
 	

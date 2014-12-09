@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import org.opencv.core.Core;
-import org.opencv.core.Mat;
 import org.opencv.highgui.VideoCapture;
 
 import com.robotica.pc.ai.GhostAI;
@@ -17,9 +16,7 @@ import com.robotica.pc.model.AINode;
 import com.robotica.pc.model.ConnectedEntity;
 import com.robotica.pc.model.Entity;
 import com.robotica.pc.model.EntityType;
-import com.robotica.pc.model.Location;
 import com.robotica.pc.model.Maze;
-import com.robotica.pc.model.Rotation;
 import com.robotica.pc.model.Tile;
 import com.robotica.pc.model.World;
 import com.robotica.pc.remotecontrol.PCConnector;
@@ -35,7 +32,8 @@ public class MotorTestMain
 
 		Entity pacman = new Entity(EntityType.PACMAN, 0);
 		pacman.setColor(Color.YELLOW);
-		pacman.setLocation(0.35, 0);
+		pacman.setLocation(0.35, 2.7);
+		pacman.setRotation(Math.PI-0.6);
 
 		Entity ghost1 = new Entity(EntityType.GHOST, 1);
 		ghost1.setColor(Color.BLUE);
@@ -70,28 +68,12 @@ public class MotorTestMain
 			ConnectedEntityPanel p = new ConnectedEntityPanel(ce);
 			pw.add(p);
 		}
+		pw.revalidate();
 
 		GhostAI ghostAI = new GhostAI(w, 1, 0);
 		AINode path = ghostAI.createPath();
 		path.showChain();
 		System.out.println(path.getCost());
-
-		Mat cam = new Mat();
-		
-		/*
-		while (true)
-		{
-			w.camera.read(cam);
-			w.getMatrixContainer().addMatrix("cam", cam);
-			w.getMatrixContainer().addMatrix(
-					"warped",
-					Filter.createWarpedImage(
-							cam,
-							new Size(mousePanel.getWidth(), mousePanel
-									.getHeight()), w.getMazeShape()));
-			w.setMaze(Utils.createMazePattern(
-					w.getMatrixContainer().getMatrix("warped"), 5, 4));
-		}*/
 	}
 
 }

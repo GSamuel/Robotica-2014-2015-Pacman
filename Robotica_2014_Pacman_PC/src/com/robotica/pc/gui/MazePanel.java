@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -13,7 +14,9 @@ import javax.swing.JPanel;
 
 import com.robotica.pc.model.ConnectedEntity;
 import com.robotica.pc.model.Entity;
+import com.robotica.pc.model.Location;
 import com.robotica.pc.model.Maze;
+import com.robotica.pc.model.Rotation;
 import com.robotica.pc.model.Tile;
 import com.robotica.pc.model.World;
 
@@ -66,12 +69,20 @@ public class MazePanel extends JPanel implements Observer
 			g2d.setColor(e.getColor());
 			g2d.fillOval((int)(e.getX()*cellWidth), (int)(e.getY()*cellHeight), cellWidth,cellHeight);
 			
-			g2d.setColor(Color.GRAY);
+			g2d.setColor(Color.RED);
 			
-			Point p = e.getDirection().getDirectionVector();
+			Location loc1 = Rotation.rotationToLocationVector(new Rotation(e.getRotation()).rotate(0.25));
+			Location loc2 = Rotation.rotationToLocationVector(new Rotation(e.getRotation()).rotate(-0.25));
+
 			int x = (int)((e.getX()+0.5)*cellWidth);
 			int y = (int)((e.getY()+0.5)*cellHeight);
-			g2d.drawLine(x,y, (int)(x+(p.x*0.5*cellWidth)), (int)(y+(p.y*0.5*cellHeight)));
+			
+			Polygon poly= new Polygon();
+			poly.addPoint(x, y);
+			poly.addPoint((int)(x + loc1.getX()*0.5*cellWidth),(int)( y+loc1.getY()*0.5*cellHeight));
+			poly.addPoint((int)(x + loc2.getX()*0.5*cellWidth),(int)( y+loc2.getY()*0.5*cellHeight));
+			
+			g2d.fillPolygon(poly);
 		}
 				
 	}
