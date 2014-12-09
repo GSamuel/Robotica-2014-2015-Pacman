@@ -74,6 +74,23 @@ public class MotorTestMain
 		AINode path = ghostAI.createPath();
 		path.showChain();
 		System.out.println(path.getCost());
+		
+		while(true)
+		{
+			for (ConnectedEntity ce : list)
+			{
+				ce.getEntity().rotate(0.05);
+				pw.repaint();
+			}
+			
+			try
+			{
+				Thread.sleep(1);
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
