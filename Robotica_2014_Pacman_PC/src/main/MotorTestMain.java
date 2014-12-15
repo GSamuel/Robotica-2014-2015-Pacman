@@ -34,12 +34,12 @@ public class MotorTestMain
 
 		Entity pacman = new Entity(EntityType.PACMAN, 0);
 		pacman.setColor(Color.YELLOW);
-		pacman.setLocation(0, 0);
+		pacman.setLocation(0.5, 0.5);
 		pacman.setRotation(0);
 
 		Entity ghost1 = new Entity(EntityType.GHOST, 1);
 		ghost1.setColor(Color.BLUE);
-		ghost1.setLocation(2, 2);
+		ghost1.setLocation(2.5, 2.5);
 		ghost1.setRotation(Math.PI*0.5);
 
 		list.add(new ConnectedEntity(pacman, new PCConnector("pacman_device")));

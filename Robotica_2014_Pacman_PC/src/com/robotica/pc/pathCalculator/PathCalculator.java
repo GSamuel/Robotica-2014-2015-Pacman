@@ -1,6 +1,10 @@
 package com.robotica.pc.pathCalculator;
 
 import com.robotica.pc.model.AINode;
+import com.robotica.pc.model.ConnectedEntity;
+import com.robotica.pc.model.Entity;
+import com.robotica.pc.model.Location;
+import com.robotica.pc.model.Rotation;
 import com.robotica.pc.model.World;
 
 public class PathCalculator
@@ -9,6 +13,10 @@ public class PathCalculator
 	{
 
 		AINode[] nodes = new AINode[path.getCost() + 1];
+		Entity e = null;
+		for (ConnectedEntity en : w.getConnectedEntities())
+			if (en.getEntity().getID() == id)
+				e = en.getEntity();
 
 		boolean done = false;
 		do
@@ -20,21 +28,32 @@ public class PathCalculator
 
 		} while (!done);
 
-		if (nodes.length > 2)
+		e.getRotation();
+
+		int i = 0;
+		AINode begin = nodes[i++];
+		AINode next;
+		while (i<nodes.length)
 		{
-			AINode begin = nodes[0];
-			AINode next = nodes[1];
-			
-			
-			if (begin.getLocation().distance(next.getLocation())> 0)
+			next = nodes[i++];
+
+			if (begin.getLocation().distance(next.getLocation()) > 0)
 			{
 				System.out.println("yay we hebben gelopen");
-			}
-			else
-			{
 				
+				
+				int[] tuple = new int[2];
+				Location goal = next.getLocation();
+				goal.setLocation(goal.getGridX()+0.5, goal.getGridY()+0.5);
+				Location diff = goal.difference(e.getLocation());
+				Rotation reqRot = Rotation.locationToRotation(diff);
+				System.out.println(e.getRotation().getRotation()+" : "+reqRot.getRotation());
+				
+				
+				
+				break;
 			}
-		}
+		} 
 
 		// nieuwe locatie berekenen.
 		// nieuwe rotatie bepalen.

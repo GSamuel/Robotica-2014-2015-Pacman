@@ -66,7 +66,7 @@ public class MazePanel extends JPanel implements Observer
 		{
 			Entity e = ce.getEntity();
 			g2d.setColor(e.getColor());
-			g2d.fillOval((int)(e.getX()*cellWidth), (int)(e.getY()*cellHeight), cellWidth,cellHeight);
+			g2d.fillOval((int)(e.getX()*cellWidth-cellWidth*0.5), (int)(e.getY()*cellHeight-cellHeight*0.5), cellWidth,cellHeight);
 			
 			g2d.setColor(Color.RED);
 			
@@ -77,9 +77,9 @@ public class MazePanel extends JPanel implements Observer
 			int y = (int)((e.getY()+0.5)*cellHeight);
 			
 			Polygon poly= new Polygon();
-			poly.addPoint(x, y);
-			poly.addPoint((int)(x + loc1.getX()*0.5*cellWidth),(int)( y+loc1.getY()*0.5*cellHeight));
-			poly.addPoint((int)(x + loc2.getX()*0.5*cellWidth),(int)( y+loc2.getY()*0.5*cellHeight));
+			poly.addPoint(x-(int)(cellWidth*0.5), y-(int)(cellHeight*0.5));
+			poly.addPoint((int)(x + loc1.getX()*0.5*cellWidth-(cellWidth*0.5)),(int)( y+loc1.getY()*0.5*cellHeight-(cellHeight*0.5)));
+			poly.addPoint((int)(x + loc2.getX()*0.5*cellWidth-(cellWidth*0.5)),(int)( y+loc2.getY()*0.5*cellHeight-(cellHeight*0.5)));
 			
 			g2d.fillPolygon(poly);
 		}
