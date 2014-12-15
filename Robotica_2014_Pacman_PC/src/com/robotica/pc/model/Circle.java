@@ -13,6 +13,7 @@ import com.robotica.pc.imageprocessing.Utils;
 public class Circle
 {
 	private int x, y, radius;
+	private final int ROTATION_PRECISION = 16;
 
 	public Circle(int x, int y, int radius)
 	{
@@ -92,5 +93,37 @@ public class Circle
 		blue /= rgbs.size() / 3;
 		green /= rgbs.size() / 3;
 		return new Color(red, blue, green);
+	}
+	
+	public Rotation getRotation(BufferedImage image)
+	{
+		double angle = (1 / ROTATION_PRECISION) * 2.0 * Math.PI;
+		ArrayList<Float> hues = new ArrayList<Float>();
+		for(double alpha = 0; alpha < 2 * Math.PI; alpha += angle)
+		{
+			double x = Math.cos(angle) * (7.0 / 8.0) * radius;
+			double y = Math.sin(angle) * (7.0 / 8.0) * radius;
+			int color  = image.getRGB(this.x + (int) Math.round(x), this.y + (int) Math.round(y));
+			hues.add(Color.RGBtoHSB((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, null)[0]);
+		}
+		float average = 0f;
+		for(float hue : hues)
+		{
+			average += hue;
+		}
+		average /= (float) hues.size();
+		
+		int indexLargestDif = -1;
+		float largestDif = 0f;
+		for(int i = 0; i < hues.size(); i++)
+		{
+			if(Math.abs(average - hues.get(i)) > largestDif)
+			{
+				largestDif = Math.abs(average - hues.get(i));
+				indexLargestDif = i;
+			}
+		}
+		
+		return new Rotation(angle * indexLargestDif);
 	}
 }
