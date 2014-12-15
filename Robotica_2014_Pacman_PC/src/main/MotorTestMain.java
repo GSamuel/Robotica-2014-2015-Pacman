@@ -85,7 +85,7 @@ public class MotorTestMain
 			
 			try
 			{
-				Thread.sleep(1);
+				Thread.sleep(17);
 			} catch (InterruptedException e)
 			{
 				e.printStackTrace();

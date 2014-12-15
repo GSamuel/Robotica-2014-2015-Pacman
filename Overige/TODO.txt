@@ -1,0 +1,24 @@
+heel praktisch:
+WE HEBBEN EEN MAZE NODIG!!!!!!!!
+*mat                            Stijn + Wouter
+*gekleurd a4 papier (geel, rood, (donker)groen, blauw) + wit veel. +  evt. reserve.    Job
+*meet stuff (meetlint etc.)     Stijn
+*circels op robots.             Robin
+*usb verleng kabel van Robin.   Robin
+*telefoon ophangen aa touw :D   Joris
+
+
+Image processing:
+herkennen van de posities en de rotaties van de robots.  Joris
+
+wiskunde omzetten in concrete motor commands.         Gideon + Joris + rest
+
+*EV3 aan de praat krijgen. en dingen voor schrijven.  Gideon
+
+bendenken + programmeren pacman AI / besturing.       LATER !! :D
+
+
+
+verslag dingen:
+
+robin moet shit in git zetten!
