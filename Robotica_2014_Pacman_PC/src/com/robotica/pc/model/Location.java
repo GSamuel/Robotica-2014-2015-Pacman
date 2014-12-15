@@ -70,6 +70,11 @@ public class Location extends Point2D implements Cloneable
 		Location diff = difference(b);
 		return Math.sqrt(diff.x*diff.x+diff.y*diff.y);
 	}
+	
+	public double length()
+	{
+		return Math.sqrt(x*x+y*y);
+	}
 
 	@Override
 	public void setLocation(double x, double y)

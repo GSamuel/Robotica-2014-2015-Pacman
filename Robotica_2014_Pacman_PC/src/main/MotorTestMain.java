@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import org.opencv.core.Core;
 import org.opencv.highgui.VideoCapture;
 
-import com.robotica.nxt.remotecontrol.Command;
 import com.robotica.nxt.remotecontrol.CommandCommunicator;
-import com.robotica.nxt.remotecontrol.NXTCommand;
 import com.robotica.pc.ai.GhostAI;
 import com.robotica.pc.gui.ConnectedEntityPanel;
 import com.robotica.pc.gui.MazePanel;
@@ -39,7 +37,7 @@ public class MotorTestMain
 
 		Entity ghost1 = new Entity(EntityType.GHOST, 1);
 		ghost1.setColor(Color.BLUE);
-		ghost1.setLocation(2.5, 2.5);
+		ghost1.setLocation(2.6, 2.5);
 		ghost1.setRotation(Math.PI*0.5);
 
 		list.add(new ConnectedEntity(pacman, new PCConnector("pacman_device")));
@@ -66,19 +64,8 @@ public class MotorTestMain
 		{
 			ConnectedEntityPanel p = new ConnectedEntityPanel(ce);
 			pw.add(p);
-			if(ce.getEntity().getID() == 1)
-			{
-				//ce.connectWithBluetooth();
-				//comm = new CommandCommunicator(ce.getConnector());
-			}
 			
 		}
-		
-		
-		
-		//comm.sendCommand(new Command(NXTCommand.SET_STATE, 1));
-
-		 
 		
 		pw.revalidate();
 

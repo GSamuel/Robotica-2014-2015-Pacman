@@ -9,7 +9,7 @@ import com.robotica.pc.model.World;
 
 public class PathCalculator
 {
-	public static void calculate(AINode path, World w, int id)
+	public static double[] calculate(AINode path, World w, int id)
 	{
 
 		AINode[] nodes = new AINode[path.getCost() + 1];
@@ -39,27 +39,16 @@ public class PathCalculator
 
 			if (begin.getLocation().distance(next.getLocation()) > 0)
 			{
-				System.out.println("yay we hebben gelopen");
-				
-				
-				int[] tuple = new int[2];
+				double[] tuple = new double[2];
 				Location goal = next.getLocation();
 				goal.setLocation(goal.getGridX()+0.5, goal.getGridY()+0.5);
 				Location diff = goal.difference(e.getLocation());
 				Rotation reqRot = Rotation.locationToRotation(diff);
-				System.out.println(e.getRotation().getRotation()+" : "+reqRot.getRotation());
-				
-				
-				
-				break;
+				tuple[0] =reqRot.difference(e.getRotation()).getRotation();
+				tuple[1] = diff.length();
+				return tuple;
 			}
-		} 
-
-		// nieuwe locatie berekenen.
-		// nieuwe rotatie bepalen.
-		// verschil locaties = afstand;
-		// verschil rotaties berekenen;
-
-		// resultaat return
+		}
+		return new double[2];
 	}
 }
