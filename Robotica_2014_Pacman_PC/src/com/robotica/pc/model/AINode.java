@@ -37,6 +37,11 @@ public class AINode implements Cloneable
 		return location;
 	}
 	
+	public AINode getParent()
+	{
+		return this.parent;
+	}
+	
 	public void setParent(AINode parent)
 	{
 		this.parent = parent;
