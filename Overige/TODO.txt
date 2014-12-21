@@ -3,8 +3,8 @@ WE HEBBEN EEN MAZE NODIG!!!!!!!!
 *mat                            Stijn + Wouter
 *gekleurd a4 papier (geel, rood, (donker)groen, blauw) + wit veel. +  evt. reserve.    Job
 *meet stuff (meetlint etc.)     Stijn
-*circels op robots.             Robin
-*usb verleng kabel van Robin.   Robin
+*circels op robots.             Robin Ik fix daar wel papier voor en maak er wat mooie circels van.
+*usb verleng kabel van Robin.   Robin Neem ik volgende keer mee. Ding is 5m uit mn hoofd
 *telefoon ophangen aa touw :D   Joris
 
 
@@ -21,4 +21,5 @@ bendenken + programmeren pacman AI / besturing.       LATER !! :D
 
 verslag dingen:
 
-robin moet shit in git zetten!
+robin moet shit in git zetten
+-- LATEX source code? Mogelijkheid om te delen met slechts 1 persoon..
