@@ -9,6 +9,7 @@ public class Entity extends Observable implements Cloneable
 	private int id;
 	private EntityType type;
 	private Location location;
+	private Location lastCheckpoint;
 	private Rotation rotation;
 	private Color color;
 
@@ -37,14 +38,41 @@ public class Entity extends Observable implements Cloneable
 	private void init()
 	{
 		location = new Location();
+		lastCheckpoint = new Location();
 		rotation = new Rotation();
 		color = Color.BLACK;
 		this.setChanged();
 		this.notifyObservers();
 	}
+
 	public Location getLocation()
 	{
 		return location;
+	}
+
+	public Location getLastCheckpoint()
+	{
+		return lastCheckpoint;
+	}
+
+	private void updateCheckPoint()
+	{
+		double x = location.x;
+		double y = location.y;
+		boolean negX = x < 0;
+		boolean negY = y < 0;
+		if (negX)
+			x *= -1;
+		if (negY)
+			y *= -1;
+
+		x %= 1;
+		y %= 1;
+
+		if (x > 0.3 && x < 0.7 && y > 0.3 && y < 0.7)
+			lastCheckpoint.setLocation(Math.floor(location.x) + 0.5,
+					Math.floor(location.y) + 0.5);
+
 	}
 
 	public double getX()
@@ -60,6 +88,7 @@ public class Entity extends Observable implements Cloneable
 	public void setLocation(double x, double y)
 	{
 		location.setLocation(x, y);
+		updateCheckPoint();
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -67,6 +96,7 @@ public class Entity extends Observable implements Cloneable
 	public void translateLocation(double dx, double dy)
 	{
 		location.translate(dx, dy);
+		updateCheckPoint();
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -95,6 +125,7 @@ public class Entity extends Observable implements Cloneable
 		Point p = Direction.radianToDirection(rotation.getRotation())
 				.getDirectionVector();
 		location.translate(p.x, p.y);
+		this.updateCheckPoint();
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -104,6 +135,7 @@ public class Entity extends Observable implements Cloneable
 		Point p = Direction.radianToDirection(rotation.getRotation())
 				.getDirectionVector();
 		location.translate(-p.x, -p.y);
+		this.updateCheckPoint();
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -143,12 +175,12 @@ public class Entity extends Observable implements Cloneable
 	{
 		return type;
 	}
-	
+
 	public Color getColor()
 	{
 		return color;
 	}
-	
+
 	public void setColor(Color color)
 	{
 		this.color = color;

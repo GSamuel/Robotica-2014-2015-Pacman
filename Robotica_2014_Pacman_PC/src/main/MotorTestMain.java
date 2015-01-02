@@ -94,8 +94,7 @@ public class MotorTestMain
 			GhostAI ghostAI = new GhostAI(w, ghost1ID, pacmanID);//calculate AI
 			AINode path = ghostAI.createPath();	// path created
 			PathExecutor.execute(PathCalculator.calculate(path, w, ghost1ID), w, ghost1ID); // take first step off the path
-			pw.repaint();
-			
+			pw.repaint();			
 		}
 	}
 

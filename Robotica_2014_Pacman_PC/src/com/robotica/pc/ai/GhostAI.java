@@ -30,7 +30,7 @@ public class GhostAI extends AI
 		{
 			Entity e = ce.getEntity();
 			if (e.getID() == entity)
-				start = new AINode(null, e.getDirection(), e.getLocation());
+				start = new AINode(null, e.getDirection(), e.getLastCheckpoint());
 			if (e.getID() == goalEntity)
 				goal = new AINode(null, e.getDirection(), e.getLocation());
 		}
