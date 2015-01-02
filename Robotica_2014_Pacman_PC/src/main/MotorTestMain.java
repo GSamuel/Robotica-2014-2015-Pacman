@@ -7,6 +7,7 @@ import org.opencv.core.Core;
 import org.opencv.highgui.VideoCapture;
 
 import com.robotica.pc.ai.GhostAI;
+import com.robotica.pc.ai.PacmanAI;
 import com.robotica.pc.gui.ConnectedEntityPanel;
 import com.robotica.pc.gui.MazePanel;
 import com.robotica.pc.gui.PacmanWindow;
@@ -41,7 +42,7 @@ public class MotorTestMain
 		Entity pacman = new Entity(EntityType.PACMAN, pacmanID);
 		pacman.setColor(Color.YELLOW);
 		pacman.setLocation(0.5, 0.5);
-		pacman.setRotation(-Math.PI*0.5);
+		pacman.setRotation(-Math.PI*0.5+0.1);
 
 		Entity ghost1 = new Entity(EntityType.GHOST, ghost1ID);
 		ghost1.setColor(Color.BLUE);
@@ -86,7 +87,7 @@ public class MotorTestMain
 		
 
 		GhostAI ghostAI = new GhostAI(w, ghost1ID, pacmanID);
-		GhostAI pacmanAI = new GhostAI(w, pacmanID, ghost1ID);
+		PacmanAI pacmanAI = new PacmanAI(w, pacmanID);
 		
 		while(true)
 		{

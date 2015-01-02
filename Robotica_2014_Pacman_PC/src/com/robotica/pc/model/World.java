@@ -12,6 +12,7 @@ public class World extends Observable
 	public MatrixContainer container;
 	private Trapezium mazeShape;
 	public VideoCapture camera;
+	private Location pacmanGoal;
 	
 	public World()
 	{
@@ -19,6 +20,7 @@ public class World extends Observable
 		this.connEntities = new ArrayList<ConnectedEntity>();
 		this.container = new MatrixContainer();
 		this.mazeShape = new Trapezium();
+		this.pacmanGoal = new Location();
 	}
 	
 	public World(Maze maze, ArrayList<ConnectedEntity> connEntities)
@@ -27,6 +29,7 @@ public class World extends Observable
 		this.connEntities = connEntities;
 		this.container = new MatrixContainer();
 		this.mazeShape = new Trapezium();
+		this.pacmanGoal = new Location();
 	}
 
 	public void setMaze(Maze maze)
@@ -34,6 +37,16 @@ public class World extends Observable
 		this.maze = maze;
 		this.setChanged();
 		this.notifyObservers();
+	}
+	
+	public void setPacmanGoal(double x, double y)
+	{
+		pacmanGoal.setLocation(x,y);
+	}
+	
+	public Location getPacmanGoal()
+	{
+		return pacmanGoal;
 	}
 	
 	public void addConnectedntity(ConnectedEntity connEntity)

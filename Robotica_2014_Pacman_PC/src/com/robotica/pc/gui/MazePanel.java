@@ -19,6 +19,8 @@ import com.robotica.pc.model.Rotation;
 import com.robotica.pc.model.Tile;
 import com.robotica.pc.model.World;
 
+import controllers.MousePanelController;
+
 public class MazePanel extends JPanel implements Observer
 {
 	private static final long serialVersionUID = 7299900260184427014L;
@@ -30,6 +32,7 @@ public class MazePanel extends JPanel implements Observer
 		this.setPreferredSize(new Dimension(100, 100));
 		this.revalidate();
 		w.addObserver(this);
+		this.addMouseListener(new MousePanelController(w, this));
 	}
 
 	public MazePanel(World w, int width, int height)
@@ -38,6 +41,7 @@ public class MazePanel extends JPanel implements Observer
 		this.setPreferredSize(new Dimension(width, height));
 		this.revalidate();
 		w.addObserver(this);
+		this.addMouseListener(new MousePanelController(w,this));
 	}
 
 	public void paintComponent(Graphics g)
@@ -107,6 +111,9 @@ public class MazePanel extends JPanel implements Observer
 
 			g2d.fillPolygon(poly);
 		}
+		
+		g2d.setColor(Color.ORANGE);
+		g2d.drawRect((int)(w.getPacmanGoal().getX()*cellWidth), (int)(w.getPacmanGoal().getY()*cellHeight), cellWidth, cellHeight);
 
 	}
 
