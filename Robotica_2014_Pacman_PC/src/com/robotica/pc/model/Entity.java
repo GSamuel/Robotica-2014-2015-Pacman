@@ -88,7 +88,7 @@ public class Entity extends Observable implements Cloneable
 	public void setLocation(double x, double y)
 	{
 		location.setLocation(x, y);
-		updateCheckPoint();
+		lastCheckpoint.setLocation(location);
 		this.setChanged();
 		this.notifyObservers();
 	}

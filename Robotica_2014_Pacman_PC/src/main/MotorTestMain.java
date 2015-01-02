@@ -41,21 +41,26 @@ public class MotorTestMain
 		Entity pacman = new Entity(EntityType.PACMAN, pacmanID);
 		pacman.setColor(Color.YELLOW);
 		pacman.setLocation(0.5, 0.5);
-		pacman.setRotation(0);
+		pacman.setRotation(-Math.PI*0.5);
 
 		Entity ghost1 = new Entity(EntityType.GHOST, ghost1ID);
 		ghost1.setColor(Color.BLUE);
-		ghost1.setLocation(2.5, 2.8);
-		ghost1.setRotation(Math.PI*0.5+0.2);
+		ghost1.setLocation(4.5, 4.5);
+		ghost1.setRotation(Math.PI*0.5+0.6);
 
 		list.add(new ConnectedEntity(pacman, new PCConnector("pacman_device")));
 		list.add(new ConnectedEntity(ghost1, new PCConnector("NXT_9_1")));
 
-		Maze m = new Maze(3,3);
-		m.setTile(0, 1, Tile.WALL);
-		m.setTile(0, 2, Tile.WALL);
+		Maze m = new Maze(5,5);
+		m.setTile(0, 3, Tile.WALL);
+		m.setTile(0, 4, Tile.WALL);
 		m.setTile(1, 1, Tile.WALL);
-		m.setTile(1, 2, Tile.WALL);
+		m.setTile(1, 4, Tile.WALL);
+		m.setTile(2, 2, Tile.WALL);
+		m.setTile(3, 0, Tile.WALL);
+		m.setTile(3, 3, Tile.WALL);
+		m.setTile(4, 0, Tile.WALL);
+		m.setTile(4, 1, Tile.WALL);
 		m.show();
 
 		World w = new World(m, list);
@@ -79,6 +84,9 @@ public class MotorTestMain
 		pw.revalidate();
 
 		
+
+		GhostAI ghostAI = new GhostAI(w, ghost1ID, pacmanID);
+		GhostAI pacmanAI = new GhostAI(w, pacmanID, ghost1ID);
 		
 		while(true)
 		{
@@ -91,9 +99,14 @@ public class MotorTestMain
 			}
 			//read image.
 			//update world based on the image
-			GhostAI ghostAI = new GhostAI(w, ghost1ID, pacmanID);//calculate AI
-			AINode path = ghostAI.createPath();	// path created
+			
+			AINode path = ghostAI.createPath();	// calculate Path			
 			PathExecutor.execute(PathCalculator.calculate(path, w, ghost1ID), w, ghost1ID); // take first step off the path
+			
+
+			path = pacmanAI.createPath();	// calculate Path			
+			PathExecutor.execute(PathCalculator.calculate(path, w, pacmanID), w, pacmanID); // take first step off the path
+			
 			pw.repaint();			
 		}
 	}

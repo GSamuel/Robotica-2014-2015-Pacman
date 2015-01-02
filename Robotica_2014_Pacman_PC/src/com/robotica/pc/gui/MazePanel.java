@@ -73,6 +73,17 @@ public class MazePanel extends JPanel implements Observer
 			g2d.fillOval((int) (e.getX() * cellWidth - cellWidth * 0.5),
 					(int) (e.getY() * cellHeight - cellHeight * 0.5),
 					cellWidth, cellHeight);
+			
+			//now draw the last checkpoint
+			Location cp = e.getLastCheckpoint();
+			g2d.fillOval((int) (cp.getX() * cellWidth - cellWidth * 0.5/3),
+					(int) (cp.getY() * cellHeight - cellHeight * 0.5/3),
+					cellWidth/3, cellHeight/3);
+			g2d.setColor(Color.BLACK);
+			g2d.drawOval((int) (cp.getX() * cellWidth - cellWidth * 0.5/3),
+					(int) (cp.getY() * cellHeight - cellHeight * 0.5/3),
+					cellWidth/3, cellHeight/3);
+			
 
 			g2d.setColor(Color.RED);
 
