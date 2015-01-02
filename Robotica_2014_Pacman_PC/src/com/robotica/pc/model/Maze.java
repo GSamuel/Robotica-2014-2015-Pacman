@@ -44,6 +44,8 @@ public class Maze implements Cloneable
 
 	public int getHeight()
 	{
+		if(getWidth()<=0)
+			return 0;
 		return map[0].length;
 	}
 

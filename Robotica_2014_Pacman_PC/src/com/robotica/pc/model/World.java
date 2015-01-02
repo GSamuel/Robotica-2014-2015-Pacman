@@ -56,6 +56,14 @@ public class World extends Observable
 		this.camera = camera;
 	}
 	
+	public ConnectedEntity entityWithID(int id)
+	{
+		for(ConnectedEntity e: connEntities)
+			if(e.getEntity().getID()==id)
+				return e;
+		return null;
+	}
+	
 	public ArrayList<ConnectedEntity> getConnectedEntities()
 	{
 		return connEntities;

@@ -1,7 +1,6 @@
 package com.robotica.pc.pathCalculator;
 
 import com.robotica.pc.model.AINode;
-import com.robotica.pc.model.ConnectedEntity;
 import com.robotica.pc.model.Entity;
 import com.robotica.pc.model.Location;
 import com.robotica.pc.model.Rotation;
@@ -11,12 +10,11 @@ public class PathCalculator
 {
 	public static double[] calculate(AINode path, World w, int id)
 	{
-
+		if(path == null)
+			return new double[2];
 		AINode[] nodes = new AINode[path.getCost() + 1];
 		Entity e = null;
-		for (ConnectedEntity en : w.getConnectedEntities())
-			if (en.getEntity().getID() == id)
-				e = en.getEntity();
+		e = w.entityWithID(id).getEntity();
 
 		boolean done = false;
 		do
