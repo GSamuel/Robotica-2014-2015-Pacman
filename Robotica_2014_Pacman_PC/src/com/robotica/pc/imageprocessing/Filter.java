@@ -39,7 +39,7 @@ public class Filter {
 
 	public static Mat getCircles(Mat mat, int minRadius, int maxRadius) {
 		Mat circles = new Mat();
-		Imgproc.HoughCircles(mat, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 20, 200, 40, minRadius, maxRadius);
+		Imgproc.HoughCircles(mat, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 20, 200, 30, 0,0);
 		return circles;
 	}
 

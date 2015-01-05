@@ -11,13 +11,14 @@ import org.opencv.highgui.VideoCapture;
 import com.robotica.pc.ai.GhostAI;
 import com.robotica.pc.ai.PacmanAI;
 import com.robotica.pc.gui.ConnectedEntityPanel;
+import com.robotica.pc.gui.MatrixCirclePanel;
 import com.robotica.pc.gui.MatrixMouseInputPanel;
-import com.robotica.pc.gui.MatrixPanel;
 import com.robotica.pc.gui.MazePanel;
 import com.robotica.pc.gui.PacmanWindow;
 import com.robotica.pc.imageprocessing.Filter;
 import com.robotica.pc.imageprocessing.Utils;
 import com.robotica.pc.model.AINode;
+import com.robotica.pc.model.Circle;
 import com.robotica.pc.model.ConnectedEntity;
 import com.robotica.pc.model.Entity;
 import com.robotica.pc.model.EntityType;
@@ -39,7 +40,7 @@ public class MotorTestMain
 	private static int ghost2Color = 0x0000FF00;
 
 	public static void main(String[] args)
-	
+
 	{
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
@@ -55,8 +56,14 @@ public class MotorTestMain
 		ghost1.setLocation(4.5, 4.5);
 		ghost1.setRotation(Math.PI * 0.5 + 0.6);
 
+		Entity ghost2 = new Entity(EntityType.GHOST, ghost2ID);
+		ghost2.setColor(Color.ORANGE);
+		ghost2.setLocation(2.5, 2.5);
+		ghost2.setRotation(Math.PI * 0.5 + 0.3);
+
 		list.add(new ConnectedEntity(pacman, new PCConnector("Parasect")));
-		list.add(new ConnectedEntity(ghost1, new PCConnector("NXT_9_1")));
+		list.add(new ConnectedEntity(ghost1, new PCConnector("NXT4")));
+		list.add(new ConnectedEntity(ghost2, new PCConnector("NXT_9_1")));
 
 		Maze m = new Maze(5, 5);
 		m.setTile(0, 3, Tile.WALL);
@@ -79,8 +86,8 @@ public class MotorTestMain
 		pw.add(mazePanel);
 		MatrixMouseInputPanel cameraPanel = new MatrixMouseInputPanel("cam", w);
 		pw.add(cameraPanel);
-		MatrixPanel mPanel = new MatrixPanel("warped", w);
-		pw.add(mPanel);
+		MatrixCirclePanel mcP = new MatrixCirclePanel("warped", "greyWarped",w);
+		pw.add(mcP);
 
 		for (ConnectedEntity ce : list)
 		{
@@ -91,13 +98,16 @@ public class MotorTestMain
 		pw.revalidate();
 
 		GhostAI ghostAI = new GhostAI(w, ghost1ID, pacmanID);
+		GhostAI ghostAI2 = new GhostAI(w, ghost2ID, pacmanID);
 		PacmanAI pacmanAI = new PacmanAI(w, pacmanID);
+
+		boolean mazeDone = false;
 
 		while (true)
 		{
 			try
 			{
-				Thread.sleep(20);
+				Thread.sleep(1000);
 			} catch (InterruptedException e)
 			{
 				e.printStackTrace();
@@ -107,9 +117,37 @@ public class MotorTestMain
 			Mat mat = new Mat();
 			w.camera.read(mat);
 			w.getMatrixContainer().addMatrix("cam", mat);
-			w.getMatrixContainer().addMatrix("warped", Filter.createWarpedImage(mat, new Size(cameraPanel.getWidth(),  cameraPanel.getHeight()), w.getMazeShape()));
-			w.setMaze(Utils.createMazePattern(w.getMatrixContainer().getMatrix("warped"), 8,8));
+
+			w.getMatrixContainer().addMatrix(
+					"warped",
+					Filter.createWarpedImage(
+							mat,
+							new Size(500, 500), w.getMazeShape()));
+			w.getMatrixContainer().addMatrix("greyWarped", Filter.createBlurred(Filter.createGrayImage(w.getMatrixContainer().getMatrix("warped"))));
+			if (!mazeDone)
+			{
+				w.setMaze(Utils.createMazePattern(w.getMatrixContainer()
+						.getMatrix("warped"), 8, 8));
+			}
+			if (w.getMazeShape().allPointsSet())
+				mazeDone = true;
+
+			// berekenen circles van image procressing
+			ArrayList<Circle> circles = Utils.getCirclesFromMat(Filter
+					.getCircles(w.getMatrixContainer().getMatrix("greyWarped")));
 			
+			System.out.println(circles.size());
+			for(Circle c:circles)
+			{
+				System.out.println(c.getX()+" "+c.getY());
+				Color col = c.getColor(Utils.matToBufferedImage(w.container.getMatrix("warped")));
+				System.out.println(col.getRed()+" "+col.getGreen()+" "+col.getBlue());
+			}
+			
+			//500,500
+
+			// einde
+
 			boolean allConnected = true;
 			for (ConnectedEntity ce : w.getConnectedEntities())
 				if (!ce.isConnected())
@@ -117,7 +155,12 @@ public class MotorTestMain
 
 			if (allConnected)
 			{
-				AINode path = ghostAI.createPath(); // calculate Path
+				AINode path = ghostAI2.createPath(); // calculate Path
+				PathExecutor.execute(
+						PathCalculator.calculate(path, w, ghost2ID), w,
+						ghost2ID); // take first step off the path
+				
+				path = ghostAI.createPath(); // calculate Path
 				PathExecutor.execute(
 						PathCalculator.calculate(path, w, ghost1ID), w,
 						ghost1ID); // take first step off the path
@@ -129,6 +172,7 @@ public class MotorTestMain
 			}
 
 			pw.repaint();
+			mcP.repaint();
 		}
 	}
 

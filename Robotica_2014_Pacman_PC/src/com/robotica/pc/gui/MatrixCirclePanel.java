@@ -20,12 +20,13 @@ public class MatrixCirclePanel extends MatrixPanel
 	 */
 	private static final long serialVersionUID = 5553381751226293778L;
 	private ArrayList<Circle> circles = new ArrayList<Circle>();
-	private String keyBlur;
+	private String keyBlur, keyColor;
 
 	public MatrixCirclePanel(String keyColor, String keyBlur, World world)
 	{
 		super(keyColor, world);
 		this.keyBlur = keyBlur;
+		this.keyColor = keyColor;
 	}
 
 	public void paintComponent(Graphics g)
@@ -41,7 +42,7 @@ public class MatrixCirclePanel extends MatrixPanel
 			for (Circle circle : circles)
 			{
 				circle.draw(g2d, Color.BLUE);
-				g2d.setColor(circle.getColor(Utils.matToBufferedImage(mCon.getMatrix("color"))));
+				g2d.setColor(circle.getColor(Utils.matToBufferedImage(mCon.getMatrix(keyColor))));
 				g2d.fillOval((int)circle.getX(), (int)circle.getY(), circle.getRadius()*2, circle.getRadius()*2);
 			}
 		}
