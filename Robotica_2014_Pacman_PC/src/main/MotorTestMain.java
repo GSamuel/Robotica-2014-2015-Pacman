@@ -4,13 +4,19 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Size;
 import org.opencv.highgui.VideoCapture;
 
 import com.robotica.pc.ai.GhostAI;
 import com.robotica.pc.ai.PacmanAI;
 import com.robotica.pc.gui.ConnectedEntityPanel;
+import com.robotica.pc.gui.MatrixMouseInputPanel;
+import com.robotica.pc.gui.MatrixPanel;
 import com.robotica.pc.gui.MazePanel;
 import com.robotica.pc.gui.PacmanWindow;
+import com.robotica.pc.imageprocessing.Filter;
+import com.robotica.pc.imageprocessing.Utils;
 import com.robotica.pc.model.AINode;
 import com.robotica.pc.model.ConnectedEntity;
 import com.robotica.pc.model.Entity;
@@ -31,9 +37,9 @@ public class MotorTestMain
 	private static int pacmanColor = 0xFF000000;
 	private static int ghost1Color = 0x00FF0000;
 	private static int ghost2Color = 0x0000FF00;
-	
-	
+
 	public static void main(String[] args)
+	
 	{
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
@@ -42,17 +48,17 @@ public class MotorTestMain
 		Entity pacman = new Entity(EntityType.PACMAN, pacmanID);
 		pacman.setColor(Color.YELLOW);
 		pacman.setLocation(0.5, 0.5);
-		pacman.setRotation(-Math.PI*0.5+0.1);
+		pacman.setRotation(-Math.PI * 0.5 + 0.1);
 
 		Entity ghost1 = new Entity(EntityType.GHOST, ghost1ID);
 		ghost1.setColor(Color.BLUE);
 		ghost1.setLocation(4.5, 4.5);
-		ghost1.setRotation(Math.PI*0.5+0.6);
+		ghost1.setRotation(Math.PI * 0.5 + 0.6);
 
-		list.add(new ConnectedEntity(pacman, new PCConnector("pacman_device")));
+		list.add(new ConnectedEntity(pacman, new PCConnector("Parasect")));
 		list.add(new ConnectedEntity(ghost1, new PCConnector("NXT_9_1")));
 
-		Maze m = new Maze(5,5);
+		Maze m = new Maze(5, 5);
 		m.setTile(0, 3, Tile.WALL);
 		m.setTile(0, 4, Tile.WALL);
 		m.setTile(1, 1, Tile.WALL);
@@ -67,48 +73,62 @@ public class MotorTestMain
 		World w = new World(m, list);
 		w.setCamera(new VideoCapture(3));
 		System.out.println(w);
-		
-		
-		
 
 		PacmanWindow pw = new PacmanWindow();
 		MazePanel mazePanel = new MazePanel(w, 500, 400);
 		pw.add(mazePanel);
+		MatrixMouseInputPanel cameraPanel = new MatrixMouseInputPanel("cam", w);
+		pw.add(cameraPanel);
+		MatrixPanel mPanel = new MatrixPanel("warped", w);
+		pw.add(mPanel);
 
 		for (ConnectedEntity ce : list)
 		{
 			ConnectedEntityPanel p = new ConnectedEntityPanel(ce);
 			pw.add(p);
-			
 		}
-		
-		pw.revalidate();
 
-		
+		pw.revalidate();
 
 		GhostAI ghostAI = new GhostAI(w, ghost1ID, pacmanID);
 		PacmanAI pacmanAI = new PacmanAI(w, pacmanID);
-		
-		while(true)
+
+		while (true)
 		{
 			try
 			{
-				Thread.sleep(200);
+				Thread.sleep(20);
 			} catch (InterruptedException e)
 			{
 				e.printStackTrace();
 			}
-			//read image.
-			//update world based on the image
+			// read image.
+			// update world based on the image
+			Mat mat = new Mat();
+			w.camera.read(mat);
+			w.getMatrixContainer().addMatrix("cam", mat);
+			w.getMatrixContainer().addMatrix("warped", Filter.createWarpedImage(mat, new Size(cameraPanel.getWidth(),  cameraPanel.getHeight()), w.getMazeShape()));
+			w.setMaze(Utils.createMazePattern(w.getMatrixContainer().getMatrix("warped"), 8,8));
 			
-			AINode path = ghostAI.createPath();	// calculate Path			
-			PathExecutor.execute(PathCalculator.calculate(path, w, ghost1ID), w, ghost1ID); // take first step off the path
-			
+			boolean allConnected = true;
+			for (ConnectedEntity ce : w.getConnectedEntities())
+				if (!ce.isConnected())
+					allConnected = false;
 
-			path = pacmanAI.createPath();	// calculate Path			
-			PathExecutor.execute(PathCalculator.calculate(path, w, pacmanID), w, pacmanID); // take first step off the path
-			
-			pw.repaint();			
+			if (allConnected)
+			{
+				AINode path = ghostAI.createPath(); // calculate Path
+				PathExecutor.execute(
+						PathCalculator.calculate(path, w, ghost1ID), w,
+						ghost1ID); // take first step off the path
+
+				path = pacmanAI.createPath(); // calculate Path
+				PathExecutor.execute(
+						PathCalculator.calculate(path, w, pacmanID), w,
+						pacmanID); // take first step off the path
+			}
+
+			pw.repaint();
 		}
 	}
 

@@ -9,8 +9,6 @@ public class CommandCommunicator
 	public CommandCommunicator(Connector connector)
 	{
 		this.connector = connector;
-		if(!connector.isConnected())
-			connector.connect();
 	}
 	
 	public Command getNextCommand()
@@ -53,5 +51,15 @@ public class CommandCommunicator
 		{
 			System.out.println("cant send data, because not connected");
 		}
+	}
+	
+	public boolean isConnected()
+	{
+		return connector.isConnected();
+	}
+	
+	public void connect()
+	{
+		connector.connect();
 	}
 }

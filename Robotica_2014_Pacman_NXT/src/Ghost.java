@@ -17,6 +17,7 @@ public class Ghost
 		NXTConnector connector = new NXTConnector();
 		connector.setType(NXTConnector.Type.BT);
 		CommandCommunicator comCom = new CommandCommunicator(connector);
+		comCom.connect();
 
 		Brick brick = new MotorTestBrick();
 		Command command;
