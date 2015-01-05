@@ -24,6 +24,7 @@ import com.robotica.pc.model.Entity;
 import com.robotica.pc.model.EntityType;
 import com.robotica.pc.model.Maze;
 import com.robotica.pc.model.Tile;
+import com.robotica.pc.model.Vector3;
 import com.robotica.pc.model.World;
 import com.robotica.pc.pathCalculator.PathCalculator;
 import com.robotica.pc.pathCalculator.PathExecutor;
@@ -35,9 +36,12 @@ public class MotorTestMain
 	private static int ghost1ID = 1;
 	private static int ghost2ID = 2;
 
-	private static int pacmanColor = 0xFF000000;
-	private static int ghost1Color = 0x00FF0000;
-	private static int ghost2Color = 0x0000FF00;
+	
+	// these should be approximations of the colours of the actual circles
+	// should probably still be finetuned!!!
+	private static Vector3 pacmanColor = new Vector3(255, 255, 0); // yellow
+	private static Vector3 ghost1Color = new Vector3(255, 150, 0); // orange
+	private static Vector3 ghost2Color = new Vector3(0, 255, 255); // cyan
 
 	public static void main(String[] args)
 
