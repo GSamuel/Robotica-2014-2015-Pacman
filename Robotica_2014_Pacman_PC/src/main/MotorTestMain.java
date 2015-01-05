@@ -134,13 +134,14 @@ public class MotorTestMain
 
 			// berekenen circles van image procressing
 			ArrayList<Circle> circles = Utils.getCirclesFromMat(Filter
-					.getCircles(w.getMatrixContainer().getMatrix("greyWarped")));
+					.getCircles(w.getMatrixContainer().getMatrix("greyWarped")), w.getMatrixContainer()
+					.getMatrix("warped"));
 			
 			System.out.println(circles.size());
 			for(Circle c:circles)
 			{
 				System.out.println(c.getX()+" "+c.getY());
-				Color col = c.getColor(Utils.matToBufferedImage(w.container.getMatrix("warped")));
+				Color col = c.getColor();
 				System.out.println(col.getRed()+" "+col.getGreen()+" "+col.getBlue());
 			}
 			

@@ -43,13 +43,15 @@ public class Utils {
 		return image2;
 	}
 	
-	public static ArrayList<Circle> getCirclesFromMat(Mat circlesMat){
+	public static ArrayList<Circle> getCirclesFromMat(Mat greyBlurImg, Mat source){
 		ArrayList<Circle> circles = new ArrayList<Circle>();
-		for (int i = 0; i < circlesMat.cols(); i++) {
-			int[] circleCoor = doubleArrayToIntArray(circlesMat.get(0, i));
+		BufferedImage sourceImg = Utils.matToBufferedImage(source);
+		for (int i = 0; i < greyBlurImg.cols(); i++) {
+			int[] circleCoor = doubleArrayToIntArray(greyBlurImg.get(0, i));
 			Circle circle = new Circle();
 			circle.setLocation(circleCoor[0] - circleCoor[2], circleCoor[1] - circleCoor[2]);
 			circle.setRadius(circleCoor[2]);
+			circle.setSource(sourceImg);
 			circles.add(circle);
 		}	
 		return circles;

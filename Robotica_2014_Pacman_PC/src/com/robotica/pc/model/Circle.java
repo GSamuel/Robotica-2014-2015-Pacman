@@ -14,12 +14,21 @@ public class Circle
 {
 	private int x, y, radius;
 	private final int ROTATION_PRECISION = 16;
+	private BufferedImage source;
 
 	public Circle(int x, int y, int radius)
 	{
 		this.x = x;
 		this.y = y;
 		this.radius = radius;
+	}
+	
+	public Circle(int x, int y, int radius, BufferedImage source)
+	{
+		this.x = x;
+		this.y = y;
+		this.radius = radius;
+		this.source = source;
 	}
 
 	public Circle()
@@ -66,10 +75,10 @@ public class Circle
 		return radius;
 	}
 	
-	public Color getColor(BufferedImage img)
+	public Color getColor()
 	{
 		List<Integer> rgbs = new ArrayList<Integer>();
-		WritableRaster raster = img.getRaster();
+		WritableRaster raster = source.getRaster();
 		rgbs.addAll(Utils.arrayToList(raster.getPixel(getCenter().x, getCenter().y, (int[]) null)));
 		rgbs.addAll(Utils.arrayToList(raster.getPixel(getCenter().x + getRadius()/2, getCenter().y, (int[]) null)));
 		rgbs.addAll(Utils.arrayToList(raster.getPixel(getCenter().x - getRadius()/2, getCenter().y, (int[]) null)));
@@ -95,7 +104,7 @@ public class Circle
 		return new Color(red, blue, green);
 	}
 	
-	public Rotation getRotation(BufferedImage image)
+	public Rotation getRotation()
 	{
 		double angle = (1 / ROTATION_PRECISION) * 2.0 * Math.PI;
 		ArrayList<Float> hues = new ArrayList<Float>();
@@ -103,7 +112,7 @@ public class Circle
 		{
 			double x = Math.cos(angle) * (7.0 / 8.0) * radius;
 			double y = Math.sin(angle) * (7.0 / 8.0) * radius;
-			int color  = image.getRGB(this.x + (int) Math.round(x), this.y + (int) Math.round(y));
+			int color  = source.getRGB(this.x + (int) Math.round(x), this.y + (int) Math.round(y));
 			hues.add(Color.RGBtoHSB((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, null)[0]);
 		}
 		float average = 0f;
@@ -125,5 +134,10 @@ public class Circle
 		}
 		
 		return new Rotation(angle * indexLargestDif);
+	}
+	
+	public void setSource(BufferedImage source)
+	{
+		this.source = source;
 	}
 }
