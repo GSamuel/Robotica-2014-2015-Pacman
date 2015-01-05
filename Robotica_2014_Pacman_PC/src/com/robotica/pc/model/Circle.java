@@ -8,6 +8,8 @@ import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opencv.core.Size;
+
 import com.robotica.pc.imageprocessing.Utils;
 
 public class Circle
@@ -139,5 +141,11 @@ public class Circle
 	public void setSource(BufferedImage source)
 	{
 		this.source = source;
+	}
+	
+	public Location getLocation(Size mazeSize)
+	{
+		return new Location((double) this.x / (double) this.source.getWidth() * mazeSize.width, 
+							(double) this.y / (double) this.source.getHeight() * mazeSize.height);
 	}
 }
