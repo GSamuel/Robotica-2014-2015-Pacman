@@ -5,7 +5,7 @@ import com.robotica.nxt.settings.Settings;
 
 public abstract class Brick
 {
-	private Settings settings = new Settings();
+	protected Settings settings = new Settings();
 	private NXTAction state = NXTAction.getDefault();
 
 	public void update()

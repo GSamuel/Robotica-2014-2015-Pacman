@@ -7,7 +7,6 @@ import com.robotica.pc.model.ConnectedEntity;
 import com.robotica.pc.model.Entity;
 import com.robotica.pc.model.Location;
 import com.robotica.pc.model.Maze;
-import com.robotica.pc.model.Rotation;
 import com.robotica.pc.model.Tile;
 import com.robotica.pc.model.World;
 

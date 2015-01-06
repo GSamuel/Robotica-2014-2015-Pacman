@@ -1,8 +1,8 @@
 import lejos.nxt.Button;
 import utils.Exit;
 
+import com.robotica.nxt.brick.AdvancedBrick;
 import com.robotica.nxt.brick.Brick;
-import com.robotica.nxt.brick.MotorTestBrick;
 import com.robotica.nxt.remotecontrol.Command;
 import com.robotica.nxt.remotecontrol.CommandCommunicator;
 import com.robotica.nxt.remotecontrol.CommandExecuter;
@@ -19,7 +19,7 @@ public class Ghost
 		CommandCommunicator comCom = new CommandCommunicator(connector);
 		comCom.connect();
 
-		Brick brick = new MotorTestBrick();
+		Brick brick = new AdvancedBrick();
 		Command command;
 		do
 		{

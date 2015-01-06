@@ -3,24 +3,24 @@ package com.robotica.nxt.settings;
 public class Settings implements Cloneable
 {
 	private int motorSpeed;
-	private int acceleration;
+	private int turnSpeed;
 	
 	public Settings()
 	{
-		this.motorSpeed = 0;
-		this.acceleration = 0;
+		this.motorSpeed = 200;
+		this.turnSpeed = 200;
 	}
 	
-	public Settings (int motorSpeed, int acceleration)
+	public Settings (int motorSpeed, int turnSpeed)
 	{
 		this.motorSpeed = motorSpeed;
-		this.acceleration = acceleration;
+		this.turnSpeed = turnSpeed;
 	}
 	
 	public Settings(Settings settings)
 	{
 		this.motorSpeed = settings.motorSpeed;
-		this.acceleration = settings.acceleration;
+		this.turnSpeed = settings.turnSpeed;
 	}
 
 	public int getMotorSpeed()
@@ -28,9 +28,9 @@ public class Settings implements Cloneable
 		return motorSpeed;
 	}
 	
-	public int getAcceleration()
+	public int getTurnSpeed()
 	{
-		return acceleration;
+		return turnSpeed;
 	}
 	
 	public void setMotorSpeed(int motorSpeed)
@@ -38,9 +38,9 @@ public class Settings implements Cloneable
 		this.motorSpeed = motorSpeed;
 	}
 	
-	public void setAcceleration(int acceleration)
+	public void setAcceleration(int turnSpeed)
 	{
-		this.acceleration = acceleration;
+		this.turnSpeed = turnSpeed;
 	}
 	
 	public Settings clone()

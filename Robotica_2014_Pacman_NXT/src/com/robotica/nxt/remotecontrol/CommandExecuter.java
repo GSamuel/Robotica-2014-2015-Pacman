@@ -21,7 +21,7 @@ public class CommandExecuter
 		case SET_MOTORSPEED:
 			brick.getSettings().setMotorSpeed(command.getValue());
 			break;
-		case SET_ACCELERATION:
+		case SET_TURNSPEED:
 			brick.getSettings().setAcceleration(command.getValue());
 			break;
 
