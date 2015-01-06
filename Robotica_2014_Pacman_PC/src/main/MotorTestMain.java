@@ -35,7 +35,6 @@ public class MotorTestMain
 	private static int pacmanID = 0;
 	private static int ghost1ID = 1;
 	private static int ghost2ID = 2;
-
 	
 	// these should be approximations of the colours of the actual circles
 	// should probably still be finetuned!!!
@@ -51,17 +50,20 @@ public class MotorTestMain
 		ArrayList<ConnectedEntity> list = new ArrayList<ConnectedEntity>();
 
 		Entity pacman = new Entity(EntityType.PACMAN, pacmanID);
-		pacman.setColor(Color.YELLOW);
+		pacman.setGuiColor(Color.YELLOW);
+		pacman.setCamColor(pacmanColor);
 		pacman.setLocation(0.5, 0.5);
 		pacman.setRotation(-Math.PI * 0.5 + 0.1);
 
 		Entity ghost1 = new Entity(EntityType.GHOST, ghost1ID);
-		ghost1.setColor(Color.BLUE);
+		ghost1.setGuiColor(Color.BLUE);
+		ghost1.setCamColor(ghost1Color);
 		ghost1.setLocation(4.5, 4.5);
 		ghost1.setRotation(Math.PI * 0.5 + 0.6);
 
 		Entity ghost2 = new Entity(EntityType.GHOST, ghost2ID);
-		ghost2.setColor(Color.ORANGE);
+		ghost2.setGuiColor(Color.ORANGE);
+		ghost2.setCamColor(ghost2Color);
 		ghost2.setLocation(2.5, 2.5);
 		ghost2.setRotation(Math.PI * 0.5 + 0.3);
 

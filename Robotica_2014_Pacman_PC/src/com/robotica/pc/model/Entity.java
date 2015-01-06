@@ -11,7 +11,8 @@ public class Entity extends Observable implements Cloneable
 	private Location location;
 	private Location lastCheckpoint;
 	private Rotation rotation;
-	private Color color;
+	private Color guiColor;
+	private Vector3 camColor;
 
 	public Entity(EntityType type)
 	{
@@ -40,7 +41,7 @@ public class Entity extends Observable implements Cloneable
 		location = new Location();
 		lastCheckpoint = new Location();
 		rotation = new Rotation();
-		color = Color.BLACK;
+		guiColor = Color.BLACK;
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -175,15 +176,25 @@ public class Entity extends Observable implements Cloneable
 	{
 		return type;
 	}
-
-	public Color getColor()
+	
+	public Vector3 getCamColor()
 	{
-		return color;
+		return camColor;
+	}
+	
+	public void setCamColor(Vector3 vec)
+	{
+		camColor = vec;
 	}
 
-	public void setColor(Color color)
+	public Color getGuiColor()
 	{
-		this.color = color;
+		return guiColor;
+	}
+
+	public void setGuiColor(Color color)
+	{
+		this.guiColor = color;
 		this.setChanged();
 		this.notifyObservers();
 	}

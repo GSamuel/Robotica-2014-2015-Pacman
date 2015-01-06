@@ -73,7 +73,7 @@ public class MazePanel extends JPanel implements Observer
 		for (ConnectedEntity ce : w.getConnectedEntities())
 		{
 			Entity e = ce.getEntity();
-			g2d.setColor(e.getColor());
+			g2d.setColor(e.getGuiColor());
 			g2d.fillOval((int) (e.getX() * cellWidth - cellWidth * 0.5),
 					(int) (e.getY() * cellHeight - cellHeight * 0.5),
 					cellWidth, cellHeight);

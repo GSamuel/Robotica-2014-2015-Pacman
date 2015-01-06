@@ -34,11 +34,11 @@ public class MainTest
 		ArrayList<ConnectedEntity> list = new ArrayList<ConnectedEntity>();
 		
 		Entity pacman = new Entity(EntityType.PACMAN, 0);
-		pacman.setColor(Color.YELLOW);
+		pacman.setGuiColor(Color.YELLOW);
 		pacman.setLocation(0,0);
 		
 		Entity ghost1 = new Entity(EntityType.GHOST, 1);
-		ghost1.setColor(Color.BLUE);
+		ghost1.setGuiColor(Color.BLUE);
 		ghost1.setLocation(3,3);
 		
 		list.add(new ConnectedEntity(pacman, new PCConnector("pacman_device")));

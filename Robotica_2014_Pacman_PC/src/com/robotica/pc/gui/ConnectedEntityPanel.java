@@ -73,7 +73,7 @@ public class ConnectedEntityPanel extends JPanel implements Observer, ActionList
 		drawString(g2d, "devName:"+entity.getDeviceName());
 		drawString(g2d, "connected:"+Boolean.toString(entity.isConnected()));
 		drawString(g2d, "id:"+entity.getEntity().getID()+" "+entity.getEntity().getType().toString());
-		drawString(g2d, "r:"+entity.getEntity().getColor().getRed()+" g:"+entity.getEntity().getColor().getGreen()+" b:"+entity.getEntity().getColor().getBlue());
+		drawString(g2d, "r:"+entity.getEntity().getGuiColor().getRed()+" g:"+entity.getEntity().getGuiColor().getGreen()+" b:"+entity.getEntity().getGuiColor().getBlue());
 		drawString(g2d, "x:"+entity.getEntity().getX()+" y:"+entity.getEntity().getY());
 		drawString(g2d, ""+entity.getEntity().getDirection().toString()+" rot:"+entity.getEntity().getRotation());
 		drawString(g2d, "forwardSpd:"+fSpeed+" turnSpd:"+tSpeed);
