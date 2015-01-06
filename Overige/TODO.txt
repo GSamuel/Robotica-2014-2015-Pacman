@@ -1,25 +1,12 @@
-heel praktisch:
-WE HEBBEN EEN MAZE NODIG!!!!!!!!
-*mat                            Stijn + Wouter
-*gekleurd a4 papier (geel, rood, (donker)groen, blauw) + wit veel. +  evt. reserve.    Job
-*meet stuff (meetlint etc.)     Stijn
-*circels op robots.             Robin Ik fix daar wel papier voor en maak er wat mooie circels van.
-*usb verleng kabel van Robin.   Robin Neem ik volgende keer mee. Ding is 5m uit mn hoofd
-*telefoon ophangen aa touw :D   Joris
-
-
-Image processing:
-herkennen van de posities en de rotaties van de robots.  Joris
-
-wiskunde omzetten in concrete motor commands.         Gideon + Joris + rest
-
-*EV3 aan de praat krijgen. en dingen voor schrijven.  Gideon
-
-bendenken + programmeren pacman AI / besturing.       LATER !! :D
+Joris: 	touw kopen
+		telefoon opladen voor demodag
+		
+		
+Robin: 	kabel meenemen, ookal gaan we misschien wifi gebruiken.
 
 
 
-verslag dingen:
+Programmeren TODO:
 
-robin moet shit in git zetten
--- LATEX source code? Mogelijkheid om te delen met slechts 1 persoon..
+- Testen uitlezen rotaties en locaties
+- Gekleurde cirkel koppelen aan entity (-> voor elke waargenomen cirkel kijken welke entity er het best bij past)
