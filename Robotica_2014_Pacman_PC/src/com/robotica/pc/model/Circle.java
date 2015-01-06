@@ -15,7 +15,6 @@ import com.robotica.pc.imageprocessing.Utils;
 public class Circle
 {
 	private int x, y, radius;
-	private final int ROTATION_PRECISION = 16;
 	private BufferedImage source;
 
 	public Circle(int x, int y, int radius)
@@ -106,36 +105,12 @@ public class Circle
 		return new Color(red, blue, green);
 	}
 	
-	public Rotation getRotation()
+	public Rotation getRotation(Circle c2)
 	{
-		double angle = (1 / ROTATION_PRECISION) * 2.0 * Math.PI;
-		ArrayList<Float> hues = new ArrayList<Float>();
-		for(double alpha = 0; alpha < 2 * Math.PI; alpha += angle)
-		{
-			double x = Math.cos(angle) * (7.0 / 8.0) * radius;
-			double y = Math.sin(angle) * (7.0 / 8.0) * radius;
-			int color  = source.getRGB(this.x + (int) Math.round(x), this.y + (int) Math.round(y));
-			hues.add(Color.RGBtoHSB((color >> 16) & 0xff, (color >> 8) & 0xff, color & 0xff, null)[0]);
-		}
-		float average = 0f;
-		for(float hue : hues)
-		{
-			average += hue;
-		}
-		average /= (float) hues.size();
+		Location loc = new Location(getCenter().getX(), getCenter().getY());
+		Location loc2 = new Location(c2.getCenter().getX(), c2.getCenter().getY());
 		
-		int indexLargestDif = -1;
-		float largestDif = 0f;
-		for(int i = 0; i < hues.size(); i++)
-		{
-			if(Math.abs(average - hues.get(i)) > largestDif)
-			{
-				largestDif = Math.abs(average - hues.get(i));
-				indexLargestDif = i;
-			}
-		}
-		
-		return new Rotation(angle * indexLargestDif);
+		return Rotation.locationToRotation(loc.difference(loc2));
 	}
 	
 	public void setSource(BufferedImage source)
@@ -145,7 +120,8 @@ public class Circle
 	
 	public Location getLocation(Size mazeSize)
 	{
-		return new Location((double) this.x / (double) this.source.getWidth() * mazeSize.width, 
-							(double) this.y / (double) this.source.getHeight() * mazeSize.height);
+		Point p = getCenter();
+		return new Location((double) p.x / (double) this.source.getWidth() * mazeSize.width, 
+							(double) p.y/ (double) this.source.getHeight() * mazeSize.height);
 	}
 }

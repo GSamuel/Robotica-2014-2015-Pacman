@@ -1,5 +1,7 @@
 package com.robotica.pc.model;
 
+import org.opencv.core.Size;
+
 public class Maze implements Cloneable
 {
 	private Tile[][] map;
@@ -47,6 +49,11 @@ public class Maze implements Cloneable
 		if(getWidth()<=0)
 			return 0;
 		return map[0].length;
+	}
+	
+	public Size getSize()
+	{
+		return new Size(getWidth(), getHeight());
 	}
 
 	public Maze clone()

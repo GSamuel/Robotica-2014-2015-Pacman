@@ -42,7 +42,7 @@ public abstract class Brick
 
 	public Settings getSettings()
 	{
-		return settings.clone();
+		return settings;
 	}
 
 	public void setSettings(Settings settings)

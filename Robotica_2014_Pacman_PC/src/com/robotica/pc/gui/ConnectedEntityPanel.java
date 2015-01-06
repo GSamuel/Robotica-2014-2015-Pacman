@@ -58,7 +58,7 @@ public class ConnectedEntityPanel extends JPanel implements Observer, ActionList
 		this.add(speedButton);
 		this.revalidate();
 		
-		setPreferredSize(new Dimension(300,200));
+		setPreferredSize(new Dimension(300,250));
 	}
 	
 	public void paintComponent(Graphics g)
@@ -74,6 +74,7 @@ public class ConnectedEntityPanel extends JPanel implements Observer, ActionList
 		drawString(g2d, "connected:"+Boolean.toString(entity.isConnected()));
 		drawString(g2d, "id:"+entity.getEntity().getID()+" "+entity.getEntity().getType().toString());
 		drawString(g2d, "r:"+entity.getEntity().getGuiColor().getRed()+" g:"+entity.getEntity().getGuiColor().getGreen()+" b:"+entity.getEntity().getGuiColor().getBlue());
+		drawString(g2d, "r:"+entity.getEntity().getCamColor().getX()+" g:"+entity.getEntity().getCamColor().getY()+" b:"+entity.getEntity().getCamColor().getZ());
 		drawString(g2d, "x:"+entity.getEntity().getX()+" y:"+entity.getEntity().getY());
 		drawString(g2d, ""+entity.getEntity().getDirection().toString()+" rot:"+entity.getEntity().getRotation());
 		drawString(g2d, "forwardSpd:"+fSpeed+" turnSpd:"+tSpeed);

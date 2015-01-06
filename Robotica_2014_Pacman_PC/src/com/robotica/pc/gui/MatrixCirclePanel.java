@@ -38,35 +38,12 @@ public class MatrixCirclePanel extends MatrixPanel
 		if (mat != null)
 		{
 			circles = Utils.getCirclesFromMat(Filter.getCircles(mat), mCon.getMatrix(keyColor));
-			removeCirclesOutsideImg();
 			for (Circle circle : circles)
 			{
 				circle.draw(g2d, Color.BLUE);
 				g2d.setColor(circle.getColor());
 				g2d.fillOval((int)circle.getX(), (int)circle.getY(), circle.getRadius()*2, circle.getRadius()*2);
 			}
-		}
-	}
-	
-	private void removeCirclesOutsideImg()
-	{
-		BufferedImage img = Utils.matToBufferedImage(this.mCon.getMatrix(this.key));
-		ArrayList<Circle> toBeRemoved = new ArrayList<Circle>();
-		for(int i = 0; i < circles.size(); i++)
-		{
-			Circle circle = circles.get(i);
-			if(circle.getCenter().x + circle.getRadius() > img.getWidth() || 
-			   circle.getCenter().x - circle.getRadius() < 0 ||
-			   circle.getCenter().y + circle.getRadius() > img.getHeight() ||
-			   circle.getCenter().y - circle.getRadius() < 0)
-			{
-				toBeRemoved.add(circles.get(i));
-			}
-				
-		}
-		for (Circle circle : toBeRemoved)
-		{
-			circles.remove(circle);
 		}
 	}
 	

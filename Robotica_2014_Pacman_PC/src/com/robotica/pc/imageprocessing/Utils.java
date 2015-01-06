@@ -44,7 +44,7 @@ public class Utils {
 	}
 	
 	public static ArrayList<Circle> getCirclesFromMat(Mat greyBlurImg, Mat source){
-		ArrayList<Circle> circles = new ArrayList<Circle>();
+		ArrayList<Circle> circles = new ArrayList<Circle>();		
 		BufferedImage sourceImg = Utils.matToBufferedImage(source);
 		for (int i = 0; i < greyBlurImg.cols(); i++) {
 			int[] circleCoor = doubleArrayToIntArray(greyBlurImg.get(0, i));
@@ -54,6 +54,9 @@ public class Utils {
 			circle.setSource(sourceImg);
 			circles.add(circle);
 		}	
+		
+		removeCirclesOutsideImg(circles, sourceImg);
+		
 		return circles;
 	}
 	
@@ -93,7 +96,7 @@ public class Utils {
 				for(double d:scal.val)
 					total += d;
 				total /=3;
-				if(total < 100)
+				if(total > 100)
 				maze.setTile(i, j, Tile.WALL);
 			}
 		}
@@ -101,4 +104,24 @@ public class Utils {
 		return maze;
 	}
 	
+	private static void removeCirclesOutsideImg(ArrayList<Circle> circles, BufferedImage img)
+	{
+		ArrayList<Circle> toBeRemoved = new ArrayList<Circle>();
+		for(int i = 0; i < circles.size(); i++)
+		{
+			Circle circle = circles.get(i);
+			if(circle.getCenter().x + circle.getRadius() > img.getWidth() || 
+			   circle.getCenter().x - circle.getRadius() < 0 ||
+			   circle.getCenter().y + circle.getRadius() > img.getHeight() ||
+			   circle.getCenter().y - circle.getRadius() < 0)
+			{
+				toBeRemoved.add(circles.get(i));
+			}
+				
+		}
+		for (Circle circle : toBeRemoved)
+		{
+			circles.remove(circle);
+		}
+	}
 }

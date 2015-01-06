@@ -22,6 +22,7 @@ import com.robotica.pc.model.Circle;
 import com.robotica.pc.model.ConnectedEntity;
 import com.robotica.pc.model.Entity;
 import com.robotica.pc.model.EntityType;
+import com.robotica.pc.model.Location;
 import com.robotica.pc.model.Maze;
 import com.robotica.pc.model.Tile;
 import com.robotica.pc.model.Vector3;
@@ -35,12 +36,12 @@ public class MotorTestMain
 	private static int pacmanID = 0;
 	private static int ghost1ID = 1;
 	private static int ghost2ID = 2;
-	
+
 	// these should be approximations of the colours of the actual circles
 	// should probably still be finetuned!!!
-	private static Vector3 pacmanColor = new Vector3(255, 255, 0); // yellow
-	private static Vector3 ghost1Color = new Vector3(255, 150, 0); // orange
-	private static Vector3 ghost2Color = new Vector3(0, 255, 255); // cyan
+	private static Vector3 pacmanColor = new Vector3(220,205,90); // yellow
+	private static Vector3 ghost1Color = new Vector3(220, 130, 22); // orange
+	private static Vector3 ghost2Color = new Vector3(150,185,178); // cyan
 
 	public static void main(String[] args)
 
@@ -53,22 +54,22 @@ public class MotorTestMain
 		pacman.setGuiColor(Color.YELLOW);
 		pacman.setCamColor(pacmanColor);
 		pacman.setLocation(0.5, 0.5);
-		pacman.setRotation(-Math.PI * 0.5 + 0.1);
+		pacman.setRotation(0);
 
 		Entity ghost1 = new Entity(EntityType.GHOST, ghost1ID);
-		ghost1.setGuiColor(Color.BLUE);
+		ghost1.setGuiColor(Color.ORANGE);
 		ghost1.setCamColor(ghost1Color);
-		ghost1.setLocation(4.5, 4.5);
-		ghost1.setRotation(Math.PI * 0.5 + 0.6);
+		ghost1.setLocation(1.5,0.5);
+		ghost1.setRotation(0);
 
 		Entity ghost2 = new Entity(EntityType.GHOST, ghost2ID);
-		ghost2.setGuiColor(Color.ORANGE);
+		ghost2.setGuiColor(Color.CYAN);
 		ghost2.setCamColor(ghost2Color);
-		ghost2.setLocation(2.5, 2.5);
-		ghost2.setRotation(Math.PI * 0.5 + 0.3);
+		ghost2.setLocation(2.5, 0.5);
+		ghost2.setRotation(0);
 
-		list.add(new ConnectedEntity(pacman, new PCConnector("Parasect")));
-		list.add(new ConnectedEntity(ghost1, new PCConnector("NXT4")));
+		list.add(new ConnectedEntity(pacman, new PCConnector("NXT4")));
+		list.add(new ConnectedEntity(ghost1, new PCConnector("Parasect")));
 		list.add(new ConnectedEntity(ghost2, new PCConnector("NXT_9_1")));
 
 		Maze m = new Maze(5, 5);
@@ -92,7 +93,7 @@ public class MotorTestMain
 		pw.add(mazePanel);
 		MatrixMouseInputPanel cameraPanel = new MatrixMouseInputPanel("cam", w);
 		pw.add(cameraPanel);
-		MatrixCirclePanel mcP = new MatrixCirclePanel("warped", "greyWarped",w);
+		MatrixCirclePanel mcP = new MatrixCirclePanel("warped", "greyWarped", w);
 		pw.add(mcP);
 
 		for (ConnectedEntity ce : list)
@@ -113,7 +114,7 @@ public class MotorTestMain
 		{
 			try
 			{
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e)
 			{
 				e.printStackTrace();
@@ -126,10 +127,12 @@ public class MotorTestMain
 
 			w.getMatrixContainer().addMatrix(
 					"warped",
-					Filter.createWarpedImage(
-							mat,
-							new Size(500, 500), w.getMazeShape()));
-			w.getMatrixContainer().addMatrix("greyWarped", Filter.createBlurred(Filter.createGrayImage(w.getMatrixContainer().getMatrix("warped"))));
+					Filter.createWarpedImage(mat, new Size(500, 500),
+							w.getMazeShape()));
+			w.getMatrixContainer().addMatrix(
+					"greyWarped",
+					Filter.createBlurred(Filter.createGrayImage(w
+							.getMatrixContainer().getMatrix("warped"))));
 			if (!mazeDone)
 			{
 				w.setMaze(Utils.createMazePattern(w.getMatrixContainer()
@@ -139,43 +142,59 @@ public class MotorTestMain
 				mazeDone = true;
 
 			// berekenen circles van image procressing
-			ArrayList<Circle> circles = Utils.getCirclesFromMat(Filter
-					.getCircles(w.getMatrixContainer().getMatrix("greyWarped")), w.getMatrixContainer()
-					.getMatrix("warped"));
-			
-			//System.out.println(circles.size());
-			for(Circle c:circles)
+			ArrayList<Circle> circles = Utils.getCirclesFromMat(
+					Filter.getCircles(w.getMatrixContainer().getMatrix(
+							"greyWarped")),
+					w.getMatrixContainer().getMatrix("warped"));
+
+			for (Circle c : circles)
 			{
-				System.out.println(c.getX()+" "+c.getY());
 				Color col = c.getColor();
-				System.out.println(col.getRed()+" "+col.getGreen()+" "+col.getBlue());
+				Vector3 vec = new Vector3(col.getRed(), col.getGreen(),
+						col.getBlue());
+				
+				for (ConnectedEntity ce : w.getConnectedEntities())
+				{
+					if(vec.getAngle(ce.getEntity().getCamColor())< 0.15)
+					{
+						Location loc = c.getLocation(w.getMaze().getSize());
+						ce.getEntity().setLocation(loc.getX(), loc.getY());
+						
+						//ce.getEntity().setRotation(c.getRotation().getRotation());
+					}
+				}
 			}
-			
-			//500,500
+
+			// 500,500
 
 			// einde
 
-			boolean allConnected = true;
 			for (ConnectedEntity ce : w.getConnectedEntities())
-				if (!ce.isConnected())
-					allConnected = false;
-
-			if (allConnected)
 			{
-				AINode path = ghostAI2.createPath(); // calculate Path
-				PathExecutor.execute(
-						PathCalculator.calculate(path, w, ghost2ID), w,
-						ghost2ID); // take first step off the path
-				
-				path = ghostAI.createPath(); // calculate Path
-				PathExecutor.execute(
-						PathCalculator.calculate(path, w, ghost1ID), w,
-						ghost1ID); // take first step off the path
-
-				path = pacmanAI.createPath(); // calculate Path
-				PathExecutor.execute(
-						PathCalculator.calculate(path, w, pacmanID), w,
-						pacmanID); // take first step off the path
+				if (ce.isConnected())
+				{
+					if (ce.getEntity().getID() == ghost2ID)
+					{
+						AINode path = ghostAI2.createPath(); // calculate Path
+						PathExecutor.execute(
+								PathCalculator.calculate(path, w, ghost2ID), w,
+								ghost2ID); // take first step off the path
+					}
+					if (ce.getEntity().getID() == ghost1ID)
+					{
+						AINode path = ghostAI.createPath(); // calculate Path
+						PathExecutor.execute(
+								PathCalculator.calculate(path, w, ghost1ID), w,
+								ghost1ID); // take first step off the path
+					}
+					if (ce.getEntity().getID() == pacmanID)
+					{
+						AINode path = pacmanAI.createPath(); // calculate Path
+						PathExecutor.execute(
+								PathCalculator.calculate(path, w, pacmanID), w,
+								pacmanID); // take first step off the path
+					}
+				}
 			}
 
 			pw.repaint();
