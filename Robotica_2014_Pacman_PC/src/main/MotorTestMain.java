@@ -141,7 +141,7 @@ public class MotorTestMain
 					.getCircles(w.getMatrixContainer().getMatrix("greyWarped")), w.getMatrixContainer()
 					.getMatrix("warped"));
 			
-			System.out.println(circles.size());
+			//System.out.println(circles.size());
 			for(Circle c:circles)
 			{
 				System.out.println(c.getX()+" "+c.getY());
