@@ -51,7 +51,7 @@ public class MainTest
 		m.show();
 
 		World w = new World(m, list);
-		w.setCamera(new VideoCapture(3));
+		w.setCamera(new VideoCapture(0));
 		System.out.println(w);
 		
 		PacmanWindow pw = new PacmanWindow();
@@ -63,7 +63,7 @@ public class MainTest
 		pw.add(mousePanel);
 		MatrixPanel mPanel = new MatrixPanel("warped", w);
 		pw.add(mPanel);
-		MatrixPanel mPanel2 = new MatrixPanel("maze", w);
+		MatrixPanel mPanel2 = new MatrixPanel("filtered", w);
 		pw.add(mPanel2);
 
 		
@@ -87,6 +87,8 @@ public class MainTest
 			w.getMatrixContainer().addMatrix("cam", cam);
 			w.getMatrixContainer().addMatrix("warped", Filter.createWarpedImage(cam, new Size(mousePanel.getWidth(),  mousePanel.getHeight()), w.getMazeShape()));
 			w.setMaze(Utils.createMazePattern(w.getMatrixContainer().getMatrix("warped"), 5,4));
+			w.container.addMatrix("gray", Filter.createGrayImage(w.container.getMatrix("warped")));
+			w.container.addMatrix("filtered",Filter.treshholdGrayImage(w.container.getMatrix("gray"), 20));
 		}
 	}
 
