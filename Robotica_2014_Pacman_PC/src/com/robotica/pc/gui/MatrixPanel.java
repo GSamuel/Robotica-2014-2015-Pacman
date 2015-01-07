@@ -43,7 +43,7 @@ public class MatrixPanel extends JPanel implements Observer
 		Mat mat = mCon.getMatrix(key);
 		Graphics2D g2d = (Graphics2D) g;
 
-		if (mat != null)
+		if (mat.width() >0 && mat.height() > 0)
 		{
 			BufferedImage currentImage = Utils.matToBufferedImage(mat); 
 			g2d.drawImage(currentImage , 0, 0, currentImage.getWidth(),
