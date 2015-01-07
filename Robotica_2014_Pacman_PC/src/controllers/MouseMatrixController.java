@@ -21,18 +21,7 @@ public class MouseMatrixController implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		if(e.getButton() == 2) //middle mouse button
-		{
-			w.getMazeShape().clear();
-			isSetting = true;
-			currentIndex = 0;
-			w.getMazeShape().show();
-		}
-		else if(isSetting && e.getButton() == 1 && currentIndex <4)
-		{
-			w.getMazeShape().setPoint(e.getPoint(), currentIndex++);
-			w.getMazeShape().show();
-		}
+		
 	}
 
 	@Override
@@ -52,8 +41,18 @@ public class MouseMatrixController implements MouseListener
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		// TODO Auto-generated method stub
-		
+		if(e.getButton() == 2) //middle mouse button
+		{
+			w.getMazeShape().clear();
+			isSetting = true;
+			currentIndex = 0;
+			w.getMazeShape().show();
+		}
+		else if(isSetting && e.getButton() == 1 && currentIndex <4)
+		{
+			w.getMazeShape().setPoint(e.getPoint(), currentIndex++);
+			w.getMazeShape().show();
+		}
 	}
 
 	@Override

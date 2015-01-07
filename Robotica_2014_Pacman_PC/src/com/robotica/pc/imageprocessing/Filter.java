@@ -31,10 +31,10 @@ public class Filter
 		for (int i = 0; i < newMat.width(); i++)
 			for (int j = 0; j < newMat.height(); j++)
 			{
-				int rest = (int)newMat.get(j,i)[0] % diff;
-				newMat.put(j,i,newMat.get(j, i)[0]-rest);
+				int rest = (int) newMat.get(j, i)[0] % diff;
+				newMat.put(j, i, newMat.get(j, i)[0] - rest);
 			}
-		
+
 		return newMat;
 	}
 
@@ -74,6 +74,25 @@ public class Filter
 				{ (byte) ((newMat.get(y, x)[0] > 127.0) ? 255 : 0) });
 			}
 		}
+		return newMat;
+	}
+
+	public static Mat differenceGrey(Mat m1, Mat m2)
+	{
+		if (m1 == null || m2 == null)
+			return null;
+		Mat newMat = m1.clone();
+
+		double diff;
+
+		for (int i = 0; i < newMat.width(); i++)
+			for (int j = 0; j < newMat.height(); j++)
+			{
+				
+				diff = (m1.get(j,i)[0] > m2.get(j, i)[0] ? m1.get(j, i)[0] - m2.get(j, i)[0] : m2.get(j, i)[0] - m1.get(j, i)[0]);
+				newMat.put(j, i, diff);
+			}
+
 		return newMat;
 	}
 

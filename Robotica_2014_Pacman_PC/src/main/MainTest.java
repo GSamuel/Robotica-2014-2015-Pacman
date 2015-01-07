@@ -79,7 +79,6 @@ public class MainTest
 		System.out.println(path.getCost());
 		
 		
-		
 		Mat cam = new Mat();
 		while(true)
 		{

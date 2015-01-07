@@ -13,6 +13,7 @@ import com.robotica.pc.ai.PacmanAI;
 import com.robotica.pc.gui.ConnectedEntityPanel;
 import com.robotica.pc.gui.MatrixCirclePanel;
 import com.robotica.pc.gui.MatrixMouseInputPanel;
+import com.robotica.pc.gui.MatrixPanel;
 import com.robotica.pc.gui.MazePanel;
 import com.robotica.pc.gui.PacmanWindow;
 import com.robotica.pc.imageprocessing.Filter;
@@ -39,9 +40,9 @@ public class MotorTestMain
 
 	// these should be approximations of the colours of the actual circles
 	// should probably still be finetuned!!!
-	private static Vector3 pacmanColor = new Vector3(220,205,90); // yellow
+	private static Vector3 pacmanColor = new Vector3(220, 205, 90); // yellow
 	private static Vector3 ghost1Color = new Vector3(220, 130, 22); // orange
-	private static Vector3 ghost2Color = new Vector3(150,185,178); // cyan
+	private static Vector3 ghost2Color = new Vector3(150, 185, 178); // cyan
 
 	public static void main(String[] args)
 
@@ -59,7 +60,7 @@ public class MotorTestMain
 		Entity ghost1 = new Entity(EntityType.GHOST, ghost1ID);
 		ghost1.setGuiColor(Color.ORANGE);
 		ghost1.setCamColor(ghost1Color);
-		ghost1.setLocation(1.5,0.5);
+		ghost1.setLocation(1.5, 0.5);
 		ghost1.setRotation(0);
 
 		Entity ghost2 = new Entity(EntityType.GHOST, ghost2ID);
@@ -85,7 +86,7 @@ public class MotorTestMain
 		m.show();
 
 		World w = new World(m, list);
-		w.setCamera(new VideoCapture(3));
+		w.setCamera(new VideoCapture(0));
 		System.out.println(w);
 
 		PacmanWindow pw = new PacmanWindow();
@@ -95,6 +96,8 @@ public class MotorTestMain
 		pw.add(cameraPanel);
 		MatrixCirclePanel mcP = new MatrixCirclePanel("warped", "greyWarped", w);
 		pw.add(mcP);
+		MatrixPanel mcP2 = new MatrixPanel("greyDifference", w);
+		pw.add(mcP2);
 
 		for (ConnectedEntity ce : list)
 		{
@@ -114,7 +117,7 @@ public class MotorTestMain
 		{
 			try
 			{
-				Thread.sleep(100);
+				Thread.sleep(0);
 			} catch (InterruptedException e)
 			{
 				e.printStackTrace();
@@ -123,16 +126,23 @@ public class MotorTestMain
 			// update world based on the image
 			Mat mat = new Mat();
 			w.camera.read(mat);
-			w.getMatrixContainer().addMatrix("cam", mat);
+			w.container.addMatrix("cam", mat);
 
-			w.getMatrixContainer().addMatrix(
+			w.container.addMatrix(
 					"warped",
-					Filter.createWarpedImage(mat, new Size(500, 500),
+					Filter.createWarpedImage(mat, new Size(400,400),
 							w.getMazeShape()));
-			w.getMatrixContainer().addMatrix(
-					"greyWarped",
-					Filter.createBlurred(Filter.createGrayImage(w
-							.getMatrixContainer().getMatrix("warped"))));
+
+			Mat m1 = w.container.getMatrix("greyWarped"), m2;
+
+			w.container.addMatrix("greyWarped", Filter.createBlurred(Filter
+					.createGrayImage(w.container.getMatrix("warped"))));
+
+			m2 = w.container.getMatrix("greyWarped");
+
+			w.container.addMatrix("greyDifference",
+					Filter.differenceGrey(m1, m2));
+
 			if (!mazeDone)
 			{
 				w.setMaze(Utils.createMazePattern(w.getMatrixContainer()
@@ -152,15 +162,15 @@ public class MotorTestMain
 				Color col = c.getColor();
 				Vector3 vec = new Vector3(col.getRed(), col.getGreen(),
 						col.getBlue());
-				
+
 				for (ConnectedEntity ce : w.getConnectedEntities())
 				{
-					if(vec.getAngle(ce.getEntity().getCamColor())< 0.15)
+					if (vec.getAngle(ce.getEntity().getCamColor()) < 0.15)
 					{
 						Location loc = c.getLocation(w.getMaze().getSize());
 						ce.getEntity().setLocation(loc.getX(), loc.getY());
-						
-						//ce.getEntity().setRotation(c.getRotation().getRotation());
+
+						// ce.getEntity().setRotation(c.getRotation().getRotation());
 					}
 				}
 			}
