@@ -79,7 +79,6 @@ public class MatrixPanel extends JPanel implements Observer
 	private void updateSize()
 	{
 		Mat mat = mCon.getMatrix(key);
-		if(mat != null)
 		if(mat.width() != getWidth() || mat.height() != getHeight())
 		{
 			this.setPreferredSize(new Dimension(mat.width(), mat.height()));

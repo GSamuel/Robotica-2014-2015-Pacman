@@ -28,6 +28,9 @@ public class MatrixContainer extends Observable
 	
 	public Mat getMatrix(String key)
 	{
-		return map.get(key);
+		Mat m = map.get(key);
+		if (m == null)
+			return new Mat();
+		return m;
 	}
 }
