@@ -88,6 +88,12 @@ public class Circle
 		return getAverageColor(rgbs);
 	}
 	
+	public Vector3 getVectorColor()
+	{
+		Color c = getColor();
+		return new Vector3(c.getRed(),c.getGreen(),c.getBlue());
+	}
+	
 	private static Color getAverageColor(List<Integer> rgbs)
 	{
 		int red = 0;

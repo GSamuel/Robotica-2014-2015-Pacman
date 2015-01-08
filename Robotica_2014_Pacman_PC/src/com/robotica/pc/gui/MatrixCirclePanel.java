@@ -34,7 +34,7 @@ public class MatrixCirclePanel extends MatrixPanel
 
 		Graphics2D g2d = (Graphics2D) g;
 		Mat mat = this.mCon.getMatrix(keyBlur);
-		if (mat != null)
+		if (mat.width() >0 && mat.height()>0)
 		{
 			circles = Utils.getCirclesFromMat(Filter.getCircles(mat), mCon.getMatrix(keyColor));
 			for (Circle circle : circles)

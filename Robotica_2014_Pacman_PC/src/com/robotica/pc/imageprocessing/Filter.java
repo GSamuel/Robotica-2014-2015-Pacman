@@ -59,7 +59,7 @@ public class Filter
 	{
 		Mat circles = new Mat();
 		Imgproc.HoughCircles(mat, circles, Imgproc.CV_HOUGH_GRADIENT, 1, 20,
-				200, 30, 0, 0);
+				200, 30, 0, 40);
 		return circles;
 	}
 

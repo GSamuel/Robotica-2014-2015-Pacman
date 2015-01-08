@@ -32,6 +32,8 @@ public class PacmanAI extends AI
 			e = ce.getEntity();
 			if (e.getID() == entity)
 				start = new AINode(null, e.getDirection(), e.getLastCheckpoint());
+			else
+				maze.setTile(e.getLocation().getGridX(), e.getLocation().getGridY(), Tile.WALL);
 		}
 		Location destination = w.getPacmanGoal();
 		goal = new AINode(null, e.getDirection(), destination);

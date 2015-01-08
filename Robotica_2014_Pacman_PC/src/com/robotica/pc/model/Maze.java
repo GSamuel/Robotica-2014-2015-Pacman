@@ -5,23 +5,26 @@ import org.opencv.core.Size;
 public class Maze implements Cloneable
 {
 	private Tile[][] map;
+	private int N,M;
 
 	public Maze(int N, int M)
 	{
+		this.N = N;
+		this.M = M;
 		map = new Tile[N][M];
 		for (int i = 0; i < N; i++)
 			for (int j = 0; j < M; j++)
 				map[i][j] = Tile.nullTile();
 	}
 
-	public Maze(Tile[][] map)
-	{
-		this.map = map.clone();
-	}
-
 	public Maze(Maze maze)
 	{
-		this.map = maze.map.clone();
+		this.N = maze.N;
+		this.M = maze.M;
+		this.map = new Tile[N][M];
+		for(int i = 0; i < N; i++)
+			for(int j = 0; j<M; j++)
+				map[i][j] = maze.map[i][j];
 	}
 
 	public Tile getTile(int x, int y)

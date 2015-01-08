@@ -63,6 +63,19 @@ public class World extends Observable
 	{
 		return maze.clone();
 	}
+	/*
+	public Maze getMazeWithEntities()
+	{
+		Maze m = maze.clone();
+		for(ConnectedEntity ce: connEntities)
+		{
+			int x = ce.getEntity().getLocation().getGridX();
+			int y = ce.getEntity().getLocation().getGridY();
+			m.setTile(x, y, Tile.ENTITY);
+		}
+		
+		return m;
+	}*/
 	
 	public void setCamera(VideoCapture camera)
 	{

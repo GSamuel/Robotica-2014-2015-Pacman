@@ -28,9 +28,10 @@ public class ConnectedEntityPanel extends JPanel implements Observer, ActionList
 	
 	private JButton connectButton;
 	private JButton speedButton;
+	private JButton exitButton;
 	private JTextField motorSpeed, turnSpeed;
 	private CommandCommunicator commandSender;
-	private int fSpeed=200, tSpeed=200;
+	private int fSpeed=250, tSpeed=75;
 
 	public ConnectedEntityPanel(ConnectedEntity entity)
 	{
@@ -39,23 +40,29 @@ public class ConnectedEntityPanel extends JPanel implements Observer, ActionList
 		this.entity = entity;
 		this.entity.addObserver(this);
 		
-		connectButton = new JButton("connect");
+		connectButton = new JButton("conn");
 		connectButton.setLocation(50, 100);
 		connectButton.addActionListener(this);
 		
-		motorSpeed = new JTextField("200");
+		motorSpeed = new JTextField(""+fSpeed);
 		motorSpeed.setPreferredSize(new Dimension(40,20));
-		turnSpeed = new JTextField("200");
+		turnSpeed = new JTextField(""+tSpeed);
 		turnSpeed.setPreferredSize(new Dimension(40,20));
 		
-		speedButton = new JButton("setSpeed");
+		speedButton = new JButton("speed");
 		speedButton.setLocation(100, 100);
 		speedButton.addActionListener(this);
+		
+
+		exitButton = new JButton("exit");
+		exitButton.setLocation(150, 100);
+		exitButton.addActionListener(this);
 		
 		this.add(connectButton);
 		this.add(motorSpeed);
 		this.add(turnSpeed);
 		this.add(speedButton);
+		this.add(exitButton);
 		this.revalidate();
 		
 		setPreferredSize(new Dimension(300,250));
@@ -94,8 +101,16 @@ public class ConnectedEntityPanel extends JPanel implements Observer, ActionList
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if(e.getActionCommand().compareTo("connect") == 0)
+		if(e.getActionCommand().compareTo("conn") == 0)
+		{
 			entity.connect();
+			fSpeed = Integer.valueOf(motorSpeed.getText());
+			tSpeed = Integer.valueOf(turnSpeed.getText());
+			commandSender.sendCommand(new Command(NXTCommand.SET_MOTORSPEED,fSpeed));
+			commandSender.sendCommand(new Command(NXTCommand.SET_TURNSPEED,tSpeed));
+		}
+		else if(e.getActionCommand().compareTo("exit") == 0)
+			commandSender.sendCommand(new Command(NXTCommand.EXIT,0));
 		else if(commandSender.isConnected())
 		{
 			fSpeed = Integer.valueOf(motorSpeed.getText());
