@@ -86,8 +86,18 @@ public class MainTest
 			w.getMatrixContainer().addMatrix("cam", cam);
 			w.getMatrixContainer().addMatrix("warped", Filter.createWarpedImage(cam, new Size(mousePanel.getWidth(),  mousePanel.getHeight()), w.getMazeShape()));
 			w.setMaze(Utils.createMazePattern(w.getMatrixContainer().getMatrix("warped"), 5,4));
+			Mat oldMat = w.container.getMatrix("gray");
 			w.container.addMatrix("gray", Filter.createGrayImage(w.container.getMatrix("warped")));
-			w.container.addMatrix("filtered",Filter.treshholdGrayImage(w.container.getMatrix("gray"), 20));
+			Mat newMat =  w.container.getMatrix("gray");
+			
+			
+			
+			w.container.addMatrix("filtered",Filter.differenceGrey(oldMat, newMat));
+			
+			
+			
+			
+			//w.container.addMatrix("filtered",Filter.treshholdGrayImage(w.container.getMatrix("gray"), 20));
 		}
 	}
 
