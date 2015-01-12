@@ -163,11 +163,11 @@ public class MotorTestMain
 						c2 = cTemp;
 					}
 					
-					if(c1.getVectorColor().getAngle(c2.getVectorColor()) < 0.05)
+					if(c1.getVectorColor().getAngle(c2.getVectorColor()) < 0.08)
 					{
 						for (ConnectedEntity ce : w.getConnectedEntities())
 						{
-							if (c1.getVectorColor().getAngle(ce.getEntity().getCamColor()) < 0.13)
+							if (c1.getVectorColor().getAngle(ce.getEntity().getCamColor()) < 0.18)
 							{
 								Location loc = c1.getLocation(w.getMaze().getSize());
 								ce.getEntity().setLocation(loc.getX(), loc.getY());
